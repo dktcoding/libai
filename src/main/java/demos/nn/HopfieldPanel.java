@@ -5,6 +5,7 @@ import libai.common.matrix.Column;
 import libai.nn.unsupervised.Hopfield;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * TODO: work on it.
@@ -84,6 +85,7 @@ public class HopfieldPanel extends javax.swing.JPanel {
         JScrollPane jScrollPane1 = new JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
         // Variables declaration - do not modify//GEN-BEGIN:variables
         JButton jButton1 = new JButton();
         p0 = new javax.swing.JCheckBox();

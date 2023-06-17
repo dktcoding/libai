@@ -27,6 +27,7 @@ import libai.ants.Environment;
 import libai.ants.Graph;
 import libai.ants.algorithms.ElitistAntSystem;
 
+import java.awt.*;
 import java.util.Vector;
 
 /**
@@ -65,6 +66,9 @@ public class ElitistAntSystemPanel extends javax.swing.JPanel {
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
         jTextArea1.setLineWrap(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextArea1.getFont().getSize()));
+        answerTxt.setFont(new Font(Font.MONOSPACED, Font.PLAIN, answerTxt.getFont().getSize()));
         jTextArea1.setRows(5);
         jTextArea1.setText("To find the shortest path between the nest and the source of food, the ants uses an enviromental type of comunication as known as stirmergy. The framework that implements the ants colony algorithms is very generic and precise some particular functions to be implemented by the user based on the condition of the problem (like in the search algorithms). In this example we have a graph of 5 nodes, simulating the double-brigde problem.\nThe next adjacency matrix defines the graph.\n   0 1 2 3 4 \n0 0 1 2 0 0\n1 1 0 0 1 0\n2 2 0 0 2 0\n3 0 1 2 0 1\n4 0 0 0 1 0");
         jScrollPane1.setViewportView(jTextArea1);

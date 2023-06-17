@@ -132,6 +132,7 @@ public class FuzzyPanel extends javax.swing.JPanel {
 
                 The fuzzy sets pull, none and push forms a fuzzy variable. And the result of the inference is a quantity of force to apply in one direction or another.""");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         jButton1.setText("Simulate");
         jButton1.addActionListener(this::jButton1ActionPerformed);

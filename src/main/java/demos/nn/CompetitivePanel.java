@@ -27,6 +27,8 @@ import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
 import libai.nn.unsupervised.Competitive;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -61,6 +63,8 @@ public class CompetitivePanel extends javax.swing.JPanel {
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);
+
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         jButton1.setText("Train");
         jButton1.addActionListener(this::jButton1ActionPerformed);

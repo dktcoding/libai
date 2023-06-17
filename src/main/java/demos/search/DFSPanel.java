@@ -27,6 +27,7 @@ import libai.search.DFS;
 import libai.search.State;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -64,6 +65,7 @@ public class DFSPanel extends javax.swing.JPanel {
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
         jTextArea1.setLineWrap(true);
+        jTextArea1.setWrapStyleWord(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("Bread First Search or BFS, is a determinist way to find solutions to certain problems. The BFS search always gives the best solution possible if exists.\nFor instance, the 8-puzzle. The 8-puzzle consist in a board with 3 rows and columns, in each cell thereis a token with a number in {1,8} and an empty space. The goal of the puzzle is move some of the tokens up, down, left or right to the empty space many times as necessary to sort the tokens in decreasing order leaving the empty space in the third row and third column.\n\nFor example, let the following board:\n1 2 3\n4 5 6\n   7 8\nYou need 2 moves to the right to complete the solution. In the textfield below you can introduce a configuration for the board. Use a dot (.) for the empty space. In the panel below will show the sequence of steps to obtain the solution (if exist).");
         jScrollPane1.setViewportView(jTextArea1);
@@ -71,6 +73,9 @@ public class DFSPanel extends javax.swing.JPanel {
         answerTxt.setColumns(20);
         answerTxt.setRows(5);
         jScrollPane2.setViewportView(answerTxt);
+
+        jTextArea1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextArea1.getFont().getSize()));
+        answerTxt.setFont(new Font(Font.MONOSPACED, Font.PLAIN, answerTxt.getFont().getSize()));
 
         inputTxt.setText(".87654321");
 

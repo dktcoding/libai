@@ -28,6 +28,8 @@ import libai.genetics.Fitness;
 import libai.genetics.chromosomes.BinaryChromosome;
 import libai.genetics.chromosomes.Chromosome;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -52,6 +54,7 @@ public class BinaryPanel extends javax.swing.JPanel implements Fitness {
 
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
         // Variables declaration - do not modify//GEN-BEGIN:variables
         javax.swing.JButton jButton1 = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();

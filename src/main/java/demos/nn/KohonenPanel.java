@@ -137,6 +137,7 @@ public class KohonenPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextPane1.setText("");
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
         new Thread(() -> {
             int t = 0;
             int r, g, b;

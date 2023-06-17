@@ -24,6 +24,8 @@ package demos;
  * SOFTWARE.
  */
 
+import javax.swing.*;
+
 /**
  * @author kronenthaler
  */
@@ -40,6 +42,16 @@ public class Examples extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException |
+                 InstantiationException |
+                 IllegalAccessException |
+                 UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
+        }
+
         java.awt.EventQueue.invokeLater(() -> new Examples().setVisible(true));
     }
 
@@ -119,7 +131,7 @@ public class Examples extends javax.swing.JFrame {
                         .addGap(0, 491, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Decision Trees", treesPanel1);
+//        jTabbedPane2.addTab("Decision Trees", treesPanel1);
 
         jTabbedPane5.addTab("AntSystem", antSystemPanel1);
         jTabbedPane5.addTab("AntColonySystem", antColonySystemPanel1);

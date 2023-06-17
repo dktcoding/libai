@@ -27,6 +27,8 @@ import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
 import libai.nn.supervised.LVQ;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -67,6 +69,7 @@ public class LVQPanel extends javax.swing.JPanel {
 
         jTextPane1.setText("Train an LVQ network to learn the points: (-1,6), (1,6) class (1 0 0), (6,2), (6,-2) class (0 1 0) and (-3,-5), (-5,-3) class (0 0 1)");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -29,6 +29,7 @@ import libai.common.matrix.Column;
 import libai.nn.NeuralNetwork;
 import libai.nn.supervised.SVM;
 
+import java.awt.*;
 import java.util.Random;
 
 
@@ -62,6 +63,7 @@ public class SVMPanel extends javax.swing.JPanel {
 
         jTextPane1.setText("Train a SVM network to learn the the classes upper and lower 2x+3 (as +1 and -1 respectively). The kernel used is a Linear kernel.");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);

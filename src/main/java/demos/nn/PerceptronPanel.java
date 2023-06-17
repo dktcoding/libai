@@ -28,6 +28,8 @@ import libai.common.matrix.Column;
 import libai.nn.NeuralNetwork;
 import libai.nn.supervised.Adaline;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -64,6 +66,7 @@ public class PerceptronPanel extends javax.swing.JPanel {
 
         jTextPane1.setText("Train an Adaline network to learn the equation: 2x+3 for x in [1, 41) using a spacing of 1 for training and 1.33 for test.  ");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -27,6 +27,8 @@ import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
 import libai.nn.supervised.RBF;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -67,6 +69,7 @@ public class RBFPanel extends javax.swing.JPanel {
 
         jTextPane1.setText("Train an RBF network to learn the equation: sin(x) + cos(x) for x in [1, 41) using an spacing of 0.1 for training and 0.33 for test. The network has 3 layers of 1, 10 and 1 neurons.");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

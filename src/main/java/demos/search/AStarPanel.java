@@ -27,6 +27,7 @@ import libai.search.AStar;
 import libai.search.State;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -60,10 +61,10 @@ public class AStarPanel extends javax.swing.JPanel {
         answerTxt = new javax.swing.JTextArea();
         inputTxt = new javax.swing.JTextField();
         JButton jButton1 = new JButton();
-
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
         jTextArea1.setLineWrap(true);
+        jTextArea1.setWrapStyleWord(true);
         jTextArea1.setRows(5);
         jTextArea1.setText("A* or Best First Search, is search algorithm that takes in count not only the real cost of the partial solution, but takes into account the heuristic cost of the rest (and unknown part) of the solution. To the same example of the 8-puzzle, the cost of any state is the combined value of the real cost so far (count of moves) plus the heuristic value of the quality of the current solution. This heuristic value is the sum of the manhattan distance of the current position of the token and the destination of each token. It means for each token in the right position or close to it, lower the cost will be. For this example, if the heuristic cost is 0 for every state, the A* becomes an BFS algorithm.\n\nUse a dot (.) for the empty space. In the panel below will show the sequence of steps to obtain the solution (if exist).");
         jScrollPane1.setViewportView(jTextArea1);
@@ -71,6 +72,9 @@ public class AStarPanel extends javax.swing.JPanel {
         answerTxt.setColumns(20);
         answerTxt.setRows(5);
         jScrollPane2.setViewportView(answerTxt);
+
+        jTextArea1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextArea1.getFont().getSize()));
+        answerTxt.setFont(new Font(Font.MONOSPACED, Font.PLAIN, answerTxt.getFont().getSize()));
 
         inputTxt.setText(".87654321");
 
@@ -105,6 +109,7 @@ public class AStarPanel extends javax.swing.JPanel {
                                         .addComponent(inputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

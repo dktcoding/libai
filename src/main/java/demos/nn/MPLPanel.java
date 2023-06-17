@@ -34,6 +34,8 @@ import libai.nn.supervised.backpropagation.MomentumBackpropagation;
 import libai.nn.supervised.backpropagation.ResilientBackpropagation;
 import libai.nn.supervised.backpropagation.StandardBackpropagation;
 
+import java.awt.*;
+
 /**
  * @author kronenthaler
  */
@@ -77,6 +79,7 @@ public class MPLPanel extends javax.swing.JPanel {
 
         jTextPane1.setText("Train a MultiLayerPerceptron network to learn the equation: sin(x) + cos(x) for x in [1, 41) using a spacing of 0.1 for training and 0.33 for test. The network has 3 layers of 1, 4 and 1 neurons and functions, identity, sigmoid and identity respectively  ");
         jScrollPane1.setViewportView(jTextPane1);
+        jTextPane1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jTextPane1.getFont().getSize()));
 
         algorithmType.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Standard Backpropagation", "Momentum Backpropagation", "Resilent Backpropagation"}));
 
