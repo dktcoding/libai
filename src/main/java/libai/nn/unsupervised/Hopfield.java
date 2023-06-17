@@ -23,97 +23,100 @@
  */
 package libai.nn.unsupervised;
 
+import libai.common.functions.SymmetricSign;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
-import libai.common.functions.SymmetricSign;
 import libai.common.matrix.Row;
+
+import java.io.Serial;
 
 /**
  * Hopfield's networks are the most important and most applicable recurrent
- * neural network. This Hopfield networks uses an deterministic unsupervised
+ * neural network. This Hopfield networks uses a deterministic unsupervised
  * training algorithm and a bipolar encoding for the training patterns and
- * answers. As the Hebb network this network is a associative memory. The main
+ * answers. As the Hebb network this network is an associative memory. The main
  * goal of this network is memorize and retrieve the memorized patterns without
  * noise.
  *
  * @author kronenthaler
  */
 public class Hopfield extends UnsupervisedLearning {
-	private static final long serialVersionUID = 9081060788269921587L;
-	protected static SymmetricSign ssign = new SymmetricSign();
-	protected Matrix W;
+    protected static final SymmetricSign ssign = new SymmetricSign();
+    @Serial
+    private static final long serialVersionUID = 9081060788269921587L;
+    protected final Matrix W;
 
-	/**
-	 * Constructor. Receives the number of input to the network.
-	 *
-	 * @param inputs The number of input to the network.
-	 */
-	public Hopfield(int inputs) {
-		W = new Matrix(inputs, inputs);
-	}
+    /**
+     * Constructor. Receives the number of input to the network.
+     *
+     * @param inputs The number of input to the network.
+     */
+    public Hopfield(int inputs) {
+        W = new Matrix(inputs, inputs);
+    }
 
-	/**
-	 * Train the network. The answers, alpha, epochs and minerror are meaningless
-	 * in this algorithm.
-	 *
-	 * @param patterns The patterns to be learned.
-	 * @param alpha    The learning rate. [ignored]
-	 * @param epochs   The maximum number of iterations. [ignored]
-	 * @param offset   The first pattern position.
-	 * @param length   How many patterns will be used.
-	 */
-	@Override
-	public void train(Column[] patterns, double alpha, int epochs, int offset, int length) {
-		validatePreconditions(patterns, epochs, offset, length);
+    /**
+     * Train the network. The answers, alpha, epochs and minerror are meaningless
+     * in this algorithm.
+     *
+     * @param patterns The patterns to be learned.
+     * @param alpha    The learning rate. [ignored]
+     * @param epochs   The maximum number of iterations. [ignored]
+     * @param offset   The first pattern position.
+     * @param length   How many patterns will be used.
+     */
+    @Override
+    public void train(Column[] patterns, double alpha, int epochs, int offset, int length) {
+        validatePreconditions(patterns, epochs, offset, length);
 
-		Row patternT = new Row(patterns[0].getRows());
-		Matrix temp = new Matrix(W.getRows(), W.getColumns());
+        Row patternT = new Row(patterns[0].getRows());
+        Matrix temp = new Matrix(W.getRows(), W.getColumns());
 
-		initializeProgressBar(length);
+        initializeProgressBar(length);
 
-		// W = Sum(p[i]p[i]^t); wii = 0
-		for (int i = 0; i < length; i++) {
-			patterns[i + offset].apply(ssign, patterns[i + offset]);
-			Matrix pattern = patterns[i + offset];
+        // W = Sum(p[i]p[i]^t); wii = 0
+        for (int i = 0; i < length; i++) {
+            patterns[i + offset].apply(ssign, patterns[i + offset]);
+            Matrix pattern = patterns[i + offset];
 
-			//p^t.p
-			pattern.transpose(patternT);
-			pattern.multiply(patternT, temp);
-			W.add(temp, W);
+            //p^t.p
+            pattern.transpose(patternT);
+            pattern.multiply(patternT, temp);
+            W.add(temp, W);
 
-			if (progress != null)
-				progress.setValue(i);
-		}
+            if (progress != null)
+                progress.setValue(i);
+        }
 
-		for (int i = 0; i < W.getRows(); i++)
-			W.position(i, i, 0);
+        for (int i = 0; i < W.getRows(); i++)
+            W.position(i, i, 0);
 
-		if (progress != null)
-			progress.setValue(progress.getMaximum());
-	}
+        if (progress != null)
+            progress.setValue(progress.getMaximum());
+    }
 
-	@Override
-	public Column simulate(Column pattern) {
-		Column result = new Column(pattern.getRows());
-		simulate(pattern, result);
-		return result;
-	}
+    @Override
+    public Column simulate(Column pattern) {
+        Column result = new Column(pattern.getRows());
+        simulate(pattern, result);
+        return result;
+    }
 
-	@Override
-	public void simulate(Column pattern, Column result) {
-		pattern.copy(result);
-		Column previous = new Column(pattern);
-		previous.setValue(0);
+    @Override
+    public void simulate(Column pattern, Column result) {
+        pattern.copy(result);
+        Column previous = new Column(pattern);
+        previous.setValue(0);
 
-		while (!result.equals(previous)) {
-			result.copy(previous);
+        while (!result.equals(previous)) {
+            result.copy(previous);
 
-			for (int col = 0; col < result.getRows(); col++) {
-				Matrix column = new Matrix(result.getRows(), result.getColumns(), W.getCol(col));
+            for (int col = 0; col < result.getRows(); col++) {
+                Matrix column = new Matrix(result.getRows(), result.getColumns(), W.getCol(col));
 
-				double dotProduct = result.dotProduct(column);
-				result.position(col, 0, dotProduct == 0 ? dotProduct : (dotProduct > 0 ? 1 : -1));
-			}
-		}
-	}
+                double dotProduct = result.dotProduct(column);
+                result.position(col, 0, dotProduct == 0 ? dotProduct : (dotProduct > 0 ? 1 : -1));
+            }
+        }
+    }
 }

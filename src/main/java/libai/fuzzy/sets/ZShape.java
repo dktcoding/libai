@@ -9,28 +9,29 @@ import org.w3c.dom.Node;
  * @author kronenthaler
  */
 public class ZShape extends TwoParameterSet {
-	public ZShape(Node xmlNode) {
-		load(xmlNode);
-	}
+    public ZShape(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	/**
-	 * Constructor.
-	 * @param a Left value of the Z-shape.
-	 * @param b Right value of the Z-shape.
-	 **/
-	public ZShape(double a, double b){
-		this.a = a;
-		this.b = b;
-	}
+    /**
+     * Constructor.
+     *
+     * @param a Left value of the Z-shape.
+     * @param b Right value of the Z-shape.
+     **/
+    public ZShape(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
 
-	@Override
-	public double eval(double x) {
-		if (x <= a) return 1;
-		if (x >= b) return 0;
+    @Override
+    public double eval(double x) {
+        if (x <= a) return 1;
+        if (x >= b) return 0;
 
-		if(x >= a && x <= (a + b) / 2)
-			return 1 - (2 * Math.pow((x - a) / (b - a), 2));
+        if (x >= a && x <= (a + b) / 2)
+            return 1 - (2 * Math.pow((x - a) / (b - a), 2));
 
-		return 2 * Math.pow((x - b) / (b - a), 2);
-	}
+        return 2 * Math.pow((x - b) / (b - a), 2);
+    }
 }

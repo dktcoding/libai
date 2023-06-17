@@ -18,128 +18,130 @@ import java.util.List;
  * Created by kronenthaler on 23/04/2017.
  */
 public class FuzzyVariable implements XMLSerializer {
-	protected List<FuzzyTerm> terms; // group of fuzzy terms that this variable can take.
-	protected String name; //name of the linguistic variable that represents
-	protected double domainLeft;
-	protected double domainRight;
-	protected String scale; //label
-	protected Type type = Type.INPUT;
-	// for output variables
-	protected double defaultValue = 0;
-	protected Accumulation accumulation = Accumulation.MAX;
-	protected Defuzzifier defuzzifier = Defuzzifier.COG; //defuzzifier interface?
+    protected List<FuzzyTerm> terms; // group of fuzzy terms that this variable can take.
+    protected String name; //name of the linguistic variable that represents
+    protected double domainLeft;
+    protected double domainRight;
+    protected String scale; //label
+    protected Type type = Type.INPUT;
+    // for output variables
+    protected double defaultValue = 0;
+    protected Accumulation accumulation = Accumulation.MAX;
+    protected Defuzzifier defuzzifier = Defuzzifier.COG; //defuzzifier interface?
 
-	public FuzzyVariable(Node xmlNode) {
-		load(xmlNode);
-	}
-	public FuzzyVariable(String name, double domainLeft, double domainRight, String scale, FuzzyTerm... terms) {
-		this.name = name;
-		this.domainLeft = domainLeft;
-		this.domainRight = domainRight;
-		this.scale = scale;
-		this.terms = Arrays.asList(terms);
-	}
-	public FuzzyVariable(String name, double domainLeft, double domainRight, double defaultValue, String scale, Accumulation accumulation, Defuzzifier defuzzifier, FuzzyTerm... terms) {
-		this(name, domainLeft, domainRight, scale, terms);
-		this.type = Type.OUTPUT;
-		this.defaultValue = defaultValue;
-		this.accumulation = accumulation;
-		this.defuzzifier = defuzzifier;
-	}
+    public FuzzyVariable(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	@Override
-	public String toXMLString(String indent) {
-		StringBuffer str = new StringBuffer();
-		str.append(String.format("%s<FuzzyVariable name=\"%s\" domainLeft=\"%f\" domainRight=\"%f\" scale=\"%s\" type=\"%s\"", indent, name, domainLeft, domainRight, scale, type.getText()));
+    public FuzzyVariable(String name, double domainLeft, double domainRight, String scale, FuzzyTerm... terms) {
+        this.name = name;
+        this.domainLeft = domainLeft;
+        this.domainRight = domainRight;
+        this.scale = scale;
+        this.terms = Arrays.asList(terms);
+    }
 
-		if (type == Type.OUTPUT)
-			str.append(String.format(" defaultValue=\"%f\" defuzzifier=\"%s\" accumulation=\"%s\"", defaultValue, defuzzifier, accumulation));
+    public FuzzyVariable(String name, double domainLeft, double domainRight, double defaultValue, String scale, Accumulation accumulation, Defuzzifier defuzzifier, FuzzyTerm... terms) {
+        this(name, domainLeft, domainRight, scale, terms);
+        this.type = Type.OUTPUT;
+        this.defaultValue = defaultValue;
+        this.accumulation = accumulation;
+        this.defuzzifier = defuzzifier;
+    }
 
-		str.append(">\n"); // close tag
-		for (FuzzyTerm t : terms) {
-			str.append(String.format("%s\n", t.toXMLString(indent + "\t")));
-		}
-		str.append(String.format("%s</FuzzyVariable>", indent, name));
-		return str.toString();
-	}
+    @Override
+    public String toXMLString(String indent) {
+        StringBuilder str = new StringBuilder();
+        str.append(String.format("%s<FuzzyVariable name=\"%s\" domainLeft=\"%f\" domainRight=\"%f\" scale=\"%s\" type=\"%s\"", indent, name, domainLeft, domainRight, scale, type.getText()));
 
-	@Override
-	public void load(Node xmlNode) {
-		NamedNodeMap attributes = xmlNode.getAttributes();
-		name = attributes.getNamedItem("name").getTextContent();
-		domainLeft = Double.parseDouble(attributes.getNamedItem("domainLeft").getTextContent());
-		domainRight = Double.parseDouble(attributes.getNamedItem("domainRight").getTextContent());
+        if (type == Type.OUTPUT)
+            str.append(String.format(" defaultValue=\"%f\" defuzzifier=\"%s\" accumulation=\"%s\"", defaultValue, defuzzifier, accumulation));
 
-		// load optional parameters
-		if (attributes.getNamedItem("defaultValue") != null)
-			defaultValue = Double.parseDouble(attributes.getNamedItem("defaultValue").getTextContent());
+        str.append(">\n"); // close tag
+        for (FuzzyTerm t : terms) {
+            str.append(String.format("%s\n", t.toXMLString(indent + "\t")));
+        }
+        str.append(String.format("%s</FuzzyVariable>", indent, name));
+        return str.toString();
+    }
 
-		if (attributes.getNamedItem("scale") != null)
-			scale = attributes.getNamedItem("scale").getTextContent();
+    @Override
+    public void load(Node xmlNode) {
+        NamedNodeMap attributes = xmlNode.getAttributes();
+        name = attributes.getNamedItem("name").getTextContent();
+        domainLeft = Double.parseDouble(attributes.getNamedItem("domainLeft").getTextContent());
+        domainRight = Double.parseDouble(attributes.getNamedItem("domainRight").getTextContent());
 
-		if (attributes.getNamedItem("type") != null)
-			type = Type.fromString(attributes.getNamedItem("type").getTextContent());
+        // load optional parameters
+        if (attributes.getNamedItem("defaultValue") != null)
+            defaultValue = Double.parseDouble(attributes.getNamedItem("defaultValue").getTextContent());
 
-		if (attributes.getNamedItem("accumulation") != null)
-			accumulation = Accumulation.fromString(attributes.getNamedItem("accumulation").getTextContent());
+        if (attributes.getNamedItem("scale") != null)
+            scale = attributes.getNamedItem("scale").getTextContent();
 
-		if (attributes.getNamedItem("defuzzifier") != null)
-			defuzzifier = Defuzzifier.fromString(attributes.getNamedItem("defuzzifier").getTextContent());
+        if (attributes.getNamedItem("type") != null)
+            type = Type.fromString(attributes.getNamedItem("type").getTextContent());
 
-		terms = new ArrayList<>();
-		NodeList children = ((Element) xmlNode).getElementsByTagName("FuzzyTerm");
-		for (int i = 0; i < children.getLength(); i++) {
-			terms.add(new FuzzyTerm(children.item(i)));
-		}
-	}
+        if (attributes.getNamedItem("accumulation") != null)
+            accumulation = Accumulation.fromString(attributes.getNamedItem("accumulation").getTextContent());
 
-	public FuzzyTerm getTerm(String name){
-		for(FuzzyTerm term : terms)
-			if (term.getName().equals(name))
-				return term;
-		return null;
-	}
+        if (attributes.getNamedItem("defuzzifier") != null)
+            defuzzifier = Defuzzifier.fromString(attributes.getNamedItem("defuzzifier").getTextContent());
 
-	public double defuzzify(ActivationMethod activationMethod, KnowledgeBase knowledgeBase, double delta, List<Pair<Double, Clause>> terms){
-		List<Point.Double> function = new ArrayList<>();
+        terms = new ArrayList<>();
+        NodeList children = ((Element) xmlNode).getElementsByTagName("FuzzyTerm");
+        for (int i = 0; i < children.getLength(); i++) {
+            terms.add(new FuzzyTerm(children.item(i)));
+        }
+    }
 
-		for(double x = domainLeft; x <= domainRight ; x += delta){
-			Point.Double p = new Point.Double(x, 0);
+    public FuzzyTerm getTerm(String name) {
+        for (FuzzyTerm term : terms)
+            if (term.getName().equals(name))
+                return term;
+        return null;
+    }
 
-			for (Pair<Double, Clause> term : terms){
-				double y = term.second.eval(x, knowledgeBase); //evaluate the term in the x
-				y = activationMethod.eval(term.first, y); // result after calculate the activation of the rule.
-				p.y = accumulation.eval(p.y, y); // accumulate the result of this term.
-			}
+    public double defuzzify(ActivationMethod activationMethod, KnowledgeBase knowledgeBase, double delta, List<Pair<Double, Clause>> terms) {
+        List<Point.Double> function = new ArrayList<>();
 
-			function.add(p);
-		}
+        for (double x = domainLeft; x <= domainRight; x += delta) {
+            Point.Double p = new Point.Double(x, 0);
 
-		return defuzzifier.getValue(function);
-	}
+            for (Pair<Double, Clause> term : terms) {
+                double y = term.second.eval(x, knowledgeBase); //evaluate the term in the x
+                y = activationMethod.eval(term.first, y); // result after calculate the activation of the rule.
+                p.y = accumulation.eval(p.y, y); // accumulate the result of this term.
+            }
 
-	enum Type {
-		INPUT("input"), OUTPUT("output");
+            function.add(p);
+        }
 
-		private String text;
+        return defuzzifier.getValue(function);
+    }
 
-		Type(String text) {
-			this.text = text;
-		}
+    enum Type {
+        INPUT("input"), OUTPUT("output");
 
-		public static Type fromString(String text) {
-			Type result = null;
-			for (Type b : Type.values()) {
-				if (b.text.equalsIgnoreCase(text)) {
-					result = b;
-					break;
-				}
-			}
-			return result;
-		}
+        private final String text;
 
-		public String getText() {
-			return this.text;
-		}
-	}
+        Type(String text) {
+            this.text = text;
+        }
+
+        public static Type fromString(String text) {
+            Type result = null;
+            for (Type b : Type.values()) {
+                if (b.text.equalsIgnoreCase(text)) {
+                    result = b;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public String getText() {
+            return this.text;
+        }
+    }
 }

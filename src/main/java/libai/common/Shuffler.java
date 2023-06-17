@@ -8,28 +8,28 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by kronenthaler on 19/03/2017.
  */
 public class Shuffler {
-	protected int[] order;
-	protected Random random;
+    protected final int[] order;
+    protected final Random random;
 
-	public Shuffler(int length) {
-		this(length, ThreadLocalRandom.current());
-	}
+    public Shuffler(int length) {
+        this(length, ThreadLocalRandom.current());
+    }
 
-	public Shuffler(int length, Random random) {
-		order = new int[length];
-		for (int i = 0; i < length; i++)
-			order[i] = i;
+    public Shuffler(int length, Random random) {
+        order = new int[length];
+        for (int i = 0; i < length; i++)
+            order[i] = i;
 
-		this.random = random;
-	}
+        this.random = random;
+    }
 
-	public int[] shuffle() {
-		for (int i = 0; i < order.length; i++) {
-			int j = random.nextInt(order.length);
-			int aux = order[i];
-			order[i] = order[j];
-			order[j] = aux;
-		}
-		return Arrays.copyOf(order, order.length);
-	}
+    public int[] shuffle() {
+        for (int i = 0; i < order.length; i++) {
+            int j = random.nextInt(order.length);
+            int aux = order[i];
+            order[i] = order[j];
+            order[j] = aux;
+        }
+        return Arrays.copyOf(order, order.length);
+    }
 }

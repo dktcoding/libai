@@ -19,22 +19,22 @@ A library compiling Artificial Intelligence algorithms:
   * Competitive
   * Hopfield
   * Kohonen
-	
+    
 ### Fuzzy Logic
 Inference engine, rules and set.
-	
+    
 ### Genetic Algorithm
 Binary & permutation chromosomes, elitism algorithm.
-	
+    
 ### Decision Tree
 * C4.5 algorithm with discrete and continuous attributes.
 * Naive Bayes inference.
-	
+    
 ### Search Algorithms
 * Depth First Search
 * Breeadth First Search
 * A*
-	
+    
 ### Ant Colony Optimization
 * Metaheuristic framework
 * MMAS
@@ -44,4 +44,4 @@ Binary & permutation chromosomes, elitism algorithm.
 * Elistist Ant System.
 
 More things to come!
-	
+    

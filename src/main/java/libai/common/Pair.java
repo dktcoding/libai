@@ -32,60 +32,60 @@ import java.util.Objects;
  * @author kronenthaler
  */
 public final class Pair<V extends Comparable<V>, K> implements Comparable<Pair<V, K>> {
-	/**
-	 * First element of the pair (the 'key').
-	 */
-	public V first;
-	/**
-	 * Second element of the pair (the 'value').
-	 */
-	public K second;
+    /**
+     * First element of the pair (the 'key').
+     */
+    public V first;
+    /**
+     * Second element of the pair (the 'value').
+     */
+    public K second;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param x the first element for the pair.
-	 * @param y the second element for the pair.
-	 */
-	public Pair(V x, K y) {
-		first = x;
-		second = y;
-	}
+    /**
+     * Constructor.
+     *
+     * @param x the first element for the pair.
+     * @param y the second element for the pair.
+     */
+    public Pair(V x, K y) {
+        first = x;
+        second = y;
+    }
 
-	/**
-	 * Compare two pairs by the first element. The first element type must
-	 * implement the Comparable interface.
-	 *
-	 * @param o The pair to compare with.
-	 * @return -1 if this is less than o, 0 if are equals, 1 if this is greater
-	 * than o.
-	 */
-	@Override
-	public int compareTo(Pair<V, K> o) {
-		return first.compareTo(o.first);
-	}
+    /**
+     * Compare two pairs by the first element. The first element type must
+     * implement the Comparable interface.
+     *
+     * @param o The pair to compare with.
+     * @return -1 if this is less than o, 0 if are equals, 1 if this is greater
+     * than o.
+     */
+    @Override
+    public int compareTo(Pair<V, K> o) {
+        return first.compareTo(o.first);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(first, second);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		final Pair<V, K> other = (Pair<V, K>) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pair<V, K> other = (Pair<V, K>) obj;
 
-		return Objects.equals(first, other.first) && Objects.equals(second, other.second);
-	}
+        return Objects.equals(first, other.first) && Objects.equals(second, other.second);
+    }
 
 
-	@Override
-	public String toString() {
-		return "(" + first + "," + second + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + first + "," + second + ")";
+    }
 }

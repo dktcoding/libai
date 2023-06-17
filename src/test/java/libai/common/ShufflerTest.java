@@ -1,46 +1,45 @@
 package libai.common;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by kronenthaler on 19/03/2017.
  */
 public class ShufflerTest extends Shuffler {
-	public ShufflerTest() {
-		super(0);
-	}
+    public ShufflerTest() {
+        super(0);
+    }
 
-	@Test
-	public void testCreateSequentialArray() {
-		Shuffler shuffler = new Shuffler(3);
+    @Test
+    public void testCreateSequentialArray() {
+        Shuffler shuffler = new Shuffler(3);
 
-		assertEquals(shuffler.order[0], 0);
-		assertEquals(shuffler.order[1], 1);
-		assertEquals(shuffler.order[2], 2);
-	}
+        Assertions.assertEquals(shuffler.order[0], 0);
+        Assertions.assertEquals(shuffler.order[1], 1);
+        Assertions.assertEquals(shuffler.order[2], 2);
+    }
 
-	@Test
-	public void testShuffleCreatesACopy() {
-		Shuffler shuffler = new Shuffler(3);
-		int[] sort = shuffler.shuffle();
+    @Test
+    public void testShuffleCreatesACopy() {
+        Shuffler shuffler = new Shuffler(3);
+        int[] sort = shuffler.shuffle();
 
-		assertNotEquals(sort, shuffler.order);
-	}
+        Assertions.assertNotEquals(sort, shuffler.order);
+    }
 
-	@Test
-	public void testShuffleArray() {
-		Shuffler shuffler = new Shuffler(10);
-		int[] sort = shuffler.shuffle();
+    @Test
+    public void testShuffleArray() {
+        Shuffler shuffler = new Shuffler(10);
+        int[] sort = shuffler.shuffle();
 
-		int inPlace = 0;
-		for (int i = 0; i < sort.length; i++) {
-			if (sort[i] == i)
-				inPlace++;
-		}
+        int inPlace = 0;
+        for (int i = 0; i < sort.length; i++) {
+            if (sort[i] == i)
+                inPlace++;
+        }
 
-		assertTrue(inPlace < sort.length);
-	}
+        Assertions.assertTrue(inPlace < sort.length);
+    }
 
 }

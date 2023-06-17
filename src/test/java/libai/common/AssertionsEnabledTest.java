@@ -23,14 +23,17 @@
  */
 package libai.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class AssertionsEnabledTest {
-	@Test(expected = AssertionError.class)
-	public void testAssertionsEnabled() {
-		assert false;
-	}
+    @Test
+    public void testAssertionsEnabled() {
+        Assertions.assertThrowsExactly(AssertionError.class, () -> {
+            assert false;
+        });
+    }
 }

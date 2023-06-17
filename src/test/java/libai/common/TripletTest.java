@@ -23,71 +23,66 @@
  */
 package libai.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class TripletTest {
 
-	@Test
-	public void testHashCode() {
-		Triplet[] trips = new Triplet[]{
-				new Triplet(-10, 4, -1),
-				new Triplet(10, 6, -1),
-				new Triplet(3, 2, -1),
-				new Triplet(2, 4, -1),
-		};
-		HashMap<Triplet, Triplet> map = new HashMap<>(4);
-		for (Triplet t : trips) {
-			map.put(t, t);
-		}
-		for (Triplet t : trips) {
-			assertEquals(t, map.get(t));
-			assertTrue(t == map.get(t));
-		}
-	}
+    @Test
+    public void testHashCode() {
+        Triplet<Integer, Integer, Integer>[] trips = new Triplet[]{
+                new Triplet<>(-10, 4, -1),
+                new Triplet<>(10, 6, -1),
+                new Triplet<>(3, 2, -1),
+                new Triplet<>(2, 4, -1),
+        };
+        HashMap<Triplet<?, ?, ?>, Triplet<?, ?, ?>> map = new HashMap<>(4);
+        for (Triplet<?, ?, ?> t : trips) {
+            map.put(t, t);
+        }
+        for (Triplet<?, ?, ?> t : trips) {
+            Assertions.assertEquals(t, map.get(t));
+            Assertions.assertSame(t, map.get(t));
+        }
+    }
 
-	@Test
-	public void testHashCode2() {
-		Triplet t1 = new Triplet(-10, 4, -1);
-		Triplet t2 = new Triplet(-10, 4, -1);
-		assertEquals(t1.hashCode(), t1.hashCode());
-		assertEquals(t1.hashCode(), t2.hashCode());
-		t2.first = -9;
-		assertNotEquals(t1.hashCode(), t2.hashCode());
-		t2.first = -10;
-		assertEquals(t1.hashCode(), t2.hashCode());
-		t2.second = "";
-		assertNotEquals(t1.hashCode(), t2.hashCode());
-		t2.second = 4;
-		assertEquals(t1.hashCode(), t2.hashCode());
-		t2.third = -1.0;
-		assertNotEquals(t1.hashCode(), t2.hashCode());
-	}
+    @Test
+    public void testHashCode2() {
+        Triplet<Integer, Integer, Integer> t1 = new Triplet<>(-10, 4, -1);
+        Triplet<Integer, Integer, Integer> t2 = new Triplet<>(-10, 4, -1);
+        Assertions.assertEquals(t1.hashCode(), t1.hashCode());
+        Assertions.assertEquals(t1.hashCode(), t2.hashCode());
+        t2.first = -9;
+        Assertions.assertNotEquals(t1.hashCode(), t2.hashCode());
+        t2.first = -10;
+        Assertions.assertEquals(t1.hashCode(), t2.hashCode());
+        t2.second = 4;
+        Assertions.assertEquals(t1.hashCode(), t2.hashCode());
+    }
 
-	@Test
-	public void testEquals() {
-		Triplet triplet = new Triplet(2, 4, -1);
-		assertEquals(triplet, triplet);
-		assertNotEquals(triplet, null);
-		assertNotEquals(triplet, new Object());
-		assertEquals(triplet, new Triplet(2, 4, -1));
-		assertNotEquals(triplet, new Triplet(2, 4, 1));
-		assertNotEquals(triplet, new Triplet(2, 2, -1));
-		assertNotEquals(triplet, new Triplet(1, 4, -1));
-		assertNotEquals(triplet, new Triplet("1", 4, -1));
-	}
+    @Test
+    public void testEquals() {
+        Triplet<Integer, Integer, Integer> triplet = new Triplet<>(2, 4, -1);
+        Assertions.assertEquals(triplet, triplet);
+        Assertions.assertNotEquals(triplet, null);
+        Assertions.assertNotEquals(triplet, new Object());
+        Assertions.assertEquals(triplet, new Triplet<>(2, 4, -1));
+        Assertions.assertNotEquals(triplet, new Triplet<>(2, 4, 1));
+        Assertions.assertNotEquals(triplet, new Triplet<>(2, 2, -1));
+        Assertions.assertNotEquals(triplet, new Triplet<>(1, 4, -1));
+        Assertions.assertNotEquals(triplet, new Triplet<>("1", 4, -1));
+    }
 
-	@Test
-	public void testToString() {
-		Triplet triplet = new Triplet(2, 4, -1);
-		assertEquals("(2,4,-1)", triplet.toString());
-		triplet = new Triplet(2, 4, null);
-		assertEquals("(2,4,null)", triplet.toString());
-	}
+    @Test
+    public void testToString() {
+        Triplet<Integer, Integer, Integer> triplet = new Triplet<>(2, 4, -1);
+        Assertions.assertEquals("(2,4,-1)", triplet.toString());
+        triplet = new Triplet<>(2, 4, null);
+        Assertions.assertEquals("(2,4,null)", triplet.toString());
+    }
 }

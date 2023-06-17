@@ -24,129 +24,128 @@
 package libai.nn.supervised;
 
 import demos.common.SimpleProgressDisplay;
-import libai.common.matrix.Column;
 import libai.common.MatrixIOTest;
-import org.junit.Test;
+import libai.common.matrix.Column;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
-
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class RBFTest {
-	public static double f(double x) {
-		return Math.sin(x) + Math.cos(x);
-	}
+    public static double f(double x) {
+        return Math.sin(x) + Math.cos(x);
+    }
 
-	@Test
-	public void testDemo() {
-		int n = 40;
-		int m = 1;
-		int l = 1;
-		int test = 12;
-		Column[] p = new Column[n + test];
-		Column[] t = new Column[n + test];
-		double delta = 0.1;
-		double x = 0;
-		for (int i = 0; i < n; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+    @Test
+    public void testDemo() {
+        int n = 40;
+        int m = 1;
+        int l = 1;
+        int test = 12;
+        Column[] p = new Column[n + test];
+        Column[] t = new Column[n + test];
+        double delta = 0.1;
+        double x = 0;
+        for (int i = 0; i < n; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		delta = 0.33;
-		x = 0;
-		for (int i = n; i < n + test && x < 4; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+        delta = 0.33;
+        x = 0;
+        for (int i = n; i < n + test && x < 4; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		int nperlayer[] = {m, 10, l};
-		RBF net = new RBF(nperlayer, new Random(0));
-		net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
-		net.train(p, t, 0.001, 600000, 0, n);
+        int[] nperlayer = {m, 10, l};
+        RBF net = new RBF(nperlayer, new Random(0));
+        net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
+        net.train(p, t, 0.001, 600000, 0, n);
 
-		assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        Assumptions.assumeTrue(0.0001 > net.error(p, t), "RBF didn't converge, try again");
 
-		for (int i = n; i < p.length; i++) {
-			assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
-		}
-	}
+        for (int i = n; i < p.length; i++) {
+            Assertions.assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+        }
+    }
 
-	@Test
-	public void testSaveOpen() {
-		int n = 40;
-		int m = 1;
-		int l = 1;
-		int test = 12;
-		Column[] p = new Column[n + test];
-		Column[] t = new Column[n + test];
-		double delta = 0.1;
-		double x = 0;
-		for (int i = 0; i < n; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+    @Test
+    public void testSaveOpen() {
+        int n = 40;
+        int m = 1;
+        int l = 1;
+        int test = 12;
+        Column[] p = new Column[n + test];
+        Column[] t = new Column[n + test];
+        double delta = 0.1;
+        double x = 0;
+        for (int i = 0; i < n; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		delta = 0.33;
-		x = 0;
-		for (int i = n; i < n + test && x < 4; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+        delta = 0.33;
+        x = 0;
+        for (int i = n; i < n + test && x < 4; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		int nperlayer[] = {m, 10, l};
-		RBF net = new RBF(nperlayer, new Random(0));
-		net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
-		net.train(p, t, 0.001, 600000, 0, n);
+        int[] nperlayer = {m, 10, l};
+        RBF net = new RBF(nperlayer, new Random(0));
+        net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
+        net.train(p, t, 0.001, 600000, 0, n);
 
-		assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        Assumptions.assumeTrue(0.0001 > net.error(p, t), "RBF didn't converge, try again");
 
-		for (int i = n; i < p.length; i++) {
-			assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
-		}
+        for (int i = n; i < p.length; i++) {
+            Assertions.assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+        }
 
-		assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
+        Assumptions.assumeTrue(MatrixIOTest.checkTemp(), "Can't use temp dir...");
 
-		String tmp = System.getProperty("java.io.tmpdir") + File.separator;
-		tmp = tmp + "foo.rbf";
-		assertTrue(net.save(tmp));
-		try {
-			RBF net2 = RBF.open(tmp);
-			assertNotNull(net2);
-			new File(tmp).delete();
+        String tmp = System.getProperty("java.io.tmpdir") + File.separator;
+        tmp = tmp + "foo.rbf";
+        Assertions.assertTrue(net.save(tmp));
+        try {
+            RBF net2 = RBF.open(tmp);
+            Assertions.assertNotNull(net2);
+            new File(tmp).delete();
 
-			assertEquals(net.error(p, t), net2.error(p, t), 0);
-			for (int i = n; i < p.length; i++) {
-				assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
-			}
-		} catch (IOException e) {
-			fail();
-		} catch (ClassNotFoundException e1) {
-			fail();
-		}
+            Assertions.assertEquals(net.error(p, t), net2.error(p, t), 0);
+            for (int i = n; i < p.length; i++) {
+                Assertions.assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Assertions.fail();
+        }
 
-	}
+    }
 
-	@Test(expected = NullPointerException.class)
-	public void testNullPath() throws IOException, ClassNotFoundException {
-		RBF.open((String) null);
-	}
+    @Test
+    public void testNullPath() {
+        Assertions.assertThrowsExactly(NullPointerException.class, () -> {
+            RBF.open((String) null);
+        });
+    }
 }

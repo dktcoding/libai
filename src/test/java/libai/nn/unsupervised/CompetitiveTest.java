@@ -25,71 +25,69 @@ package libai.nn.unsupervised;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class CompetitiveTest {
 
-	@Test
-	public void testDemo() {
-		int n = 6;
-		int m = 2;
-		int l = 3;
-		Column[] patterns = new Column[n];
-		Column[] ans = new Column[n];
-		for (int i = 0; i < n; i++) {
-			patterns[i] = new Column(m);
-			ans[i] = new Column(l);
-			ans[i].setValue(0);
-		}
+    @Test
+    public void testDemo() {
+        int n = 6;
+        int m = 2;
+        int l = 3;
+        Column[] patterns = new Column[n];
+        Column[] ans = new Column[n];
+        for (int i = 0; i < n; i++) {
+            patterns[i] = new Column(m);
+            ans[i] = new Column(l);
+            ans[i].setValue(0);
+        }
 
-		patterns[0].position(0, 0, -1);
-		patterns[0].position(1, 0, 6);
+        patterns[0].position(0, 0, -1);
+        patterns[0].position(1, 0, 6);
 
-		patterns[1].position(0, 0, 1);
-		patterns[1].position(1, 0, 6);
+        patterns[1].position(0, 0, 1);
+        patterns[1].position(1, 0, 6);
 
-		patterns[2].position(0, 0, 6);
-		patterns[2].position(1, 0, 2);
+        patterns[2].position(0, 0, 6);
+        patterns[2].position(1, 0, 2);
 
-		patterns[3].position(0, 0, 6);
-		patterns[3].position(1, 0, -2);
+        patterns[3].position(0, 0, 6);
+        patterns[3].position(1, 0, -2);
 
-		patterns[4].position(0, 0, -5);
-		patterns[4].position(1, 0, -3);
+        patterns[4].position(0, 0, -5);
+        patterns[4].position(1, 0, -3);
 
-		patterns[5].position(0, 0, -3);
-		patterns[5].position(1, 0, -5);
+        patterns[5].position(0, 0, -3);
+        patterns[5].position(1, 0, -5);
 
-		ans[0].position(0, 0, 1);
-		ans[1].position(0, 0, 1);
-		ans[2].position(1, 0, 1);
-		ans[3].position(1, 0, 1);
-		ans[4].position(2, 0, 1);
-		ans[5].position(2, 0, 1);
+        ans[0].position(0, 0, 1);
+        ans[1].position(0, 0, 1);
+        ans[2].position(1, 0, 1);
+        ans[3].position(1, 0, 1);
+        ans[4].position(2, 0, 1);
+        ans[5].position(2, 0, 1);
 
-		int magicRand = 4; //Results are perfect
-		Competitive net = new Competitive(m, l, new Random(magicRand));
-		net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
-		net.train(patterns, ans, 0.01, 1000);
+        int magicRand = 4; //Results are perfect
+        Competitive net = new Competitive(m, l, new Random(magicRand));
+        net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
+        net.train(patterns, ans, 0.01, 1000);
 
-		assertTrue(net.error(patterns, ans, 0, n) < 5);
+        Assertions.assertTrue(net.error(patterns, ans, 0, n) < 5);
 
-		for (int i = 0; i < patterns.length; i++) {
-			for (int j = 0; j < ans[i].getRows(); j++) {
-				assertEquals(ans[i].position(j, 0), net.simulate(patterns[i]).position(j, 0), 1e-8);
-			}
-		}
+        for (int i = 0; i < patterns.length; i++) {
+            for (int j = 0; j < ans[i].getRows(); j++) {
+                Assertions.assertEquals(ans[i].position(j, 0), net.simulate(patterns[i]).position(j, 0), 1e-8);
+            }
+        }
 
-	}
+    }
 }
 /*
 1.4714045207910316

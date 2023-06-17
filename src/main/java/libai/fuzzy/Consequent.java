@@ -13,39 +13,39 @@ import java.util.List;
  * Created by kronenthaler on 30/04/2017.
  */
 public class Consequent implements XMLSerializer, Iterable<Clause> {
-	private List<Clause> clauses = new ArrayList<>();
+    private List<Clause> clauses = new ArrayList<>();
 
-	public Consequent(Node xmlNode) {
-		load(xmlNode);
-	}
+    public Consequent(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	public Consequent(Clause... clauses) {
-		this.clauses = Arrays.asList(clauses);
-	}
+    public Consequent(Clause... clauses) {
+        this.clauses = Arrays.asList(clauses);
+    }
 
-	@Override
-	public String toXMLString(String indent) {
-		StringBuilder str = new StringBuilder();
-		str.append(String.format("%s<Consequent>\n", indent));
+    @Override
+    public String toXMLString(String indent) {
+        StringBuilder str = new StringBuilder();
+        str.append(String.format("%s<Consequent>\n", indent));
 
-		for (Clause var : clauses) {
-			str.append(String.format("%s\n", var.toXMLString(indent + "\t")));
-		}
+        for (Clause var : clauses) {
+            str.append(String.format("%s\n", var.toXMLString(indent + "\t")));
+        }
 
-		str.append(String.format("%s</Consequent>", indent));
-		return str.toString();
-	}
+        str.append(String.format("%s</Consequent>", indent));
+        return str.toString();
+    }
 
-	@Override
-	public void load(Node xmlNode) {
-		NodeList children = ((Element) xmlNode).getElementsByTagName("Clause");
-		for (int i = 0; i < children.getLength(); i++) {
-			clauses.add(new Clause(children.item(i)));
-		}
-	}
+    @Override
+    public void load(Node xmlNode) {
+        NodeList children = ((Element) xmlNode).getElementsByTagName("Clause");
+        for (int i = 0; i < children.getLength(); i++) {
+            clauses.add(new Clause(children.item(i)));
+        }
+    }
 
-	@Override
-	public Iterator<Clause> iterator() {
-		return clauses.iterator();
-	}
+    @Override
+    public Iterator<Clause> iterator() {
+        return clauses.iterator();
+    }
 }

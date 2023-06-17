@@ -9,24 +9,25 @@ import org.w3c.dom.Node;
  * @author kronenthaler
  */
 public class RightGaussianShape extends TwoParameterSet {
-	public RightGaussianShape(Node xmlNode) {
-		load(xmlNode);
-	}
+    public RightGaussianShape(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	/**
-	 * Constructor.
-	 * @param a Mean value of the Gaussian function.
-	 * @param b Standard deviation (a.k.a. sigma) of the Gaussian function.
-	 **/
-	public RightGaussianShape(double a, double b){
-		this.a = a; // mean
-		this.b = b; // sigma
-	}
+    /**
+     * Constructor.
+     *
+     * @param a Mean value of the Gaussian function.
+     * @param b Standard deviation (a.k.a. sigma) of the Gaussian function.
+     **/
+    public RightGaussianShape(double a, double b) {
+        this.a = a; // mean
+        this.b = b; // sigma
+    }
 
-	@Override
-	public double eval(double x) {
-		if (x <= a)
-			return 1;
-		return new GaussianShape(a, b).eval(x);
-	}
+    @Override
+    public double eval(double x) {
+        if (x <= a)
+            return 1;
+        return new GaussianShape(a, b).eval(x);
+    }
 }

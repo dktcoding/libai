@@ -23,116 +23,113 @@
  */
 package libai.nn.supervised;
 
-import libai.common.matrix.Column;
 import libai.common.MatrixIOTest;
-import org.junit.Test;
+import libai.common.matrix.Column;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class PerceptronTest {
 
-	@Test
-	public void testTrainOr() {
-		Perceptron p = new Perceptron(2, 1, new Random(0));
-		Column[] ins = new Column[4];
-		ins[0] = new Column(2, new double[]{0, 0});
-		ins[1] = new Column(2, new double[]{0, 1});
-		ins[2] = new Column(2, new double[]{1, 0});
-		ins[3] = new Column(2, new double[]{1, 1});
-		Column[] out = new Column[4];
-		out[0] = new Column(1, new double[]{0});
-		out[1] = new Column(1, new double[]{1});
-		out[2] = new Column(1, new double[]{1});
-		out[3] = new Column(1, new double[]{1});
-		p.train(ins, out, 0.1, 1000);
-		assertEquals(0, p.error(ins, out), 0);
-		Column res = new Column(1);
-		p.simulate(ins[0], res);
-		assertEquals(out[0], res);
-		p.simulate(ins[1], res);
-		assertEquals(out[1], res);
-		p.simulate(ins[2], res);
-		assertEquals(out[2], res);
-		p.simulate(ins[3], res);
-		assertEquals(out[3], res);
-	}
+    @Test
+    public void testTrainOr() {
+        Perceptron p = new Perceptron(2, 1, new Random(0));
+        Column[] ins = new Column[4];
+        ins[0] = new Column(2, new double[]{0, 0});
+        ins[1] = new Column(2, new double[]{0, 1});
+        ins[2] = new Column(2, new double[]{1, 0});
+        ins[3] = new Column(2, new double[]{1, 1});
+        Column[] out = new Column[4];
+        out[0] = new Column(1, new double[]{0});
+        out[1] = new Column(1, new double[]{1});
+        out[2] = new Column(1, new double[]{1});
+        out[3] = new Column(1, new double[]{1});
+        p.train(ins, out, 0.1, 1000);
+        Assertions.assertEquals(0, p.error(ins, out), 0);
+        Column res = new Column(1);
+        p.simulate(ins[0], res);
+        Assertions.assertEquals(out[0], res);
+        p.simulate(ins[1], res);
+        Assertions.assertEquals(out[1], res);
+        p.simulate(ins[2], res);
+        Assertions.assertEquals(out[2], res);
+        p.simulate(ins[3], res);
+        Assertions.assertEquals(out[3], res);
+    }
 
-	@Test
-	public void testTrainAnd() {
-		Perceptron p = new Perceptron(2, 1, new Random(0));
-		Column[] ins = new Column[4];
-		ins[0] = new Column(2, new double[]{0, 0});
-		ins[1] = new Column(2, new double[]{0, 1});
-		ins[2] = new Column(2, new double[]{1, 0});
-		ins[3] = new Column(2, new double[]{1, 1});
-		Column[] out = new Column[4];
-		out[0] = new Column(1, new double[]{0});
-		out[1] = new Column(1, new double[]{0});
-		out[2] = new Column(1, new double[]{0});
-		out[3] = new Column(1, new double[]{1});
-		p.train(ins, out, 0.1, 1000);
-		assertEquals(0, p.error(ins, out), 0);
-		assertEquals(0, p.simulate(ins[0]).position(0, 0), 0);
-		assertEquals(0, p.simulate(ins[1]).position(0, 0), 0);
-		assertEquals(0, p.simulate(ins[2]).position(0, 0), 0);
-		assertEquals(1, p.simulate(ins[3]).position(0, 0), 0);
-		assertEquals(new Column(1, new double[]{0}), p.simulate(ins[0]));
-		assertEquals(new Column(1, new double[]{0}), p.simulate(ins[1]));
-		assertEquals(new Column(1, new double[]{0}), p.simulate(ins[2]));
-		assertEquals(new Column(1, new double[]{1}), p.simulate(ins[3]));
-	}
+    @Test
+    public void testTrainAnd() {
+        Perceptron p = new Perceptron(2, 1, new Random(0));
+        Column[] ins = new Column[4];
+        ins[0] = new Column(2, new double[]{0, 0});
+        ins[1] = new Column(2, new double[]{0, 1});
+        ins[2] = new Column(2, new double[]{1, 0});
+        ins[3] = new Column(2, new double[]{1, 1});
+        Column[] out = new Column[4];
+        out[0] = new Column(1, new double[]{0});
+        out[1] = new Column(1, new double[]{0});
+        out[2] = new Column(1, new double[]{0});
+        out[3] = new Column(1, new double[]{1});
+        p.train(ins, out, 0.1, 1000);
+        Assertions.assertEquals(0, p.error(ins, out), 0);
+        Assertions.assertEquals(0, p.simulate(ins[0]).position(0, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[1]).position(0, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[2]).position(0, 0), 0);
+        Assertions.assertEquals(1, p.simulate(ins[3]).position(0, 0), 0);
+        Assertions.assertEquals(new Column(1, new double[]{0}), p.simulate(ins[0]));
+        Assertions.assertEquals(new Column(1, new double[]{0}), p.simulate(ins[1]));
+        Assertions.assertEquals(new Column(1, new double[]{0}), p.simulate(ins[2]));
+        Assertions.assertEquals(new Column(1, new double[]{1}), p.simulate(ins[3]));
+    }
 
-	@Test
-	public void testIO() {
-		assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
-		Perceptron p = new Perceptron(2, 2, new Random(0));
-		Column[] ins = new Column[4];
-		ins[0] = new Column(2, new double[]{0, 0});
-		ins[1] = new Column(2, new double[]{0, 1});
-		ins[2] = new Column(2, new double[]{1, 0});
-		ins[3] = new Column(2, new double[]{1, 1});
-		Column[] out = new Column[4];
-		out[0] = new Column(2, new double[]{1, 0});
-		out[1] = new Column(2, new double[]{1, 0});
-		out[2] = new Column(2, new double[]{1, 0});
-		out[3] = new Column(2, new double[]{0, 1});
-		p.train(ins, out, 0.1, 1000);
-		assertEquals(1, p.simulate(ins[0]).position(0, 0), 0);
-		assertEquals(1, p.simulate(ins[1]).position(0, 0), 0);
-		assertEquals(1, p.simulate(ins[2]).position(0, 0), 0);
-		assertEquals(0, p.simulate(ins[3]).position(0, 0), 0);
-		assertEquals(0, p.simulate(ins[0]).position(1, 0), 0);
-		assertEquals(0, p.simulate(ins[1]).position(1, 0), 0);
-		assertEquals(0, p.simulate(ins[2]).position(1, 0), 0);
-		assertEquals(1, p.simulate(ins[3]).position(1, 0), 0);
+    @Test
+    public void testIO() {
+        Assumptions.assumeTrue(MatrixIOTest.checkTemp(), "Can't use temp dir...");
+        Perceptron p = new Perceptron(2, 2, new Random(0));
+        Column[] ins = new Column[4];
+        ins[0] = new Column(2, new double[]{0, 0});
+        ins[1] = new Column(2, new double[]{0, 1});
+        ins[2] = new Column(2, new double[]{1, 0});
+        ins[3] = new Column(2, new double[]{1, 1});
+        Column[] out = new Column[4];
+        out[0] = new Column(2, new double[]{1, 0});
+        out[1] = new Column(2, new double[]{1, 0});
+        out[2] = new Column(2, new double[]{1, 0});
+        out[3] = new Column(2, new double[]{0, 1});
+        p.train(ins, out, 0.1, 1000);
+        Assertions.assertEquals(1, p.simulate(ins[0]).position(0, 0), 0);
+        Assertions.assertEquals(1, p.simulate(ins[1]).position(0, 0), 0);
+        Assertions.assertEquals(1, p.simulate(ins[2]).position(0, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[3]).position(0, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[0]).position(1, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[1]).position(1, 0), 0);
+        Assertions.assertEquals(0, p.simulate(ins[2]).position(1, 0), 0);
+        Assertions.assertEquals(1, p.simulate(ins[3]).position(1, 0), 0);
 
-		String foo = System.getProperty("java.io.tmpdir")
-				+ File.separator + "perceptron.tmp";
-		new File(foo).deleteOnExit();
+        String foo = System.getProperty("java.io.tmpdir")
+                + File.separator + "perceptron.tmp";
+        new File(foo).deleteOnExit();
 
-		assertTrue(p.save(foo));
-		try {
-			Perceptron p2 = Perceptron.open(foo);
-			assertNotNull(p2);
-			assertNotEquals(p, p2);
+        Assertions.assertTrue(p.save(foo));
+        try {
+            Perceptron p2 = Perceptron.open(foo);
+            Assertions.assertNotNull(p2);
+            Assertions.assertNotEquals(p, p2);
 
-			assertEquals(p.simulate(ins[0]), p2.simulate(ins[0]));
-			assertEquals(p.simulate(ins[1]), p2.simulate(ins[1]));
-			assertEquals(p.simulate(ins[2]), p2.simulate(ins[2]));
-			assertEquals(p.simulate(ins[3]), p2.simulate(ins[3]));
-		} catch (IOException e) {
-			fail();
-		} catch (ClassNotFoundException e1) {
-			fail();
-		}
-	}
+            Assertions.assertEquals(p.simulate(ins[0]), p2.simulate(ins[0]));
+            Assertions.assertEquals(p.simulate(ins[1]), p2.simulate(ins[1]));
+            Assertions.assertEquals(p.simulate(ins[2]), p2.simulate(ins[2]));
+            Assertions.assertEquals(p.simulate(ins[3]), p2.simulate(ins[3]));
+        } catch (IOException | ClassNotFoundException e) {
+            Assertions.fail();
+        }
+    }
 
 }

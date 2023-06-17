@@ -26,96 +26,94 @@ package libai.genetics;
 import libai.genetics.chromosomes.BinaryChromosome;
 import libai.genetics.chromosomes.Chromosome;
 import libai.genetics.chromosomes.IntegerChromosome;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class EngineTest {
 
-	@Test
-	public void testDemoBinary() {
-		int MaxVal = 1;
-		int MinVal = 0;
-		int Nbits = (int) Math.ceil(Math.log10(1 + ((MaxVal - MinVal) / 1.e-5)) / Math.log10(2));
+    @Test
+    public void testDemoBinary() {
+        int MaxVal = 1;
+        int MinVal = 0;
+        int Nbits = (int) Math.ceil(Math.log10(1 + ((MaxVal - MinVal) / 1.e-5)) / Math.log10(2));
 
-		Engine engine = new Engine(BinaryChromosome.class, 200, Nbits, 0.6, 0.01, new Fitness() {
-			@Override
-			public double fitness(Chromosome c) {
-				double x = ((BinaryChromosome) c).decode(0, 1);
-				return Math.abs(Math.exp(-x) - x); //=>0 si son iguales,
-			}
+        Engine engine = new Engine(BinaryChromosome.class, 200, Nbits, 0.6, 0.01, new Fitness() {
+            @Override
+            public double fitness(Chromosome c) {
+                double x = ((BinaryChromosome) c).decode(0, 1);
+                return Math.abs(Math.exp(-x) - x); //=>0 si son iguales,
+            }
 
-			@Override
-			public boolean isBetter(double fitness, double best) {
-				return fitness < best;
-			}
+            @Override
+            public boolean isBetter(double fitness, double best) {
+                return fitness < best;
+            }
 
-			@Override
-			public double theWorst() {
-				return Double.MAX_VALUE;
-			}
-		});
+            @Override
+            public double theWorst() {
+                return Double.MAX_VALUE;
+            }
+        });
 
-		engine.setProgressBar(new JProgressBar());
-		BinaryChromosome best = (BinaryChromosome) engine.evolve(5000);
+        engine.setProgressBar(new JProgressBar());
+        BinaryChromosome best = (BinaryChromosome) engine.evolve(5000);
 
-		double x = best.decode(0, 1);
-		assertEquals(Math.exp(-x), x, 1e-3);
+        double x = best.decode(0, 1);
+        Assertions.assertEquals(Math.exp(-x), x, 1e-3);
 
-		//Test toString()
-		String bStr = best.toString();
-		String oStr = Long.toString(Long.reverse(best.decode()) >>> (64 - bStr.length()), 2);
-		assertTrue(bStr.endsWith(oStr));
-	}
+        //Test toString()
+        String bStr = best.toString();
+        String oStr = Long.toString(Long.reverse(best.decode()) >>> (64 - bStr.length()), 2);
+        Assertions.assertTrue(bStr.endsWith(oStr));
+    }
 
-	@Test
-	public void testDemoPermutation() {
-		Fitness fitnessImpl = new Fitness() {
-			@Override
-			public double fitness(Chromosome c1) {
-				IntegerChromosome c = (IntegerChromosome) c1;
-				int g[] = c.getGenes();
-				int count = g.length;
-				for (int i = 0; i < g.length; i++) {
-					if (g[i] == i)
-						count--;
-				}
-				return count;
-			}
+    @Test
+    public void testDemoPermutation() {
+        Fitness fitnessImpl = new Fitness() {
+            @Override
+            public double fitness(Chromosome c1) {
+                IntegerChromosome c = (IntegerChromosome) c1;
+                int[] g = c.getGenes();
+                int count = g.length;
+                for (int i = 0; i < g.length; i++) {
+                    if (g[i] == i)
+                        count--;
+                }
+                return count;
+            }
 
-			@Override
-			public boolean isBetter(double fitness, double best) {
-				return fitness < best;
-			}
+            @Override
+            public boolean isBetter(double fitness, double best) {
+                return fitness < best;
+            }
 
-			@Override
-			public double theWorst() {
-				return Double.MAX_VALUE;
-			}
-		};
+            @Override
+            public double theWorst() {
+                return Double.MAX_VALUE;
+            }
+        };
 
-		Engine engine = new Engine(IntegerChromosome.class, 200, 10, 0.6, 0.01, fitnessImpl);
-		engine.setProgressBar(new JProgressBar());
+        Engine engine = new Engine(IntegerChromosome.class, 200, 10, 0.6, 0.01, fitnessImpl);
+        engine.setProgressBar(new JProgressBar());
 
-		//We can't guarantee that it will learn the function, but at least we can check that
-		//the number of misplaced values decreases
-		IntegerChromosome first = (IntegerChromosome) engine.evolve(1);
-		IntegerChromosome last = (IntegerChromosome) engine.evolve(2000);
-		assertTrue(fitnessImpl.fitness(first) > fitnessImpl.fitness(last));
+        //We can't guarantee that it will learn the function, but at least we can check that
+        //the number of misplaced values decreases
+        IntegerChromosome first = (IntegerChromosome) engine.evolve(1);
+        IntegerChromosome last = (IntegerChromosome) engine.evolve(2000);
+        Assertions.assertTrue(fitnessImpl.fitness(first) > fitnessImpl.fitness(last));
 
-		//Test toString()
-		String out = "";
-		int[] g = last.getGenes();
-		for (int i = 0; i < g.length; i++) {
-			out += g[i] + " ";
-		}
-		assertEquals(out, last.toString());
-	}
+        //Test toString()
+        StringBuilder out = new StringBuilder();
+        int[] g = last.getGenes();
+        for (int j : g) {
+            out.append(j).append(" ");
+        }
+        Assertions.assertEquals(out.toString(), last.toString());
+    }
 
 }

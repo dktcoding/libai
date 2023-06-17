@@ -13,88 +13,88 @@ import java.util.Map;
  * Created by kronenthaler on 30/04/2017.
  */
 public class Rule implements XMLSerializer {
-	private Operator operator;
-	private String name;
-	private double weight;
-	private Connector connector = Connector.AND;
-	private Antecedent antecedent;
-	private Consequent consequent;
+    private Operator operator;
+    private String name;
+    private double weight;
+    private Connector connector = Connector.AND;
+    private Antecedent antecedent;
+    private Consequent consequent;
 
-	public Rule(Node xmlNode) {
-		load(xmlNode);
-	}
-	public Rule(String name, double weight, Operator operator, Antecedent antecedent, Consequent consequent) {
-		this(name, weight, operator, Connector.AND, antecedent, consequent);
-	}
+    public Rule(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	public Rule(String name, double weight, Operator operator, Connector connector, Antecedent antecedent, Consequent consequent) {
-		if(connector == Connector.AND && !(operator instanceof AndMethod))
-			throw new IllegalArgumentException("Operator must be an instance of AndMethod");
+    public Rule(String name, double weight, Operator operator, Antecedent antecedent, Consequent consequent) {
+        this(name, weight, operator, Connector.AND, antecedent, consequent);
+    }
 
-		if(connector == Connector.OR && !(operator instanceof OrMethod))
-			throw new IllegalArgumentException("Operator must be an instance of OrMethod");
+    public Rule(String name, double weight, Operator operator, Connector connector, Antecedent antecedent, Consequent consequent) {
+        if (connector == Connector.AND && !(operator instanceof AndMethod))
+            throw new IllegalArgumentException("Operator must be an instance of AndMethod");
 
-		this.name = name;
-		this.weight = weight;
-		this.operator = operator;
-		this.antecedent = antecedent;
-		this.consequent = consequent;
-		this.connector = connector;
-	}
+        if (connector == Connector.OR && !(operator instanceof OrMethod))
+            throw new IllegalArgumentException("Operator must be an instance of OrMethod");
 
-	@Override
-	public String toXMLString(String indent) {
-		StringBuilder str = new StringBuilder();
-		str.append(String.format("%s<Rule name=\"%s\" weight=\"%f\" operator=\"%s\" connector=\"%s\">\n", indent, name, weight, operator, connector.getText()));
-		str.append(String.format("%s\n", antecedent.toXMLString(indent + "\t")));
-		str.append(String.format("%s\n", consequent.toXMLString(indent + "\t")));
-		str.append(String.format("%s</Rule>", indent));
-		return str.toString();
-	}
+        this.name = name;
+        this.weight = weight;
+        this.operator = operator;
+        this.antecedent = antecedent;
+        this.consequent = consequent;
+        this.connector = connector;
+    }
 
-	@Override
-	public void load(Node xmlNode) {
-		NamedNodeMap attributes = xmlNode.getAttributes();
-		name = attributes.getNamedItem("name").getTextContent();
-		weight = Double.parseDouble(attributes.getNamedItem("weight").getTextContent());
-		operator = Operator.fromString(attributes.getNamedItem("operator").getTextContent());
+    @Override
+    public String toXMLString(String indent) {
+        String str = String.format("%s<Rule name=\"%s\" weight=\"%f\" operator=\"%s\" connector=\"%s\">\n", indent, name, weight, operator, connector.getText()) +
+                String.format("%s\n", antecedent.toXMLString(indent + "\t")) +
+                String.format("%s\n", consequent.toXMLString(indent + "\t")) +
+                String.format("%s</Rule>", indent);
+        return str;
+    }
 
-		if (attributes.getNamedItem("connector") != null)
-			connector = Connector.fromString(attributes.getNamedItem("connector").getTextContent());
+    @Override
+    public void load(Node xmlNode) {
+        NamedNodeMap attributes = xmlNode.getAttributes();
+        name = attributes.getNamedItem("name").getTextContent();
+        weight = Double.parseDouble(attributes.getNamedItem("weight").getTextContent());
+        operator = Operator.fromString(attributes.getNamedItem("operator").getTextContent());
 
-		antecedent = new Antecedent(((Element) xmlNode).getElementsByTagName("Antecedent").item(0));
-		consequent = new Consequent(((Element) xmlNode).getElementsByTagName("Consequent").item(0));
-	}
+        if (attributes.getNamedItem("connector") != null)
+            connector = Connector.fromString(attributes.getNamedItem("connector").getTextContent());
 
-	public double getActivationValue(Map<String, Double> variables, KnowledgeBase knowledgeBase){
-		return antecedent.activate(variables, knowledgeBase, operator);
-	}
+        antecedent = new Antecedent(((Element) xmlNode).getElementsByTagName("Antecedent").item(0));
+        consequent = new Consequent(((Element) xmlNode).getElementsByTagName("Consequent").item(0));
+    }
 
-	public Iterable<Clause> getConsequentClauses() {
-		return consequent;
-	}
+    public double getActivationValue(Map<String, Double> variables, KnowledgeBase knowledgeBase) {
+        return antecedent.activate(variables, knowledgeBase, operator);
+    }
 
-	enum Connector {
-		AND("AND"), OR("OR");
-		private String text;
+    public Iterable<Clause> getConsequentClauses() {
+        return consequent;
+    }
 
-		Connector(String text) {
-			this.text = text;
-		}
+    enum Connector {
+        AND("AND"), OR("OR");
+        private final String text;
 
-		public static Connector fromString(String text) {
-			Connector result = null;
-			for (Connector b : Connector.values()) {
-				if (b.text.equalsIgnoreCase(text)) {
-					result = b;
-					break;
-				}
-			}
-			return result;
-		}
+        Connector(String text) {
+            this.text = text;
+        }
 
-		public String getText() {
-			return this.text;
-		}
-	}
+        public static Connector fromString(String text) {
+            Connector result = null;
+            for (Connector b : Connector.values()) {
+                if (b.text.equalsIgnoreCase(text)) {
+                    result = b;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public String getText() {
+            return this.text;
+        }
+    }
 }

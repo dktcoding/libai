@@ -5,7 +5,8 @@ import libai.fuzzy.operators.AndMethod;
 import libai.fuzzy.operators.OrMethod;
 import libai.fuzzy.operators.accumulation.Accumulation;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -15,94 +16,93 @@ import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Created by kronenthaler on 30/04/2017.
  */
 public class AntecedentTest {
-	@Test
-	public void testXMLGeneration() {
-		Clause a = new Clause("variable1", "good");
-		Clause b = new Clause("variable2", "big");
-		Antecedent antecedent = new Antecedent(a, b);
+    @Test
+    public void testXMLGeneration() {
+        Clause a = new Clause("variable1", "good");
+        Clause b = new Clause("variable2", "big");
+        Antecedent antecedent = new Antecedent(a, b);
 
-		assertEquals("<Antecedent>\n" +
-				"\t<Clause>\n" +
-				"\t\t<Variable>variable1</Variable>\n" +
-				"\t\t<Term>good</Term>\n" +
-				"\t</Clause>\n" +
-				"\t<Clause>\n" +
-				"\t\t<Variable>variable2</Variable>\n" +
-				"\t\t<Term>big</Term>\n" +
-				"\t</Clause>\n" +
-				"</Antecedent>", antecedent.toXMLString(""));
-	}
+        Assertions.assertEquals("""
+                <Antecedent>
+                \t<Clause>
+                \t\t<Variable>variable1</Variable>
+                \t\t<Term>good</Term>
+                \t</Clause>
+                \t<Clause>
+                \t\t<Variable>variable2</Variable>
+                \t\t<Term>big</Term>
+                \t</Clause>
+                </Antecedent>""", antecedent.toXMLString(""));
+    }
 
-	@Test
-	public void testXMLConstructor() throws Exception {
-		Clause a = new Clause("variable1", "good");
-		Clause b = new Clause("variable2", "big");
-		Antecedent antecedent = new Antecedent(a, b);
-		String xml = antecedent.toXMLString("");
+    @Test
+    public void testXMLConstructor() throws Exception {
+        Clause a = new Clause("variable1", "good");
+        Clause b = new Clause("variable2", "big");
+        Antecedent antecedent = new Antecedent(a, b);
+        String xml = antecedent.toXMLString("");
 
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-		Element root = doc.getDocumentElement();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        Element root = doc.getDocumentElement();
 
-		Antecedent newAntecedent = new Antecedent(root);
-		assertEquals(antecedent.toXMLString(""), newAntecedent.toXMLString(""));
-	}
+        Antecedent newAntecedent = new Antecedent(root);
+        Assertions.assertEquals(antecedent.toXMLString(""), newAntecedent.toXMLString(""));
+    }
 
-	@Test
-	public void testActivationWithSingleClause(){
-		Clause a = new Clause("quality", "good");
-		Antecedent antecedent = new Antecedent(a);
+    @Test
+    public void testActivationWithSingleClause() {
+        Clause a = new Clause("quality", "good");
+        Antecedent antecedent = new Antecedent(a);
 
-		FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
-		FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
-		FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
+        FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
+        FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
+        FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
 
-		FuzzyTerm cheap = new FuzzyTerm(new TriangularShape(0, 3, 10), "cheap");
-		FuzzyTerm generous = new FuzzyTerm(new TriangularShape(0, 7, 10), "generous");
-		FuzzyVariable tip = new FuzzyVariable("tip", 0, 10, 5, "percentage", Accumulation.SUM, Defuzzifier.MOM, cheap, generous);
+        FuzzyTerm cheap = new FuzzyTerm(new TriangularShape(0, 3, 10), "cheap");
+        FuzzyTerm generous = new FuzzyTerm(new TriangularShape(0, 7, 10), "generous");
+        FuzzyVariable tip = new FuzzyVariable("tip", 0, 10, 5, "percentage", Accumulation.SUM, Defuzzifier.MOM, cheap, generous);
 
-		KnowledgeBase kb = new KnowledgeBase(var, tip);
+        KnowledgeBase kb = new KnowledgeBase(var, tip);
 
-		Map<String, Double> vars = new HashMap<>();
-		vars.put("quality", 3.);
-		vars.put("tip", 6.);
+        Map<String, Double> vars = new HashMap<>();
+        vars.put("quality", 3.);
+        vars.put("tip", 6.);
 
-		assertEquals(3/7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-		assertEquals(3/7., antecedent.activate(vars, kb, AndMethod.PROD),1.e-5);
-		assertEquals(3/7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-		assertEquals(3/7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
-	}
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+    }
 
-	@Test
-	public void testActivationWithMultipleClause(){
-		Clause a = new Clause("quality", "good");
-		Clause b = new Clause("tip", "cheap");
-		Antecedent antecedent = new Antecedent(a, b);
+    @Test
+    public void testActivationWithMultipleClause() {
+        Clause a = new Clause("quality", "good");
+        Clause b = new Clause("tip", "cheap");
+        Antecedent antecedent = new Antecedent(a, b);
 
-		FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
-		FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
-		FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
+        FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
+        FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
+        FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
 
-		FuzzyTerm cheap = new FuzzyTerm(new TriangularShape(0, 3, 10), "cheap");
-		FuzzyTerm generous = new FuzzyTerm(new TriangularShape(0, 7, 10), "generous");
-		FuzzyVariable tip = new FuzzyVariable("tip", 0, 10, 5, "percentage", Accumulation.SUM, Defuzzifier.MOM, cheap, generous);
+        FuzzyTerm cheap = new FuzzyTerm(new TriangularShape(0, 3, 10), "cheap");
+        FuzzyTerm generous = new FuzzyTerm(new TriangularShape(0, 7, 10), "generous");
+        FuzzyVariable tip = new FuzzyVariable("tip", 0, 10, 5, "percentage", Accumulation.SUM, Defuzzifier.MOM, cheap, generous);
 
-		KnowledgeBase kb = new KnowledgeBase(var, tip);
+        KnowledgeBase kb = new KnowledgeBase(var, tip);
 
-		Map<String, Double> vars = new HashMap<>();
-		vars.put("quality", 3.);
-		vars.put("tip", 6.); // 10/13.
+        Map<String, Double> vars = new HashMap<>();
+        vars.put("quality", 3.);
+        vars.put("tip", 6.); // 10/13.
 
-		assertEquals(Math.min(3/7., 4/7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-		assertEquals((3/7. * 4/7.), antecedent.activate(vars, kb, AndMethod.PROD),1.e-5);
-		assertEquals(Math.max(3/7., 4/7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-		assertEquals(((3/7.+4/7.)-(3/7.*4/7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
-	}
+        Assertions.assertEquals(Math.min(3 / 7., 4 / 7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        Assertions.assertEquals((3 / 7. * 4 / 7.), antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        Assertions.assertEquals(Math.max(3 / 7., 4 / 7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        Assertions.assertEquals(((3 / 7. + 4 / 7.) - (3 / 7. * 4 / 7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+    }
 }

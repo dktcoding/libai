@@ -23,69 +23,67 @@
  */
 package libai.search;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author kronenthaler
  */
 public class AStarTest {
-	private final String DEMO_STEPS = "-lluurrddlluurrddlluurrddlluu";
-	private final String DEMO_STEPS_2 = "1234567.8\n12345678.\n";
-	private final String DEMO_STEPS_3 = "12345.786\n12345678.\n";
 
-	@Test
-	public void testDemo() {
-		AStar bfs = new AStar();
+    @Test
+    public void testDemo() {
+        AStar bfs = new AStar();
 
-		State init = new GemPuzzleState(".87654321", null, '-');
-		GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
-		StringBuilder sb = new StringBuilder(100);
-		ans.printSolutionMoves(sb);
+        State init = new GemPuzzleState(".87654321", null, '-');
+        GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
+        StringBuilder sb = new StringBuilder(100);
+        ans.printSolutionMoves(sb);
 
-		assertFalse(sb.length() == 0);
-		assertEquals(DEMO_STEPS, sb.toString());
-	}
+        Assertions.assertNotEquals(0, sb.length());
+        String DEMO_STEPS = "-lluurrddlluurrddlluurrddlluu";
+        Assertions.assertEquals(DEMO_STEPS, sb.toString());
+    }
 
-	@Test
-	public void testDemo2() {
-		AStar bfs = new AStar();
+    @Test
+    public void testDemo2() {
+        AStar bfs = new AStar();
 
-		State init = new GemPuzzleState("1234567.8", null, '-');
-		GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
-		StringBuilder sb = new StringBuilder(DEMO_STEPS_2.length());
-		ans.printSolution(sb);
-		assertFalse(sb.length() == 0);
-		assertEquals(DEMO_STEPS_2, sb.toString());
-		StringBuilder sb2 = new StringBuilder(2);
-		ans.printSolutionMoves(sb2);
-		assertEquals("-l", sb2.toString());
-	}
+        State init = new GemPuzzleState("1234567.8", null, '-');
+        GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
+        String DEMO_STEPS_2 = "1234567.8\n12345678.\n";
+        StringBuilder sb = new StringBuilder(DEMO_STEPS_2.length());
+        ans.printSolution(sb);
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_2, sb.toString());
+        StringBuilder sb2 = new StringBuilder(2);
+        ans.printSolutionMoves(sb2);
+        Assertions.assertEquals("-l", sb2.toString());
+    }
 
-	@Test
-	public void testDemo3() {
-		AStar bfs = new AStar();
+    @Test
+    public void testDemo3() {
+        AStar bfs = new AStar();
 
-		State init = new GemPuzzleState("12345.786", null, '-');
-		GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
-		StringBuilder sb = new StringBuilder(DEMO_STEPS_3.length());
-		ans.printSolution(sb);
-		assertFalse(sb.length() == 0);
-		assertEquals(DEMO_STEPS_3, sb.toString());
-		StringBuilder sb2 = new StringBuilder(2);
-		ans.printSolutionMoves(sb2);
-		assertEquals("-u", sb2.toString());
-	}
+        State init = new GemPuzzleState("12345.786", null, '-');
+        GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
+        String DEMO_STEPS_3 = "12345.786\n12345678.\n";
+        StringBuilder sb = new StringBuilder(DEMO_STEPS_3.length());
+        ans.printSolution(sb);
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_3, sb.toString());
+        StringBuilder sb2 = new StringBuilder(2);
+        ans.printSolutionMoves(sb2);
+        Assertions.assertEquals("-u", sb2.toString());
+    }
 
-	@Test
-	public void testImpossible() {
-		AStar bfs = new AStar();
+    @Test
+    public void testImpossible() {
+        AStar bfs = new AStar();
 
-		State init = new GemPuzzleState("21345678.", null, '\0');
-		GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
+        State init = new GemPuzzleState("21345678.", null, '\0');
+        GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
 
-		assertEquals(ans, null);
-	}
+        Assertions.assertNull(ans);
+    }
 }
