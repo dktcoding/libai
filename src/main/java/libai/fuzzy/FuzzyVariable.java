@@ -51,7 +51,7 @@ public class FuzzyVariable implements XMLSerializer {
 
     @Override
     public String toXMLString(String indent) {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         str.append(String.format("%s<FuzzyVariable name=\"%s\" domainLeft=\"%f\" domainRight=\"%f\" scale=\"%s\" type=\"%s\"", indent, name, domainLeft, domainRight, scale, type.getText()));
 
         if (type == Type.OUTPUT)

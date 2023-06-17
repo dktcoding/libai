@@ -28,24 +28,25 @@ public class KnowledgeBaseTest {
         FuzzyVariable tip = new FuzzyVariable("tip", 0, 10, 5, "percentage", Accumulation.SUM, Defuzzifier.MOM, cheap, generous);
 
         KnowledgeBase kb = new KnowledgeBase(var, tip);
-        assertEquals("<KnowledgeBase>\n" +
-                "\t<FuzzyVariable name=\"tip\" domainLeft=\"0.000000\" domainRight=\"10.000000\" scale=\"percentage\" type=\"output\" defaultValue=\"5.000000\" defuzzifier=\"MOM\" accumulation=\"SUM\">\n" +
-                "\t\t<FuzzyTerm name=\"cheap\" complement=\"false\">\n" +
-                "\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"3.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t</FuzzyTerm>\n" +
-                "\t\t<FuzzyTerm name=\"generous\" complement=\"false\">\n" +
-                "\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"7.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t</FuzzyTerm>\n" +
-                "\t</FuzzyVariable>\n" +
-                "\t<FuzzyVariable name=\"quality\" domainLeft=\"0.000000\" domainRight=\"10.000000\" scale=\"stars\" type=\"input\">\n" +
-                "\t\t<FuzzyTerm name=\"bad\" complement=\"false\">\n" +
-                "\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"3.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t</FuzzyTerm>\n" +
-                "\t\t<FuzzyTerm name=\"good\" complement=\"false\">\n" +
-                "\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"7.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t</FuzzyTerm>\n" +
-                "\t</FuzzyVariable>\n" +
-                "</KnowledgeBase>", kb.toXMLString(""));
+        assertEquals("""
+                <KnowledgeBase>
+                \t<FuzzyVariable name="tip" domainLeft="0.000000" domainRight="10.000000" scale="percentage" type="output" defaultValue="5.000000" defuzzifier="MOM" accumulation="SUM">
+                \t\t<FuzzyTerm name="cheap" complement="false">
+                \t\t\t<TriangularShape Param1="0.000000" Param2="3.000000" Param3="10.000000"/>
+                \t\t</FuzzyTerm>
+                \t\t<FuzzyTerm name="generous" complement="false">
+                \t\t\t<TriangularShape Param1="0.000000" Param2="7.000000" Param3="10.000000"/>
+                \t\t</FuzzyTerm>
+                \t</FuzzyVariable>
+                \t<FuzzyVariable name="quality" domainLeft="0.000000" domainRight="10.000000" scale="stars" type="input">
+                \t\t<FuzzyTerm name="bad" complement="false">
+                \t\t\t<TriangularShape Param1="0.000000" Param2="3.000000" Param3="10.000000"/>
+                \t\t</FuzzyTerm>
+                \t\t<FuzzyTerm name="good" complement="false">
+                \t\t\t<TriangularShape Param1="0.000000" Param2="7.000000" Param3="10.000000"/>
+                \t\t</FuzzyTerm>
+                \t</FuzzyVariable>
+                </KnowledgeBase>""", kb.toXMLString(""));
     }
 
     @Test

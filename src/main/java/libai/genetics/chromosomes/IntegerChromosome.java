@@ -183,7 +183,7 @@ public class IntegerChromosome extends Chromosome {
     /**
      * Clone this chromosome.
      *
-     * @return A identical chromosome of this.
+     * @return An identical chromosome of this.
      */
     @Override
     public Chromosome getCopy() {

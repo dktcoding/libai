@@ -43,6 +43,6 @@ public class SignTest {
 
     @Test
     public void testGetDerivative() {
-        assertNull(new Sign().getDerivate());
+        assertNull(new Sign().getDerivative());
     }
 }

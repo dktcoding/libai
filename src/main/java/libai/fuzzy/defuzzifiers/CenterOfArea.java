@@ -15,12 +15,7 @@ import java.util.List;
 public class CenterOfArea extends CenterOfGravity {
     @Override
     public double getValue(List<Point.Double> function) {
-        Collections.sort(function, new Comparator<Point.Double>() {
-            @Override
-            public int compare(Point.Double o1, Point.Double o2) {
-                return (int) (o1.x - o2.x);
-            }
-        });
+        function.sort((o1, o2) -> (int) (o1.x - o2.x));
 
         double total = riemmanSum(function);
         double lo = function.get(0).x;

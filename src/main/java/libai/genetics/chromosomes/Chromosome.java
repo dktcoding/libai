@@ -28,7 +28,7 @@ import java.util.Random;
 /**
  * The chromosome abstraction. Keeps the fitness and the chance to be selected
  * by the roulette. Also has the methods to mutate and cross with another
- * chromosome in an specific point.
+ * chromosome in a specific point.
  *
  * @author kronenthaler
  */

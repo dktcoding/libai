@@ -61,14 +61,15 @@ public class FuzzyVariableTest {
 
         FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
 
-        assertEquals("<FuzzyVariable name=\"quality\" domainLeft=\"0.000000\" domainRight=\"10.000000\" scale=\"stars\" type=\"input\">\n" +
-                "\t<FuzzyTerm name=\"bad\" complement=\"false\">\n" +
-                "\t\t<SingletonShape Param1=\"3\"/>\n" +
-                "\t</FuzzyTerm>\n" +
-                "\t<FuzzyTerm name=\"good\" complement=\"false\">\n" +
-                "\t\t<SingletonShape Param1=\"7\"/>\n" +
-                "\t</FuzzyTerm>\n" +
-                "</FuzzyVariable>", var.toXMLString(""));
+        assertEquals("""
+                <FuzzyVariable name="quality" domainLeft="0.000000" domainRight="10.000000" scale="stars" type="input">
+                \t<FuzzyTerm name="bad" complement="false">
+                \t\t<SingletonShape Param1="3"/>
+                \t</FuzzyTerm>
+                \t<FuzzyTerm name="good" complement="false">
+                \t\t<SingletonShape Param1="7"/>
+                \t</FuzzyTerm>
+                </FuzzyVariable>""", var.toXMLString(""));
     }
 
     @Test

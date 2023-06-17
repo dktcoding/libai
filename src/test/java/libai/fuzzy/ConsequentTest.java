@@ -20,16 +20,17 @@ public class ConsequentTest {
         Clause b = new Clause("variable2", "big");
         Consequent consequent = new Consequent(a, b);
 
-        assertEquals("<Consequent>\n" +
-                "\t<Clause>\n" +
-                "\t\t<Variable>variable1</Variable>\n" +
-                "\t\t<Term>good</Term>\n" +
-                "\t</Clause>\n" +
-                "\t<Clause>\n" +
-                "\t\t<Variable>variable2</Variable>\n" +
-                "\t\t<Term>big</Term>\n" +
-                "\t</Clause>\n" +
-                "</Consequent>", consequent.toXMLString(""));
+        assertEquals("""
+                <Consequent>
+                \t<Clause>
+                \t\t<Variable>variable1</Variable>
+                \t\t<Term>good</Term>
+                \t</Clause>
+                \t<Clause>
+                \t\t<Variable>variable2</Variable>
+                \t\t<Term>big</Term>
+                \t</Clause>
+                </Consequent>""", consequent.toXMLString(""));
     }
 
     @Test

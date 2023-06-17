@@ -47,7 +47,7 @@ public class GaussianTest {
     @Test
     public void testGetDerivate() {
         Gaussian gauss = new Gaussian();
-        Function der = gauss.getDerivate();
+        Function der = gauss.getDerivative();
         assertNotNull(der);
         for (int i = 0; i < 100; i++) {
             double x = Math.random();
@@ -58,7 +58,7 @@ public class GaussianTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetGetDerivative() {
-        new Gaussian().getDerivate().getDerivate();
+        new Gaussian().getDerivative().getDerivative();
     }
 
 }

@@ -25,7 +25,7 @@ package libai.ants.algorithms;
 
 import libai.ants.Ant;
 import libai.ants.AntFrameworkException;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 import java.util.Vector;
 
@@ -58,7 +58,7 @@ public abstract class AntSystem extends Metaheuristic {
      *
      * @param E enviroment
      */
-    protected AntSystem(Enviroment E) {
+    protected AntSystem(Environment E) {
         super(E);
     }
 
@@ -199,17 +199,17 @@ public abstract class AntSystem extends Metaheuristic {
 
     @Override
     public int decisionRule(int i, Vector<Integer> currentSolution) {
-        /* counter of the number of times a node have been triying to selected a next node and maximun number of tries allowed*/
+        /* counter of the number of times a node have been trying to select a next node and maximum number of tries allowed*/
         int counter = 0, allowedNumberOfTries = 2 * this.getNumberOfNodes();
         /* Get possible nodes */
         Vector<Integer> possibleNodes = this.constrains(i, currentSolution);
         int cantPossibleNodes = possibleNodes.size();
         /* check if there is at least 1 possible node to be selected */
-        if (cantPossibleNodes <= 0) {
+        if (cantPossibleNodes == 0) {
             //There aren't any possible next candidates, therefore
             return -1;
         }
-        /* Get alpha (desicion rule) and beta (heuristic information) parameters */
+        /* Get alpha (decision rule) and beta (heuristic information) parameters */
         double localAlpha = this.Parameters.get(AntSystem.alpha);
         double localBeta = this.Parameters.get(AntSystem.beta);
 

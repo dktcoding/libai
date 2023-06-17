@@ -76,10 +76,10 @@ abstract public class Metaheuristic implements Comparator<Ant> {
      */
     protected final Hashtable<Integer, Vector<Node>> candidates = new Hashtable<>();
     /**
-     * Instance of an Enviroment which holds all of the necesary information to
-     * solve an optimizacion problem
+     * Instance of an Environment which holds all the necessary information to
+     * solve an optimization problem
      */
-    protected Enviroment E;
+    protected Environment E;
     /**
      * Vector that holds the global best solution found
      */
@@ -89,32 +89,32 @@ abstract public class Metaheuristic implements Comparator<Ant> {
      */
     protected int currentIterationNumber;
     /**
-     * Enviroment's pheromones matrix local copy
+     * Environment's pheromones matrix local copy
      */
     protected Matrix Pheromones;
     /**
-     * Enviroment's number of ants local copy
+     * Environment's number of ants local copy
      */
     protected int numberOfAnts;
     /**
-     * Enviroment's ant array local copy
+     * Environment's ant array local copy
      */
     protected Ant[] Ants;
     /**
-     * Enviroment's graph local copy
+     * Environment's graph local copy
      */
     protected Graph Graph;
     /**
-     * Enviroment's graph number of node
+     * Environment's graph number of node
      */
     protected int numberOfNodes;
 
     /**
-     * Constructor. Allocates the enviroment.
+     * Constructor. Allocates the environment.
      *
-     * @param E enviroment
+     * @param E environment
      */
-    protected Metaheuristic(Enviroment E) {
+    protected Metaheuristic(Environment E) {
         this.setE(E);
     }
 
@@ -125,22 +125,22 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     }
 
     /**
-     * Returns the enviroment
+     * Returns the environment
      *
-     * @return the enviroment.
+     * @return the environment.
      */
-    public Enviroment getE() {
+    public Environment getE() {
         return E;
     }
 
     /**
-     * Sets the enviroment
+     * Sets the environment
      *
-     * @param E the enviroment.
+     * @param E the environment.
      */
-    protected void setE(Enviroment E) {
+    protected void setE(Environment E) {
         this.E = E;
-        /* Make local copies of the enviroment's information in order to avoid innecesary stack calls */
+        /* Make local copies of the environment's information in order to avoid unnecessary stack calls */
         this.Ants = E.getAnts();
         this.numberOfAnts = E.getNumberOfAnts();
         this.Pheromones = E.getPheromones();
@@ -180,19 +180,19 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     }
 
     /**
-     * Updates the pheromone trail contained in the enviroment E according to
+     * Updates the pheromone trail contained in the environment E according to
      * some ACO algorithm specific logic
      */
     abstract public void pheromonesUpdate();
 
     /**
-     * Evaporates the pheromone trail contained in the enviroment E according to
+     * Evaporates the pheromone trail contained in the environment E according to
      * some ACO algorithm specific logic
      */
     abstract public void pheromonesEvaporation();
 
     /**
-     * Used by ants to decided the next node to visit.
+     * Used by ants to decide the next node to visit.
      *
      * @param i               source node
      * @param currentSolution {@code currentSolution}
@@ -210,9 +210,9 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     abstract public void solve() throws AntFrameworkException;
 
     /**
-     * Checks whether or not all of the algorithm's parameters exists. If some
+     * Checks whether all the algorithm's parameters exists. If some
      * obligatory parameter do not exist, the function throws an exception. If
-     * some other parameter do not exists but it is possible to set a default
+     * some other parameter do not exist but it is possible to set a default
      * value, here is the place to do it.
      *
      * @throws Exception Exception
@@ -231,26 +231,26 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     /**
      * Given a node in the graph and an ant's current solution, returns a list
      * of possible nodes to visit. This function must be implemented on the
-     * problem level, and usually obeys some problem related restricctions For
+     * problem level, and usually obeys some problem related restrictions For
      * instance, in the case of the TSP, this function must check which nodes
-     * have been visited and return only those wich have not been visited. For
-     * the case of the short route, this function returns all adjacents nodes to
+     * have been visited and return only those which have not been visited. For
+     * the case of the short route, this function returns all adjacent nodes to
      * node i.
      *
      * @param i               current node
-     * @param currentSolution ant's current solutin
+     * @param currentSolution ant's current solution
      * @return list of possible nodes to visit
      */
     abstract public Vector<Integer> constrains(int i, Vector<Integer> currentSolution);
 
     /**
-     * This function is called on each iteration and it provides a way to
+     * This function is called on each iteration, and it provides a way to
      * implement centralized actions
      */
     abstract public void daemonActions();
 
     /**
-     * Calculates the heuristic information. Must be implement on the problem
+     * Calculates the heuristic information. Must be implemented on the problem
      * level
      *
      * @param number a number being considered
@@ -277,17 +277,17 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     }
 
     /**
-     * This function determines the lenght of a solution
+     * This function determines the length of a solution
      *
      * @param Solution a path constructed by an ant
-     * @return lenght of a path
+     * @return length of a path
      */
     public double f(Vector<Integer> Solution) {
         double ret = 0;
         if (Solution.size() == 0) {
             return Double.MAX_VALUE;
         }
-        int node_i = 0, node_j = 0;
+        int node_i, node_j;
         for (int i = 0; i < Solution.size() - 1; i++) {
             node_i = Solution.get(i);
             node_j = Solution.get(i + 1);
@@ -307,14 +307,8 @@ abstract public class Metaheuristic implements Comparator<Ant> {
     @Override
     public int compare(Ant o1, Ant o2) {
         //compare solutions
-        Vector<Integer> sol1 = o1.getSolution(), sol2 = o2.getSolution();
-        double fsol1 = this.f(sol1), fsol2 = this.f(sol2);
-        if (fsol1 == fsol2) {
-            return 0;
-        } else if (fsol1 > fsol2) {
-            return 1;
-        } else {
-            return -1;
-        }
+        final Vector<Integer> sol1 = o1.getSolution(), sol2 = o2.getSolution();
+        final double fsol1 = this.f(sol1), fsol2 = this.f(sol2);
+        return Double.compare(fsol1, fsol2);
     }
 }

@@ -126,14 +126,11 @@ public class TextFileDataSet implements DataSet {
     @Override
     public Iterable<List<Attribute>> sortOver(final int lo, final int hi, final int fieldIndex) {
         orderBy = fieldIndex;
-        Collections.sort(data, new Comparator<List<Attribute>>() {
-            @Override
-            public int compare(List<Attribute> o1, List<Attribute> o2) {
-                int ret = o1.get(fieldIndex).compareTo(o2.get(fieldIndex));
-                if (ret == 0)
-                    return o1.get(outputIndex).compareTo(o2.get(outputIndex));
-                return ret;
-            }
+        data.sort((o1, o2) -> {
+            int ret = o1.get(fieldIndex).compareTo(o2.get(fieldIndex));
+            if (ret == 0)
+                return o1.get(outputIndex).compareTo(o2.get(outputIndex));
+            return ret;
         });
         return data.subList(lo, hi);
     }
@@ -237,8 +234,7 @@ public class TextFileDataSet implements DataSet {
         for (int i = lo; i < hi; i++) {
             List<Attribute> record = data.get(i);
             Attribute v = record.get(fieldIndex);
-            if (freq.get(v) == null)
-                freq.put(v, 0);
+            freq.putIfAbsent(v, 0);
             freq.put(v, freq.get(v) + 1);
         }
 

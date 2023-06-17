@@ -32,9 +32,9 @@ import java.io.Serial;
 
 /**
  * Hopfield's networks are the most important and most applicable recurrent
- * neural network. This Hopfield networks uses an deterministic unsupervised
+ * neural network. This Hopfield networks uses a deterministic unsupervised
  * training algorithm and a bipolar encoding for the training patterns and
- * answers. As the Hebb network this network is a associative memory. The main
+ * answers. As the Hebb network this network is an associative memory. The main
  * goal of this network is memorize and retrieve the memorized patterns without
  * noise.
  *

@@ -7,7 +7,7 @@ import org.w3c.dom.Node;
  */
 public interface XMLSerializer {
     /**
-     * Returns the XML representation of this Fuzzy set according with the FML schema definition.
+     * Returns the XML representation of this Fuzzy set according to the FML schema definition.
      *
      * @return XML representation of this Fuzzy Set.
      **/

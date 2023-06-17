@@ -326,7 +326,7 @@ public class C45 implements Comparable<C45> {
     private DiscreteEntropyInformation infoAvgDiscrete(DataSet ds, int lo, int hi, int fieldIndex) {
         DiscreteEntropyInformation info = new DiscreteEntropyInformation();
         double total = hi - lo;
-        Attribute prev = null, current = null;
+        Attribute prev, current;
         Iterable<List<Attribute>> sortedRecords = ds.sortOver(lo, hi, fieldIndex);
         Iterator<List<Attribute>> records = sortedRecords.iterator();
 
@@ -362,8 +362,8 @@ public class C45 implements Comparable<C45> {
         HashMap<Attribute, Integer> totalFreq = ds.getFrequencies(lo, hi, ds.getOutputIndex());
         HashMap<Double, HashMap<Attribute, Integer>> freqAcum = getAccumulatedFrequencies(ds, lo, hi, fieldIndex);
 
-        double splitInfo = 0;
-        double total = hi - lo;
+        double splitInfo;
+        final double total = hi - lo;
 
         double maxInfo = -Double.MIN_VALUE;
         double maxSplitInfo = -Double.MIN_VALUE;
@@ -371,8 +371,7 @@ public class C45 implements Comparable<C45> {
         int bestIndex = Integer.MIN_VALUE;
 
         for (Attribute key : ds.getMetaData().getClasses()) {
-            if (totalFreq.get(key) == null)
-                totalFreq.put(key, 0);
+            totalFreq.putIfAbsent(key, 0);
         }
 
         Iterable<List<Attribute>> records = ds.sortOver(lo, hi, fieldIndex);
@@ -381,10 +380,10 @@ public class C45 implements Comparable<C45> {
             double value = ((ContinuousAttribute) record.get(fieldIndex)).getValue();
             HashMap<Attribute, Integer> freq = freqAcum.get(value);
 
-            double total2 = i - lo + 1;
+            final double total2 = i - lo + 1;
             double acum2 = 0;
 
-            double total3 = total - total2;
+            final double total3 = total - total2;
             double acum3 = 0;
 
             for (Attribute e : freq.keySet()) {
@@ -447,7 +446,7 @@ public class C45 implements Comparable<C45> {
     private double info(DataSet ds, int lo, int hi, int fieldIndex) {
         HashMap<Attribute, Integer> freq = ds.getFrequencies(lo, hi, fieldIndex);
 
-        double total = hi - lo;
+        final double total = hi - lo;
         double acum = 0;
         for (Attribute e : freq.keySet()) {
             int f = freq.get(e);
@@ -472,7 +471,7 @@ public class C45 implements Comparable<C45> {
             Attribute v = record.get(ds.getOutputIndex());
 
             if (freqAcum.get(va) == null) {
-                freqAcum.put(va, new HashMap<Attribute, Integer>());
+                freqAcum.put(va, new HashMap<>());
                 for (Attribute c : aux.getMetaData().getClasses()) {
                     if (prev == null)
                         freqAcum.get(va).put(c, 0);

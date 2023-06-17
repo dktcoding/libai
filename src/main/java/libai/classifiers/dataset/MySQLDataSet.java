@@ -178,21 +178,18 @@ public class MySQLDataSet implements DataSet {
     @Override
     public Iterable<List<Attribute>> sortOver(final int lo, final int hi, final int fieldIndex) {
         orderBy = fieldIndex;
-        return new Iterable<List<Attribute>>() {
-            @Override
-            public Iterator<List<Attribute>> iterator() {
-                try {
-                    String query = String.format("SELECT * FROM `%s` ORDER BY `%s`, `%s` LIMIT %d, %d",
-                            tableName,
-                            metadata.getAttributeName(fieldIndex),
-                            metadata.getAttributeName(outputIndex),
-                            lo, hi - lo);
-                    PreparedStatement stmt = connection.prepareStatement(query);
-                    return buildIterator(stmt.executeQuery(), hi - lo);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return null;
-                }
+        return () -> {
+            try {
+                String query = String.format("SELECT * FROM `%s` ORDER BY `%s`, `%s` LIMIT %d, %d",
+                        tableName,
+                        metadata.getAttributeName(fieldIndex),
+                        metadata.getAttributeName(outputIndex),
+                        lo, hi - lo);
+                PreparedStatement stmt = connection.prepareStatement(query);
+                return buildIterator(stmt.executeQuery(), hi - lo);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
             }
         };
     }
@@ -282,7 +279,7 @@ public class MySQLDataSet implements DataSet {
 
     //TODO: fix this iterator so it can use the next as next and the the hasnext to just check (without side effects)
     private Iterator<List<Attribute>> buildIterator(final ResultSet rs, final int itemsCount) {
-        return new Iterator<List<Attribute>>() {
+        return new Iterator<>() {
             int size = itemsCount;
 
             @Override

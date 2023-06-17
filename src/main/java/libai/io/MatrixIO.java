@@ -102,22 +102,11 @@ public class MatrixIO {
         }
 
         switch (t) {
-            case CSV:
-                writeText(output, m, ",");
-                break;
-            case TSV:
-                writeText(output, m, "\t");
-                break;
-            case OCTAVE:
-                writeOctave(output, m);
-                break;
-            case OPENOFFICE:
-                writeOpenOffice(output, m);
-                break;
-            case SERIAL:
-            default:
-                writeSerial(output, m);
-                break;
+            case CSV -> writeText(output, m, ",");
+            case TSV -> writeText(output, m, "\t");
+            case OCTAVE -> writeOctave(output, m);
+            case OPENOFFICE -> writeOpenOffice(output, m);
+            default -> writeSerial(output, m);
         }
     }
 

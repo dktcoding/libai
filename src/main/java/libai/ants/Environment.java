@@ -31,22 +31,22 @@ import java.util.Comparator;
 /**
  * This class belong to the core classes of the Ant Framework.
  * <p>
- * It represent the enviroment in which an optimization problem is going to be
- * solved. An enviroment is composed of a problem Graph, a Matrix of pheromones
- * and a number of Ants. This class is highly coupled with the Metaheuristic
- * class, which utilizes this class to obtain all the necesary information to
+ * It represents the environment in which an optimization problem is going to be
+ * solved. An environment is composed of a problem Graph, a Matrix of pheromones
+ * and a number of Ants. This class is highly coupled with the Meta heuristic
+ * class, which utilizes this class to obtain all the necessary information to
  * solve a given optimization problem.
  *
  * @author Enrique Areyan, enrique3 at gmail.com
  * @version 1
  */
-public class Enviroment {
+public class Environment {
     /**
-     * Graph wich represent the information of the problem to optimize
+     * Graph which represent the information of the problem to optimize
      */
     protected Graph Graph;
     /**
-     * The trail of pheromones which ants will use to make desicions about where
+     * The trail of pheromones which ants will use to make decisions about where
      * to move next in the graph
      */
     protected Matrix Pheromones;
@@ -59,7 +59,7 @@ public class Enviroment {
     /**
      * Empty constructor.
      */
-    public Enviroment() {
+    public Environment() {
     }
 
     /**
@@ -67,7 +67,7 @@ public class Enviroment {
      *
      * @param G the graph with the problem related information
      */
-    public Enviroment(Graph G) {
+    public Environment(Graph G) {
         this.setGraph(G);
     }
 
@@ -77,7 +77,7 @@ public class Enviroment {
      * @param G                the graph with the problem related information
      * @param randomPheromones {@code randomPheromones}
      */
-    public Enviroment(Graph G, boolean randomPheromones) {
+    public Environment(Graph G, boolean randomPheromones) {
         this.setGraph(G);
         if (randomPheromones) {
             this.Pheromones = Matrix.random(G.getM().getRows(), G.getM().getColumns(), false);
@@ -91,7 +91,7 @@ public class Enviroment {
      * @param G object Graph
      * @param v initial value of the pheromone trail
      */
-    public Enviroment(Graph G, double v) {
+    public Environment(Graph G, double v) {
         this(G, false);
         this.Pheromones = new Matrix(G.getM().getRows(), G.getM().getColumns());
         Pheromones.setValue(v);
@@ -107,7 +107,7 @@ public class Enviroment {
      * @param randomPheromones {@code randomPheromones}
      * @throws AntFrameworkException if numberOfAnts is less or equal to 0
      */
-    public Enviroment(int numberOfAnts, Graph G, boolean randomPheromones) throws AntFrameworkException {
+    public Environment(int numberOfAnts, Graph G, boolean randomPheromones) throws AntFrameworkException {
         this.setNumberOfAnts(numberOfAnts);
         this.setAnts();
         this.setGraph(G);
@@ -125,7 +125,7 @@ public class Enviroment {
      * @param v            initial value of the pheromone trail
      * @throws libai.ants.AntFrameworkException AntFrameworkException
      */
-    public Enviroment(int numberOfAnts, Graph G, double v) throws AntFrameworkException {
+    public Environment(int numberOfAnts, Graph G, double v) throws AntFrameworkException {
         this(numberOfAnts, G, false);
         this.Pheromones = new Matrix(G.getM().getRows(), G.getM().getColumns());
         Pheromones.setValue(v);

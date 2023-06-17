@@ -42,9 +42,9 @@ public interface Function extends Serializable {
     double eval(double x);
 
     /**
-     * Evaluate the first derivate of this function f'(x)
+     * Evaluate the first derivative of this function f'(x)
      *
-     * @return a new Function object with the derivate function.
+     * @return a new Function object with the derivative function.
      */
-    Function getDerivate();
+    Function getDerivative();
 }

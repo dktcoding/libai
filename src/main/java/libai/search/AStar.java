@@ -65,7 +65,7 @@ public class AStar implements Search {
                     if (prev.compareTo(next) <= 0)
                         continue;
 
-                    opened.remove(next); //bottle neck, must be a way to reduce the time, try indexing
+                    opened.remove(next); //bottleneck, must be a way to reduce the time, try indexing
                     openedMirror.remove(next);
                 }
 

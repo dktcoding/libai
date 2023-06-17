@@ -45,12 +45,14 @@ import static org.junit.Assume.assumeTrue;
  */
 public class TextFileDataSetTest {
     private static final String toString =
-            "[[[0]]=4.0, [[1]]=b, [[2]]=false, [[3]]=1.5, [[4]]=same]\n" +
-                    "[[[0]]=2.0, [[1]]=b, [[2]]=false, [[3]]=12.0, [[4]]=same]\n" +
-                    "[[[0]]=0.0, [[1]]=a, [[2]]=true, [[3]]=4.4, [[4]]=same]\n" +
-                    "[[[0]]=3.0, [[1]]=a, [[2]]=true, [[3]]=-12.0, [[4]]=same]\n" +
-                    "[[[0]]=1.0, [[1]]=f, [[2]]=true, [[3]]=4.4, [[4]]=same]\n" +
-                    "[[[0]]=5.0, [[1]]=d, [[2]]=true, [[3]]=8.0, [[4]]=same]\n";
+            """
+                    [[[0]]=4.0, [[1]]=b, [[2]]=false, [[3]]=1.5, [[4]]=same]
+                    [[[0]]=2.0, [[1]]=b, [[2]]=false, [[3]]=12.0, [[4]]=same]
+                    [[[0]]=0.0, [[1]]=a, [[2]]=true, [[3]]=4.4, [[4]]=same]
+                    [[[0]]=3.0, [[1]]=a, [[2]]=true, [[3]]=-12.0, [[4]]=same]
+                    [[[0]]=1.0, [[1]]=f, [[2]]=true, [[3]]=4.4, [[4]]=same]
+                    [[[0]]=5.0, [[1]]=d, [[2]]=true, [[3]]=8.0, [[4]]=same]
+                    """;
 
     private static boolean writeDummyDataSet(String fname) {
         assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());

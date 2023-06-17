@@ -43,7 +43,7 @@ public class SigmoidTest {
 
     @Test
     public void testGetDerivate() {
-        Function der = new Sigmoid().getDerivate();
+        Function der = new Sigmoid().getDerivative();
         assertNotNull(der);
         assertEquals(1. / 4, der.eval(0), 1e-12);
         assertEquals(0, der.eval(Double.POSITIVE_INFINITY), 1e-12);
@@ -51,6 +51,6 @@ public class SigmoidTest {
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new Sigmoid().getDerivate().getDerivate());
+        assertNull(new Sigmoid().getDerivative().getDerivative());
     }
 }

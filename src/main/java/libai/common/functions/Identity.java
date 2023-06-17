@@ -41,7 +41,7 @@ public class Identity implements Function {
         }
 
         @Override
-        public Function getDerivate() {
+        public Function getDerivative() {
             return null;
         }
     };
@@ -52,7 +52,7 @@ public class Identity implements Function {
     }
 
     @Override
-    public Function getDerivate() {
+    public Function getDerivative() {
         return derivate;
     }
 }

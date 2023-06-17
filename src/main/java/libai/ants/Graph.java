@@ -30,7 +30,7 @@ import java.io.*;
 /**
  * This class belong to the core classes of the Ant Framework.
  * <p>
- * It represent the problem being solved. It is composed of a Matrix containing
+ * It represents the problem being solved. It is composed of a Matrix containing
  * the relation between nodes in the graph.
  *
  * @author Enrique Areyan, enrique3 at gmail.com
@@ -53,7 +53,7 @@ public class Graph {
      * <code>fileSource</code>
      *
      * @param fileSource location of file
-     * @throws Exception if an error ocurred loading file.
+     * @throws Exception if an error occurred loading file.
      */
     public Graph(String fileSource) throws Exception {
         this.setFileSource(fileSource);

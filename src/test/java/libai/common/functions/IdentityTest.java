@@ -43,7 +43,7 @@ public class IdentityTest {
 
     @Test
     public void testGetDerivative() {
-        Function der = new Identity().getDerivate();
+        Function der = new Identity().getDerivative();
         assertNotNull(der);
         for (int i = 0; i < 10; i++) {
             assertEquals(1, der.eval(Math.random() * 10 - 5), 0);
@@ -52,6 +52,6 @@ public class IdentityTest {
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new Identity().getDerivate().getDerivate());
+        assertNull(new Identity().getDerivative().getDerivative());
     }
 }

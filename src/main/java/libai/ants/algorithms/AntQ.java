@@ -24,7 +24,7 @@
 package libai.ants.algorithms;
 
 import libai.ants.AntFrameworkException;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 /**
  * @author enriqueareyan
@@ -35,7 +35,7 @@ abstract public class AntQ extends AntColonySystem {
      */
     protected static final int gamma = 10;
 
-    public AntQ(Enviroment E) {
+    public AntQ(Environment E) {
         super(E);
     }
 
@@ -79,7 +79,7 @@ abstract public class AntQ extends AntColonySystem {
     public void pheromonesUpdate() {
         /* Update pheromones only on the best tour so far */
         //System.out.println("pheromonesUpdate of the best tour = "+this.bestSolution );
-        int node_i = 0, node_j = 0;
+        int node_i, node_j;
         for (int i = 0; i < this.bestSolution.size() - 1; i++) {
             node_i = this.bestSolution.get(i);
             node_j = this.bestSolution.get(i + 1);

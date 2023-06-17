@@ -166,7 +166,7 @@ public class Matrix implements Serializable {
      *               and negative numbers {@code false} if the numbers should be greater or
      *               equal than zero.
      * @param rand   The {@link Random} object used to fill the matrix, if
-     *               {@code null} it will fallback to {@link ThreadLocalRandom#current()}
+     *               {@code null} it will fall back to {@link ThreadLocalRandom#current()}
      * @return a new matrix filled with low random numbers.
      * @throws IllegalArgumentException if either {@code r} or {@code c} are
      *                                  less or equal than zero.
@@ -236,7 +236,7 @@ public class Matrix implements Serializable {
     }
 
     /**
-     * Multiply this matrix by an scalar. <b>{@code b = this * a}</b>.
+     * Multiply this matrix by a scalar. <b>{@code b = this * a}</b>.
      * <p>The matrix {@code b} must be created and has the same dimension of
      * {@code this}. </p>
      * <p><i>NOTE:</i> Assertions of the dimensions are made with {@code assert}
@@ -307,7 +307,7 @@ public class Matrix implements Serializable {
 
     /**
      * Apply one function over the elements of the matrix and left on the main
-     * diagonal of a identity matrix 'a'. For each element on this a(i,i) =
+     * diagonal of an identity matrix 'a'. For each element on this a(i,i) =
      * F(this(i,j)). The matrix this must be a column matrix. The matrix a must
      * be created and has the same dimension of this and a. NOTE: Assertions of
      * the dimensions are made with assert statement. You must enable this on
@@ -363,7 +363,7 @@ public class Matrix implements Serializable {
      * @param signed {@code false} if all the numbers should be positive,
      *               {@code false} otherwise
      * @param r      The {@link Random} object used to fill the matrix, if
-     *               {@code null} it will fallback to {@link ThreadLocalRandom#current()}
+     *               {@code null} it will fall back to {@link ThreadLocalRandom#current()}
      */
     public void fill(boolean signed, Random r) {
         for (int i = 0, n = rows * columns; i < n; i++) {
@@ -728,7 +728,7 @@ public class Matrix implements Serializable {
      * Return the string representation of this matrix. Useful to write on a
      * file or for debugging.
      *
-     * @return An string with the values of the matrix.
+     * @return A string with the values of the matrix.
      */
     @Override
     public String toString() {

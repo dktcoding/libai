@@ -27,16 +27,17 @@ public class AntecedentTest {
         Clause b = new Clause("variable2", "big");
         Antecedent antecedent = new Antecedent(a, b);
 
-        assertEquals("<Antecedent>\n" +
-                "\t<Clause>\n" +
-                "\t\t<Variable>variable1</Variable>\n" +
-                "\t\t<Term>good</Term>\n" +
-                "\t</Clause>\n" +
-                "\t<Clause>\n" +
-                "\t\t<Variable>variable2</Variable>\n" +
-                "\t\t<Term>big</Term>\n" +
-                "\t</Clause>\n" +
-                "</Antecedent>", antecedent.toXMLString(""));
+        assertEquals("""
+                <Antecedent>
+                \t<Clause>
+                \t\t<Variable>variable1</Variable>
+                \t\t<Term>good</Term>
+                \t</Clause>
+                \t<Clause>
+                \t\t<Variable>variable2</Variable>
+                \t\t<Term>big</Term>
+                \t</Clause>
+                </Antecedent>""", antecedent.toXMLString(""));
     }
 
     @Test

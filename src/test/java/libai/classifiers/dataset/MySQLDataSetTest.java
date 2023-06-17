@@ -44,12 +44,14 @@ import static org.junit.Assume.assumeNotNull;
  */
 public class MySQLDataSetTest {
     private static final String toString =
-            "[[col1]=4.0, [col2]=b, [col3]=false, [col4]=1.5, [col5]=same]\n" +
-                    "[[col1]=2.0, [col2]=b, [col3]=false, [col4]=12.0, [col5]=same]\n" +
-                    "[[col1]=0.0, [col2]=a, [col3]=true, [col4]=4.4, [col5]=same]\n" +
-                    "[[col1]=3.0, [col2]=a, [col3]=true, [col4]=-12.0, [col5]=same]\n" +
-                    "[[col1]=1.0, [col2]=f, [col3]=true, [col4]=4.4, [col5]=same]\n" +
-                    "[[col1]=5.0, [col2]=d, [col3]=true, [col4]=8.0, [col5]=same]\n";
+            """
+                    [[col1]=4.0, [col2]=b, [col3]=false, [col4]=1.5, [col5]=same]
+                    [[col1]=2.0, [col2]=b, [col3]=false, [col4]=12.0, [col5]=same]
+                    [[col1]=0.0, [col2]=a, [col3]=true, [col4]=4.4, [col5]=same]
+                    [[col1]=3.0, [col2]=a, [col3]=true, [col4]=-12.0, [col5]=same]
+                    [[col1]=1.0, [col2]=f, [col3]=true, [col4]=4.4, [col5]=same]
+                    [[col1]=5.0, [col2]=d, [col3]=true, [col4]=8.0, [col5]=same]
+                    """;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -89,11 +91,10 @@ public class MySQLDataSetTest {
              PreparedStatement ps = conn.prepareStatement(
                      "INSERT INTO `tbl1`(`col1`,`col2`,`col3`,`col4`)VALUES(?,?,?,?);")) {
             s.execute("DROP TABLE IF EXISTS `tbl1`;");
-            s.execute("CREATE TABLE `tbl1` ("
-                    + "`col1` INT, "
-                    + "`col2` DOUBLE,\n"
-                    + "`col3` DOUBLE,\n"
-                    + "`col4` VARCHAR(45));");
+            s.execute("""
+                    CREATE TABLE `tbl1` (`col1` INT, `col2` DOUBLE,
+                    `col3` DOUBLE,
+                    `col4` VARCHAR(45));""");
 
             Random r = ThreadLocalRandom.current();
             for (int i = 0; i < 100; i++) {
@@ -115,12 +116,11 @@ public class MySQLDataSetTest {
         Connection conn = getConnection();
         try (Statement s = conn.createStatement()) {
             s.execute("DROP TABLE IF EXISTS `tbl2`;");
-            s.execute("CREATE TABLE `tbl2` ("
-                    + "`col1` INT, "
-                    + "`col2` VARCHAR(45),\n"
-                    + "`col3` VARCHAR(45),\n"
-                    + "`col4` DOUBLE,\n"
-                    + "`col5` VARCHAR(45));");
+            s.execute("""
+                    CREATE TABLE `tbl2` (`col1` INT, `col2` VARCHAR(45),
+                    `col3` VARCHAR(45),
+                    `col4` DOUBLE,
+                    `col5` VARCHAR(45));""");
 
             String query = "INSERT INTO `tbl2`(`col1`,`col2`,`col3`,`col4`, `col5`)VALUES(%s);";
             s.execute(String.format(query, "0,'a','true',4.4,'same'"));
@@ -140,11 +140,10 @@ public class MySQLDataSetTest {
         Connection conn = getConnection();
         try (Statement s = conn.createStatement()) {
             s.execute("DROP TABLE IF EXISTS `tbl3`;");
-            s.execute("CREATE TABLE `tbl3` ("
-                    + "`col1` INT, "
-                    + "`col2` INT,\n"
-                    + "`col3` INT,\n"
-                    + "`col4` VARCHAR(45));");
+            s.execute("""
+                    CREATE TABLE `tbl3` (`col1` INT, `col2` INT,
+                    `col3` INT,
+                    `col4` VARCHAR(45));""");
 
             String query = "INSERT INTO `tbl3`(`col1`,`col2`,`col3`,`col4`)VALUES(%s);";
             s.execute(String.format(query, "1,2,3,'same'"));

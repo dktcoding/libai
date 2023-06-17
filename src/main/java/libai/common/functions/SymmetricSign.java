@@ -41,7 +41,7 @@ public class SymmetricSign implements Function {
     }
 
     @Override
-    public Function getDerivate() {
+    public Function getDerivative() {
         return null;
     }
 }

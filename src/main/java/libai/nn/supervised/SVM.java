@@ -250,8 +250,8 @@ public class SVM extends SupervisedLearning {
         double k22 = precomputedKernels[i2][i2];
         double eta = 2 * k12 - k11 - k22;
 
-        double l1 = 0;
-        double l2 = 0; /* new values of lambda1, lambda2 */
+        double l1;
+        double l2; /* new values of lambda1, lambda2 */
         if (eta < 0) {
             l2 = lambda2 + y2 * (E2 - E1) / eta;
             if (l2 < L)
@@ -293,8 +293,8 @@ public class SVM extends SupervisedLearning {
     }
 
     private Pair<Double, Double> getRange(double y1, double lambda1, double y2, double lambda2) {
-        double L = 0;
-        double H = 0;
+        double L;
+        double H;
         if (y1 == y2) {
             H = lambda1 + lambda2;
             L = 0;
@@ -323,7 +323,7 @@ public class SVM extends SupervisedLearning {
         double k12 = precomputedKernels[i1][i2];
         double k22 = precomputedKernels[i2][i2];
 
-        double deltaB = 0;
+        double deltaB;
         double t1 = y1 * (l1 - lambda1);
         double t2 = y2 * (l2 - lambda2);
         double b1 = e1 + t1 * k11 + t2 * k12;

@@ -43,7 +43,7 @@ public class Sigmoid implements Function {
         }
 
         @Override
-        public Function getDerivate() {
+        public Function getDerivative() {
             return null;
         }
     };
@@ -54,7 +54,7 @@ public class Sigmoid implements Function {
     }
 
     @Override
-    public Function getDerivate() {
+    public Function getDerivative() {
         return derivate;
     }
 }

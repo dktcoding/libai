@@ -3,7 +3,7 @@ package libai.fuzzy.sets;
 import org.w3c.dom.Node;
 
 /**
- * Fuzzy set representing a Pi-shaped function. This function behaves as a S-shape for any value to the left of a.
+ * Fuzzy set representing a Pi-shaped function. This function behaves as an S-shape for any value to the left of a.
  * And behaves as a Z-shape to any value to the right of a (including a).
  *
  * @author kronenthaler

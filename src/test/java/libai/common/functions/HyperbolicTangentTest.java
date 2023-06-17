@@ -43,7 +43,7 @@ public class HyperbolicTangentTest {
 
     @Test
     public void testGetDerivative() {
-        Function der = new HyperbolicTangent().getDerivate();
+        Function der = new HyperbolicTangent().getDerivative();
         assertNotNull(der);
         for (int i = 0; i < 10; i++) {
             double x = Math.random() * 10 - 5;
@@ -54,6 +54,6 @@ public class HyperbolicTangentTest {
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new HyperbolicTangent().getDerivate().getDerivate());
+        assertNull(new HyperbolicTangent().getDerivative().getDerivative());
     }
 }

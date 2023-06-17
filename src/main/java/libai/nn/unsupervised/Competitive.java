@@ -89,7 +89,7 @@ public class Competitive extends UnsupervisedLearning {
 
     /**
      * Train the network using "the winner takes all". For each neuron the
-     * Euclidean distance between the pattern and the neuron is calculated. The
+     * Euclidean distance between the pattern and the neuron are calculated. The
      * position with the lowest distance is updated with the rule:<br>
      * Ww = Ww + alpha.(pattern - Ww)<br>
      *

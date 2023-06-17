@@ -85,8 +85,7 @@ public class RuleBase implements XMLSerializer {
 
             for (Clause clause : r.getConsequentClauses()) {
                 String variableName = clause.getVariableName();
-                if (outputVariables.get(variableName) == null)
-                    outputVariables.put(variableName, new ArrayList<>());
+                outputVariables.computeIfAbsent(variableName, k -> new ArrayList<>());
                 outputVariables.get(variableName).add(new Pair<>(tau, clause));
             }
         }

@@ -23,7 +23,7 @@
  */
 package demos.ants;
 
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 import libai.ants.Graph;
 import libai.ants.Node;
 import libai.ants.algorithms.AntSystem;
@@ -77,11 +77,7 @@ public class AntQPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(answerTxt);
 
         jButton3.setText("Search");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);
@@ -129,18 +125,15 @@ public class AntQPanel extends javax.swing.JPanel {
             jProgressBar1.setMaximum((int) as.getParam(2));
             jProgressBar1.setValue(0);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
-                        jProgressBar1.setValue(as.getCurrentIterationNumber());
-                        try {
-                            Thread.sleep(1);
-                        } catch (Exception ignored) {
-                        }
+            new Thread(() -> {
+                while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
+                    jProgressBar1.setValue(as.getCurrentIterationNumber());
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception ignored) {
                     }
-                    jProgressBar1.setValue(jProgressBar1.getMaximum());
                 }
+                jProgressBar1.setValue(jProgressBar1.getMaximum());
             }).start();
 
             as.solve();
@@ -161,11 +154,11 @@ public class AntQPanel extends javax.swing.JPanel {
                     0, 1, 2, 0, 1,
                     0, 0, 0, 1, 0});
             /* Set enviroment */
-            Enviroment Env = new Enviroment(G, true);
+            Environment Env = new Environment(G, true);
             this.setParam(SP_ANTQ.initialNode, problemInitialNode);
             this.setParam(SP_ANTQ.destinationNode, problemDestinationNode);
             switch (parametersSet) {
-                case 0:
+                case 0 -> {
                     this.setParam(SP_ANTQ.maxNumIterations, 5);
                     this.setParam(SP_ANTQ.alpha, 0.5);
                     this.setParam(SP_ANTQ.beta, 0.5);
@@ -177,8 +170,8 @@ public class AntQPanel extends javax.swing.JPanel {
                     this.setParam(SP_ANTQ.tau_0, 0.1);
                     this.setParam(SP_ANTQ.gamma, 0.5);
                     Env.setAnts(5);
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     this.setParam(SP_ANTQ.maxNumIterations, 50);
                     this.setParam(SP_ANTQ.alpha, 0.5);
                     this.setParam(SP_ANTQ.beta, 0.75);
@@ -190,8 +183,8 @@ public class AntQPanel extends javax.swing.JPanel {
                     this.setParam(SP_ANTQ.tau_0, 0.1);
                     this.setParam(SP_ANTQ.gamma, 0.75);
                     Env.setAnts(5);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     this.setParam(SP_ANTQ.maxNumIterations, 100);
                     this.setParam(SP_ANTQ.alpha, 0.5);
                     this.setParam(SP_ANTQ.beta, 0.75);
@@ -203,8 +196,8 @@ public class AntQPanel extends javax.swing.JPanel {
                     this.setParam(SP_ANTQ.tau_0, 0.1);
                     this.setParam(SP_ANTQ.gamma, 0.75);
                     Env.setAnts(10);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     this.setParam(SP_ANTQ.maxNumIterations, 200);
                     this.setParam(SP_ANTQ.alpha, 0.5);
                     this.setParam(SP_ANTQ.beta, 0.75);
@@ -216,7 +209,7 @@ public class AntQPanel extends javax.swing.JPanel {
                     this.setParam(SP_ANTQ.tau_0, 0.1);
                     this.setParam(SP_ANTQ.gamma, 0.75);
                     Env.setAnts(15);
-                    break;
+                }
             }
             /* set enviroment*/
             this.setE(Env);
@@ -242,7 +235,6 @@ public class AntQPanel extends javax.swing.JPanel {
             int rows = G.getRows(), cols = G.getColumns(), cont;
 
             for (int i = 0; i < rows; i++) {
-                cont = 0;
                 Vector<Node> nodes = new Vector<>();
                 for (int j = 0; j < cols; j++) {
                     if ((G.position(i, j) < Integer.MAX_VALUE)) {

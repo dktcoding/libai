@@ -3,7 +3,7 @@ package libai.fuzzy.sets;
 import org.w3c.dom.Node;
 
 /**
- * Fuzzy set representing a increasing linear function, in the [a, b] interval. Anything to the left of a will be 0, and
+ * Fuzzy set representing an increasing linear function, in the [a, b] interval. Anything to the left of a will be 0, and
  * anything to the right of b will be 1.
  *
  * @author kronenthaler

@@ -51,7 +51,7 @@ public class Sinc implements Function {
         }
 
         @Override
-        public Function getDerivate() {
+        public Function getDerivative() {
             String msg = "Second derivative not implemented for 'Sinc(x)'";
             throw new UnsupportedOperationException(msg);
         }
@@ -66,7 +66,7 @@ public class Sinc implements Function {
     }
 
     @Override
-    public Function getDerivate() {
+    public Function getDerivative() {
         return derivate;
     }
 }

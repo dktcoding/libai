@@ -28,28 +28,29 @@ public class RuleTest {
 
         Rule rule = new Rule("tipper", 1, OrMethod.PROBOR, Rule.Connector.OR, antecedent, consequent);
 
-        assertEquals("<Rule name=\"tipper\" weight=\"1.000000\" operator=\"PROBOR\" connector=\"OR\">\n" +
-                "\t<Antecedent>\n" +
-                "\t\t<Clause>\n" +
-                "\t\t\t<Variable>variable1</Variable>\n" +
-                "\t\t\t<Term>good</Term>\n" +
-                "\t\t</Clause>\n" +
-                "\t\t<Clause>\n" +
-                "\t\t\t<Variable>variable2</Variable>\n" +
-                "\t\t\t<Term>big</Term>\n" +
-                "\t\t</Clause>\n" +
-                "\t</Antecedent>\n" +
-                "\t<Consequent>\n" +
-                "\t\t<Clause>\n" +
-                "\t\t\t<Variable>variable3</Variable>\n" +
-                "\t\t\t<Term>bad</Term>\n" +
-                "\t\t</Clause>\n" +
-                "\t\t<Clause>\n" +
-                "\t\t\t<Variable>variable4</Variable>\n" +
-                "\t\t\t<Term>small</Term>\n" +
-                "\t\t</Clause>\n" +
-                "\t</Consequent>\n" +
-                "</Rule>", rule.toXMLString(""));
+        assertEquals("""
+                <Rule name="tipper" weight="1.000000" operator="PROBOR" connector="OR">
+                \t<Antecedent>
+                \t\t<Clause>
+                \t\t\t<Variable>variable1</Variable>
+                \t\t\t<Term>good</Term>
+                \t\t</Clause>
+                \t\t<Clause>
+                \t\t\t<Variable>variable2</Variable>
+                \t\t\t<Term>big</Term>
+                \t\t</Clause>
+                \t</Antecedent>
+                \t<Consequent>
+                \t\t<Clause>
+                \t\t\t<Variable>variable3</Variable>
+                \t\t\t<Term>bad</Term>
+                \t\t</Clause>
+                \t\t<Clause>
+                \t\t\t<Variable>variable4</Variable>
+                \t\t\t<Term>small</Term>
+                \t\t</Clause>
+                \t</Consequent>
+                </Rule>""", rule.toXMLString(""));
     }
 
     @Test

@@ -128,9 +128,7 @@ public class PerceptronTest {
             assertEquals(p.simulate(ins[1]), p2.simulate(ins[1]));
             assertEquals(p.simulate(ins[2]), p2.simulate(ins[2]));
             assertEquals(p.simulate(ins[3]), p2.simulate(ins[3]));
-        } catch (IOException e) {
-            fail();
-        } catch (ClassNotFoundException e1) {
+        } catch (IOException | ClassNotFoundException e) {
             fail();
         }
     }

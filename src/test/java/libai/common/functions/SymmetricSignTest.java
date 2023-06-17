@@ -43,6 +43,6 @@ public class SymmetricSignTest {
 
     @Test
     public void testGetDerivative() {
-        assertNull(new SymmetricSign().getDerivate());
+        assertNull(new SymmetricSign().getDerivative());
     }
 }

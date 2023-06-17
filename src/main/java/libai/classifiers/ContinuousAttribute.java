@@ -40,11 +40,7 @@ public class ContinuousAttribute extends Attribute {
 
     @Override
     public int compareTo(Attribute o) {
-        if (value > ((ContinuousAttribute) o).value)
-            return 1;
-        if (value < ((ContinuousAttribute) o).value)
-            return -1;
-        return 0;
+        return Double.compare(value, ((ContinuousAttribute) o).value);
     }
 
     @Override

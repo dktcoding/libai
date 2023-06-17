@@ -24,7 +24,7 @@
 package libai.ants.algorithms;
 
 import libai.ants.Ant;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 import java.util.Vector;
 
@@ -45,7 +45,7 @@ public abstract class AntSystemRank extends ElitistAntSystem {
      *
      * @param E enviroment
      */
-    protected AntSystemRank(Enviroment E) {
+    protected AntSystemRank(Environment E) {
         super(E);
     }
 
@@ -68,7 +68,7 @@ public abstract class AntSystemRank extends ElitistAntSystem {
             double contribution = Math.max(0, this.Parameters.get(AntSystemRank.epsilon) - 1 - k) * (1 / f(solution));
             //System.out.println("Contribution of Ant["+k+"] = "+contribution);
             /* Add contribution to each arc of this ant's solution */
-            int node_i = 0, node_j = 0;
+            int node_i, node_j;
             for (int i = 0; i < solution.size() - 1; i++) {
                 node_i = solution.get(i);
                 node_j = solution.get(i + 1);

@@ -18,10 +18,11 @@ public class ClauseTest {
     @Test
     public void testXMLGeneration() {
         Clause clause = new Clause("tip", "good", Modifier.VERY);
-        assertEquals("<Clause modifier=\"very\">\n" +
-                "\t<Variable>tip</Variable>\n" +
-                "\t<Term>good</Term>\n" +
-                "</Clause>", clause.toXMLString(""));
+        assertEquals("""
+                <Clause modifier="very">
+                \t<Variable>tip</Variable>
+                \t<Term>good</Term>
+                </Clause>""", clause.toXMLString(""));
     }
 
     @Test

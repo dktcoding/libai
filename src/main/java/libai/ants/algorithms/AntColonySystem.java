@@ -25,7 +25,7 @@ package libai.ants.algorithms;
 
 import libai.ants.Ant;
 import libai.ants.AntFrameworkException;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 import java.util.Vector;
 
@@ -70,18 +70,18 @@ public abstract class AntColonySystem extends Metaheuristic {
      */
     protected static final int ro_2 = 8;
     /**
-     * An small positive constant that reinforces pheromones on local paths.
+     * A small positive constant that reinforces pheromones on local paths.
      * Experimental results on different TSPs showed tat
      * <code>tau_0 = 1 / (N_g * L)</code> provided good results
      * <code>N_g</code> is the number of nodes in the graph and
-     * <code>L</code> is the lenght of a tour produced by a nearest neighbor
+     * <code>L</code> is the length of a tour produced by a nearest neighbor
      * heuristic for TSPs.
      */
     protected static final int tau_0 = 9;
 
 
     /* class methods */
-    public AntColonySystem(Enviroment E) {
+    public AntColonySystem(Environment E) {
         super(E);
     }
 
@@ -231,7 +231,7 @@ public abstract class AntColonySystem extends Metaheuristic {
     public void pheromonesUpdate() {
         /* Update pheromones only on the best tour so far */
         //System.out.println("pheromonesUpdate of the best tour = "+this.bestSolution );
-        int node_i = 0, node_j = 0;
+        int node_i, node_j;
         for (int i = 0; i < this.bestSolution.size() - 1; i++) {
             node_i = this.bestSolution.get(i);
             node_j = this.bestSolution.get(i + 1);
@@ -252,7 +252,7 @@ public abstract class AntColonySystem extends Metaheuristic {
         Vector<Integer> possibleNodes = this.constrains(i, currentSolution);
         int cantPossibleNodes = possibleNodes.size();
         /* check if there is at least 1 possible node to be selected */
-        if (cantPossibleNodes <= 0) {
+        if (cantPossibleNodes == 0) {
             //There aren't any possible next candidates, therefore
             return -1;
         }
@@ -268,10 +268,10 @@ public abstract class AntColonySystem extends Metaheuristic {
                 /* for each candidate in the list */
                 for (int j = 0; j < this.candidates.get(i).size(); j++) {
                     //System.out.println("candidate j = "+ this.candidates.get(i).get(j));
-                    double currentArgmax = Math.pow(this.Pheromones.position(i, this.candidates.get(i).get(j).getIndex()), localAlpha) /*tau ij^alpha (alpha = 0)*/ * Math.pow(this.candidates.get(i).get(j).getHeuristicInfo(), localBeta) /* nij^beta*/;
+                    double currentArgmax = Math.pow(this.Pheromones.position(i, this.candidates.get(i).get(j).index()), localAlpha) /*tau ij^alpha (alpha = 0)*/ * Math.pow(this.candidates.get(i).get(j).heuristicInfo(), localBeta) /* nij^beta*/;
                     /* Select argmax node only if it exists in the possibleNodes vector*/
-                    if (currentArgmax > argmax && possibleNodes.contains(this.candidates.get(i).get(j).getIndex())) {
-                        nodeJ = this.candidates.get(i).get(j).getIndex();
+                    if (currentArgmax > argmax && possibleNodes.contains(this.candidates.get(i).get(j).index())) {
+                        nodeJ = this.candidates.get(i).get(j).index();
                         argmax = currentArgmax;
                         //System.out.println("nodeJ is in possibles nodes = "+nodeJ + "possibles = "+possibleNodes.toString());
                     }
@@ -300,7 +300,7 @@ public abstract class AntColonySystem extends Metaheuristic {
      * @return destination node
      */
     public int decisionRuleNotFromCandidate(int i, Vector<Integer> possibleNodes) {
-        /* counter of the number of times a node have been triying to selected a next node and maximun number of tries allowed*/
+        /* counter of the number of times a node have been trying to select a next node and maximum number of tries allowed*/
         int counter = 0, allowedNumberOfTries = 2 * this.getNumberOfNodes();
         int cantPossibleNodes = possibleNodes.size();
         /* Get alpha (desicion rule) and beta (heuristic information) parameters */

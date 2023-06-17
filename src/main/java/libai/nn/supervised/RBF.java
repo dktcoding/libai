@@ -32,7 +32,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 /**
- * Radial Basis Function or RBF. Is an hybrid neural network with 3 layers
+ * Radial Basis Function or RBF. Is a hybrid neural network with 3 layers
  * (1-input, 1-hidden, 1-output). The hidden layers is trained using a
  * stochastic clustering algorithm: k-means. The final layer is trained using
  * the Adaline rule. The k-means algorithm is used to set up the position of the
@@ -146,7 +146,7 @@ public class RBF extends Adaline {
     /**
      * k-means clustering algorithm. For the cloud of patterns found the k
      * points closest to every point in the cloud. The centroids found probably
-     * will no be any of the patterns in the cloud.
+     * will not be any of the patterns in the cloud.
      *
      * @param k        Number of centroids to find.
      * @param patterns The cloud of patterns

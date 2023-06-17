@@ -137,9 +137,7 @@ public class RBFTest {
             for (int i = n; i < p.length; i++) {
                 assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
             }
-        } catch (IOException e) {
-            fail();
-        } catch (ClassNotFoundException e1) {
+        } catch (IOException | ClassNotFoundException e) {
             fail();
         }
 

@@ -77,7 +77,7 @@ public class StandardBackpropagation implements Backpropagation {
 
                 //d[0] = F0'(<W[i],Y[i-1]>).e
                 for (int j = 0; j < u[layers - 1].getRows(); j++)
-                    d[layers - 1].position(j, 0, -2 * alpha * func[layers - 1].getDerivate().eval(u[layers - 1].position(j, 0)) * e.position(j, 0));
+                    d[layers - 1].position(j, 0, -2 * alpha * func[layers - 1].getDerivative().eval(u[layers - 1].position(j, 0)) * e.position(j, 0));
 
                 //d[i]=Fi'(<W[i],Y[i-1]>).W[i+1]^t.d[i+1]
                 for (int k = layers - 2; k > 0; k--) {
@@ -85,7 +85,7 @@ public class StandardBackpropagation implements Backpropagation {
                         double acum = 0;
                         for (int t = 0; t < W[k + 1].getRows(); t++)
                             acum += W[k + 1].position(t, j) * d[k + 1].position(t, 0);
-                        d[k].position(j, 0, alpha * acum * func[k].getDerivate().eval(u[k].position(j, 0)));
+                        d[k].position(j, 0, alpha * acum * func[k].getDerivative().eval(u[k].position(j, 0)));
                     }
                 }
 

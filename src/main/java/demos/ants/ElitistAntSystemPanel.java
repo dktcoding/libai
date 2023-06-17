@@ -23,7 +23,7 @@
  */
 package demos.ants;
 
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 import libai.ants.Graph;
 import libai.ants.algorithms.ElitistAntSystem;
 
@@ -74,11 +74,7 @@ public class ElitistAntSystemPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(answerTxt);
 
         jButton3.setText("Search");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);
@@ -126,18 +122,15 @@ public class ElitistAntSystemPanel extends javax.swing.JPanel {
             jProgressBar1.setMaximum((int) as.getParam(2));
             jProgressBar1.setValue(0);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
-                        jProgressBar1.setValue(as.getCurrentIterationNumber());
-                        try {
-                            Thread.sleep(1);
-                        } catch (Exception ignored) {
-                        }
+            new Thread(() -> {
+                while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
+                    jProgressBar1.setValue(as.getCurrentIterationNumber());
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception ignored) {
                     }
-                    jProgressBar1.setValue(jProgressBar1.getMaximum());
                 }
+                jProgressBar1.setValue(jProgressBar1.getMaximum());
             }).start();
 
             as.solve();
@@ -158,45 +151,45 @@ public class ElitistAntSystemPanel extends javax.swing.JPanel {
                     0, 1, 2, 0, 1,
                     0, 0, 0, 1, 0});
             /* Set enviroment */
-            Enviroment Env = new Enviroment(G, true);
+            Environment Env = new Environment(G, true);
             this.setParam(SP_EAS.initialNode, problemInitialNode);
             this.setParam(SP_EAS.destinationNode, problemDestinationNode);
-            if (parametersSet < 0 && parametersSet > 3) {
+            if (parametersSet < 0 || parametersSet > 3) {
                 throw new Exception("parametersSet invalid, must be either 0, 1, 2 or 3");
             }
             switch (parametersSet) {
-                case 0:
+                case 0 -> {
                     this.setParam(SP_EAS.maxNumIterations, 5);
                     this.setParam(SP_EAS.pheromonesEvaporationRate, 0.8);
                     this.setParam(SP_EAS.alpha, 0.5);
                     this.setParam(SP_EAS.beta, 0.5);
                     this.setParam(SP_EAS.epsilon, 2);
                     Env.setAnts(5);
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     this.setParam(SP_EAS.maxNumIterations, 50);
                     this.setParam(SP_EAS.pheromonesEvaporationRate, 0.75);
                     this.setParam(SP_EAS.alpha, 0.5);
                     this.setParam(SP_EAS.beta, 0.25);
                     this.setParam(SP_EAS.epsilon, 2);
                     Env.setAnts(5);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     this.setParam(SP_EAS.maxNumIterations, 100);
                     this.setParam(SP_EAS.pheromonesEvaporationRate, 0.70);
                     this.setParam(SP_EAS.alpha, 0.5);
                     this.setParam(SP_EAS.beta, 0.25);
                     this.setParam(SP_EAS.epsilon, 2);
                     Env.setAnts(10);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     this.setParam(SP_EAS.maxNumIterations, 200);
                     this.setParam(SP_EAS.pheromonesEvaporationRate, 0.65);
                     this.setParam(SP_EAS.alpha, 0.5);
                     this.setParam(SP_EAS.beta, 0.25);
                     this.setParam(SP_EAS.epsilon, 2);
                     Env.setAnts(15);
-                    break;
+                }
             }
             /* set enviroment*/
             this.setE(Env);

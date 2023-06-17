@@ -84,7 +84,7 @@ public class MatrixIOTest {
                 String line;
 
                 while ((line = ov.readLine()) != null) {
-                    //Since every OS has it's own term for "Command not found" this seemed like a
+                    //Since every OS has its own term for "Command not found" this seemed like a
                     //reasonable solution
                     isInstalled |= line.contains("The Octave Project Developers.");
                 }
@@ -234,7 +234,7 @@ public class MatrixIOTest {
         assertEquals("10", eval("load " + tmp + "c.mat; rows(c)"));
         assertEquals("10", eval("load " + tmp + "c.mat; columns(c)"));
         //Octave usually rounds numbers when stdouting, this is the cleanest way
-        //I could came up to test if values were correctly written/read...
+        //I could come up to test if values were correctly written/read...
         assertEquals("0", eval(
                 "load " + tmp + "a.mat;" +
                         "load " + tmp + "b.mat;" +
@@ -276,7 +276,7 @@ public class MatrixIOTest {
         assertEquals("10", eval("load " + tmp + "foo.mat; rows(c)"));
         assertEquals("20", eval("load " + tmp + "foo.mat; columns(c)"));
         //Octave usually rounds numbers when stdouting, this is the cleanest way
-        //I could came up to test if values were correctly written/read...
+        //I could come up to test if values were correctly written/read...
         assertEquals("0", eval("load " + tmp + "foo.mat; sum((a + b' != c)(:))"));
 
         new File(tmp + "foo.mat").delete();

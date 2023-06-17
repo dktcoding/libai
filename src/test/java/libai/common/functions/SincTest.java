@@ -68,7 +68,7 @@ public class SincTest {
 
     @Test
     public void testGetDerivate() {
-        Function der = new Sinc().getDerivate();
+        Function der = new Sinc().getDerivative();
         assertNotNull(der);
         assertEquals(0, der.eval(0), 0);
         double x = Math.random();
@@ -77,7 +77,7 @@ public class SincTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetGetDerivative() {
-        new Sinc().getDerivate().getDerivate();
+        new Sinc().getDerivative().getDerivative();
     }
 
 }

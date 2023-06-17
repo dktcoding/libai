@@ -287,7 +287,7 @@ public class MatrixTest {
             }
 
             @Override
-            public Function getDerivate() {
+            public Function getDerivative() {
                 return null;
             }
         };
@@ -307,7 +307,7 @@ public class MatrixTest {
             }
 
             @Override
-            public Function getDerivate() {
+            public Function getDerivative() {
                 return null;
             }
         };
@@ -326,7 +326,7 @@ public class MatrixTest {
             }
 
             @Override
-            public Function getDerivate() {
+            public Function getDerivative() {
                 return null;
             }
         };
@@ -909,7 +909,7 @@ public class MatrixTest {
             }
 
             @Override
-            public Function getDerivate() {
+            public Function getDerivative() {
                 return null;
             }
         };
@@ -927,7 +927,7 @@ public class MatrixTest {
             }
 
             @Override
-            public Function getDerivate() {
+            public Function getDerivative() {
                 return null;
             }
         };

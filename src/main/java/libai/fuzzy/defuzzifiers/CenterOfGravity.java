@@ -23,12 +23,7 @@ public class CenterOfGravity extends Defuzzifier {
      **/
     @Override
     public double getValue(List<Point.Double> function) {
-        Collections.sort(function, new Comparator<Point.Double>() {
-            @Override
-            public int compare(Point.Double o1, Point.Double o2) {
-                return (int) (o1.x - o2.x);
-            }
-        });
+        function.sort((o1, o2) -> (int) (o1.x - o2.x));
 
         double denominator = riemmanSum(function);
 

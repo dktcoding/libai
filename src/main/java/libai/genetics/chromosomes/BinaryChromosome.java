@@ -78,15 +78,11 @@ public class BinaryChromosome extends Chromosome {
      */
     @Override
     public Chromosome[] cross(Chromosome b, int position) {
-        BitSet aux = null;
-
-        aux = ((BinaryChromosome) b).genes.get(0, genes.size());
+        final BitSet aux = ((BinaryChromosome) b).genes.get(0, genes.size());
         aux.set(0, position, false);
         aux.or(genes.get(0, position));
 
-        BitSet aux1 = null;
-
-        aux1 = genes.get(0, genes.size());
+        final BitSet aux1 = genes.get(0, genes.size());
         aux1.set(0, position, false);
         aux1.or(((BinaryChromosome) b).genes.get(0, position));
 
@@ -102,7 +98,7 @@ public class BinaryChromosome extends Chromosome {
      */
     @Override
     public Chromosome mutate(double pm) {
-        BitSet ret = genes.get(0, length);
+        final BitSet ret = genes.get(0, length);
         for (int i = 0; i < length; i++) {
             if (random.nextDouble() < pm)
                 ret.flip(random.nextInt(length));
@@ -117,7 +113,7 @@ public class BinaryChromosome extends Chromosome {
      * @return A new chromosome with the same genetic charge.
      */
     protected Chromosome getInstance(BitSet bs) {
-        BinaryChromosome ret = new BinaryChromosome(bs.length(), random);
+        final BinaryChromosome ret = new BinaryChromosome(bs.length(), random);
         ret.genes = bs;
         ret.length = length;
         return ret;
@@ -154,7 +150,7 @@ public class BinaryChromosome extends Chromosome {
     /**
      * Clone this chromosome.
      *
-     * @return A identical chromosome of this.
+     * @return An identical chromosome of this.
      */
     @Override
     public Chromosome getCopy() {

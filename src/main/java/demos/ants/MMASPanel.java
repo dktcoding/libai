@@ -23,7 +23,7 @@
  */
 package demos.ants;
 
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 import libai.ants.Graph;
 import libai.ants.algorithms.MMAS;
 
@@ -74,11 +74,7 @@ public class MMASPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(answerTxt);
 
         jButton3.setText("Search");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);
@@ -126,18 +122,15 @@ public class MMASPanel extends javax.swing.JPanel {
             jProgressBar1.setMaximum((int) as.getParam(2));
             jProgressBar1.setValue(0);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
-                        jProgressBar1.setValue(as.getCurrentIterationNumber());
-                        try {
-                            Thread.sleep(1);
-                        } catch (Exception ignored) {
-                        }
+            new Thread(() -> {
+                while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
+                    jProgressBar1.setValue(as.getCurrentIterationNumber());
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception ignored) {
                     }
-                    jProgressBar1.setValue(jProgressBar1.getMaximum());
                 }
+                jProgressBar1.setValue(jProgressBar1.getMaximum());
             }).start();
 
             as.solve();
@@ -158,15 +151,15 @@ public class MMASPanel extends javax.swing.JPanel {
                     0, 1, 2, 0, 1,
                     0, 0, 0, 1, 0});
             /* Set enviroment */
-            Enviroment Env = new Enviroment(G, true);
+            Environment Env = new Environment(G, true);
             /* Set parameters */
             this.setParam(SP_MMAS.initialNode, problemInitialNode);
             this.setParam(SP_MMAS.destinationNode, problemDestinationNode);
-            if (parametersSet < 0 && parametersSet > 3) {
+            if (parametersSet < 0 || parametersSet > 3) {
                 throw new Exception("parametersSet invalid, must be either 0, 1, 2 or 3");
             }
             switch (parametersSet) {
-                case 0:
+                case 0 -> {
                     this.setParam(SP_MMAS.maxNumIterations, 5);
                     this.setParam(SP_MMAS.pheromonesEvaporationRate, 0.01);
                     this.setParam(SP_MMAS.alpha, 1);
@@ -175,8 +168,8 @@ public class MMASPanel extends javax.swing.JPanel {
                     this.setParam(SP_MMAS.tau_min, 0.75);
                     Env.setPheromones(this.Parameters.get(SP_MMAS.tau_max));
                     Env.setAnts(5);
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     this.setParam(SP_MMAS.maxNumIterations, 50);
                     this.setParam(SP_MMAS.pheromonesEvaporationRate, 0.01);
                     this.setParam(SP_MMAS.alpha, 0.8);
@@ -185,8 +178,8 @@ public class MMASPanel extends javax.swing.JPanel {
                     this.setParam(SP_MMAS.tau_min, 0.75);
                     Env.setPheromones(this.Parameters.get(SP_MMAS.tau_max));
                     Env.setAnts(5);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     this.setParam(SP_MMAS.maxNumIterations, 100);
                     this.setParam(SP_MMAS.pheromonesEvaporationRate, 0.01);
                     this.setParam(SP_MMAS.alpha, 0.8);
@@ -195,8 +188,8 @@ public class MMASPanel extends javax.swing.JPanel {
                     this.setParam(SP_MMAS.tau_min, 0.75);
                     Env.setPheromones(this.Parameters.get(SP_MMAS.tau_max));
                     Env.setAnts(10);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     this.setParam(SP_MMAS.maxNumIterations, 200);
                     this.setParam(SP_MMAS.pheromonesEvaporationRate, 0.01);
                     this.setParam(SP_MMAS.alpha, 0.8);
@@ -205,7 +198,7 @@ public class MMASPanel extends javax.swing.JPanel {
                     this.setParam(SP_MMAS.tau_min, 0.75);
                     Env.setPheromones(this.Parameters.get(SP_MMAS.tau_max));
                     Env.setAnts(15);
-                    break;
+                }
             }
             this.setE(Env);
         }

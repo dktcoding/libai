@@ -45,7 +45,7 @@ import static org.junit.Assume.assumeTrue;
 public class NeuralNetworkTest {
     @Test
     public void testErrorRegression() {
-        //This test is to check that the code an be replaced with
+        //This test is to check that the code can be replaced with
         //euclideandistance2
         NN nn = new NN();
         Column[] patterns = new Column[10];
@@ -61,7 +61,7 @@ public class NeuralNetworkTest {
 
     @Test
     public void testErrorRegression2() {
-        //This test is to check that the code an be replaced with
+        //This test is to check that the code can be replaced with
         //euclideandistance2
         NN nn = new NN();
         Column[] patterns = new Column[10];

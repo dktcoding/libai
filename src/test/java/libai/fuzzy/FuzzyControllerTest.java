@@ -54,72 +54,73 @@ public class FuzzyControllerTest {
         RuleBase rb = new RuleBase("rulebase", ActivationMethod.MIN, AndMethod.PROD, OrMethod.PROBOR, ruleA, ruleB);
         FuzzyController fc = new FuzzyController("deController", "home.localhost", kb, rb);
 
-        assertEquals("<FuzzyController name=\"deController\" ip=\"home.localhost\">\n" +
-                "\t<KnowledgeBase>\n" +
-                "\t\t<FuzzyVariable name=\"tip\" domainLeft=\"0.000000\" domainRight=\"10.000000\" scale=\"percentage\" type=\"output\" defaultValue=\"5.000000\" defuzzifier=\"MOM\" accumulation=\"SUM\">\n" +
-                "\t\t\t<FuzzyTerm name=\"cheap\" complement=\"false\">\n" +
-                "\t\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"3.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t\t</FuzzyTerm>\n" +
-                "\t\t\t<FuzzyTerm name=\"generous\" complement=\"false\">\n" +
-                "\t\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"7.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t\t</FuzzyTerm>\n" +
-                "\t\t</FuzzyVariable>\n" +
-                "\t\t<FuzzyVariable name=\"quality\" domainLeft=\"0.000000\" domainRight=\"10.000000\" scale=\"stars\" type=\"input\">\n" +
-                "\t\t\t<FuzzyTerm name=\"bad\" complement=\"false\">\n" +
-                "\t\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"3.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t\t</FuzzyTerm>\n" +
-                "\t\t\t<FuzzyTerm name=\"good\" complement=\"false\">\n" +
-                "\t\t\t\t<TriangularShape Param1=\"0.000000\" Param2=\"7.000000\" Param3=\"10.000000\"/>\n" +
-                "\t\t\t</FuzzyTerm>\n" +
-                "\t\t</FuzzyVariable>\n" +
-                "\t</KnowledgeBase>\n" +
-                "\t<RuleBase name=\"rulebase\" type=\"mamdani\" activationMethod=\"MIN\" andMethod=\"PROD\" orMethod=\"PROBOR\">\n" +
-                "\t\t<Rule name=\"tipper\" weight=\"1.000000\" operator=\"PROBOR\" connector=\"OR\">\n" +
-                "\t\t\t<Antecedent>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable1</Variable>\n" +
-                "\t\t\t\t\t<Term>good</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable2</Variable>\n" +
-                "\t\t\t\t\t<Term>big</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t</Antecedent>\n" +
-                "\t\t\t<Consequent>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable3</Variable>\n" +
-                "\t\t\t\t\t<Term>bad</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable4</Variable>\n" +
-                "\t\t\t\t\t<Term>small</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t</Consequent>\n" +
-                "\t\t</Rule>\n" +
-                "\t\t<Rule name=\"whatever\" weight=\"1.000000\" operator=\"MIN\" connector=\"AND\">\n" +
-                "\t\t\t<Antecedent>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable1</Variable>\n" +
-                "\t\t\t\t\t<Term>good</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable2</Variable>\n" +
-                "\t\t\t\t\t<Term>big</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t</Antecedent>\n" +
-                "\t\t\t<Consequent>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable3</Variable>\n" +
-                "\t\t\t\t\t<Term>bad</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t\t<Clause>\n" +
-                "\t\t\t\t\t<Variable>variable4</Variable>\n" +
-                "\t\t\t\t\t<Term>small</Term>\n" +
-                "\t\t\t\t</Clause>\n" +
-                "\t\t\t</Consequent>\n" +
-                "\t\t</Rule>\n" +
-                "\t</RuleBase>\n" +
-                "</FuzzyController>", fc.toXMLString(""));
+        assertEquals("""
+                <FuzzyController name="deController" ip="home.localhost">
+                \t<KnowledgeBase>
+                \t\t<FuzzyVariable name="tip" domainLeft="0.000000" domainRight="10.000000" scale="percentage" type="output" defaultValue="5.000000" defuzzifier="MOM" accumulation="SUM">
+                \t\t\t<FuzzyTerm name="cheap" complement="false">
+                \t\t\t\t<TriangularShape Param1="0.000000" Param2="3.000000" Param3="10.000000"/>
+                \t\t\t</FuzzyTerm>
+                \t\t\t<FuzzyTerm name="generous" complement="false">
+                \t\t\t\t<TriangularShape Param1="0.000000" Param2="7.000000" Param3="10.000000"/>
+                \t\t\t</FuzzyTerm>
+                \t\t</FuzzyVariable>
+                \t\t<FuzzyVariable name="quality" domainLeft="0.000000" domainRight="10.000000" scale="stars" type="input">
+                \t\t\t<FuzzyTerm name="bad" complement="false">
+                \t\t\t\t<TriangularShape Param1="0.000000" Param2="3.000000" Param3="10.000000"/>
+                \t\t\t</FuzzyTerm>
+                \t\t\t<FuzzyTerm name="good" complement="false">
+                \t\t\t\t<TriangularShape Param1="0.000000" Param2="7.000000" Param3="10.000000"/>
+                \t\t\t</FuzzyTerm>
+                \t\t</FuzzyVariable>
+                \t</KnowledgeBase>
+                \t<RuleBase name="rulebase" type="mamdani" activationMethod="MIN" andMethod="PROD" orMethod="PROBOR">
+                \t\t<Rule name="tipper" weight="1.000000" operator="PROBOR" connector="OR">
+                \t\t\t<Antecedent>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable1</Variable>
+                \t\t\t\t\t<Term>good</Term>
+                \t\t\t\t</Clause>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable2</Variable>
+                \t\t\t\t\t<Term>big</Term>
+                \t\t\t\t</Clause>
+                \t\t\t</Antecedent>
+                \t\t\t<Consequent>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable3</Variable>
+                \t\t\t\t\t<Term>bad</Term>
+                \t\t\t\t</Clause>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable4</Variable>
+                \t\t\t\t\t<Term>small</Term>
+                \t\t\t\t</Clause>
+                \t\t\t</Consequent>
+                \t\t</Rule>
+                \t\t<Rule name="whatever" weight="1.000000" operator="MIN" connector="AND">
+                \t\t\t<Antecedent>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable1</Variable>
+                \t\t\t\t\t<Term>good</Term>
+                \t\t\t\t</Clause>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable2</Variable>
+                \t\t\t\t\t<Term>big</Term>
+                \t\t\t\t</Clause>
+                \t\t\t</Antecedent>
+                \t\t\t<Consequent>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable3</Variable>
+                \t\t\t\t\t<Term>bad</Term>
+                \t\t\t\t</Clause>
+                \t\t\t\t<Clause>
+                \t\t\t\t\t<Variable>variable4</Variable>
+                \t\t\t\t\t<Term>small</Term>
+                \t\t\t\t</Clause>
+                \t\t\t</Consequent>
+                \t\t</Rule>
+                \t</RuleBase>
+                </FuzzyController>""", fc.toXMLString(""));
     }
 
     @Test

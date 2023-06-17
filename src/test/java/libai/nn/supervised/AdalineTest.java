@@ -121,9 +121,7 @@ public class AdalineTest {
             assertEquals(ada.simulate(ins[1]), a2.simulate(ins[1]));
             assertEquals(ada.simulate(ins[2]), a2.simulate(ins[2]));
             assertEquals(ada.simulate(ins[3]), a2.simulate(ins[3]));
-        } catch (IOException e) {
-            fail();
-        } catch (ClassNotFoundException e1) {
+        } catch (IOException | ClassNotFoundException e) {
             fail();
         }
     }

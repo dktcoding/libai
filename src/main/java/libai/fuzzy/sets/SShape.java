@@ -3,7 +3,7 @@ package libai.fuzzy.sets;
 import org.w3c.dom.Node;
 
 /**
- * Fuzzy set representing a S-shape function. This function will equal 0 for any value to the left of a, and 1 for any
+ * Fuzzy set representing an S-shape function. This function will equal 0 for any value to the left of a, and 1 for any
  * value to the right of b. This function is a mirror of the Z-shape.
  *
  * @author kronenthaler

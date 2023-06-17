@@ -66,7 +66,7 @@ public interface DataSet extends Iterable<List<Attribute>> {
      * This index is remember for future internal references.
      *
      * @param fieldIndex The field to sort over
-     * @return A iterable representation of this data set sorted over the field index.
+     * @return An iterable representation of this data set sorted over the field index.
      */
     Iterable<List<Attribute>> sortOver(int fieldIndex);
 
@@ -78,7 +78,7 @@ public interface DataSet extends Iterable<List<Attribute>> {
      * @param lo         The lower bound (inclusive) of the data set to be returned
      * @param hi         The upper bound (exclusive) of the data set to be returned.
      * @param fieldIndex The field to sort over
-     * @return A iterable representation of this data set sorted over the field index from [lo, hi).
+     * @return An iterable representation of this data set sorted over the field index from [lo, hi).
      */
     Iterable<List<Attribute>> sortOver(int lo, int hi, int fieldIndex);
 

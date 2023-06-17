@@ -231,9 +231,7 @@ public class MultiLayerPerceptronTest {
             assertEquals(mlp.simulate(ins[1]), mlp2.simulate(ins[1]));
             assertEquals(mlp.simulate(ins[2]), mlp2.simulate(ins[2]));
             assertEquals(mlp.simulate(ins[3]), mlp2.simulate(ins[3]));
-        } catch (IOException e) {
-            fail();
-        } catch (ClassNotFoundException e1) {
+        } catch (IOException | ClassNotFoundException e) {
             fail();
         }
     }

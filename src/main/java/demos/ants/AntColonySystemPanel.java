@@ -23,7 +23,7 @@
  */
 package demos.ants;
 
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 import libai.ants.Graph;
 import libai.ants.Node;
 import libai.ants.algorithms.AntColonySystem;
@@ -77,11 +77,7 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(answerTxt);
 
         jButton3.setText("Search");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jProgressBar1.setString("training");
         jProgressBar1.setStringPainted(true);
@@ -129,18 +125,15 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
             jProgressBar1.setMaximum((int) as.getParam(2));
             jProgressBar1.setValue(0);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
-                        jProgressBar1.setValue(as.getCurrentIterationNumber());
-                        try {
-                            Thread.sleep(1);
-                        } catch (Exception ignored) {
-                        }
+            new Thread(() -> {
+                while (as.getCurrentIterationNumber() < jProgressBar1.getMaximum()) {
+                    jProgressBar1.setValue(as.getCurrentIterationNumber());
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception ignored) {
                     }
-                    jProgressBar1.setValue(jProgressBar1.getMaximum());
                 }
+                jProgressBar1.setValue(jProgressBar1.getMaximum());
             }).start();
 
             as.solve();
@@ -157,7 +150,7 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
         public SP_ACS() {
         }
 
-        public SP_ACS(Enviroment E) {
+        public SP_ACS(Environment E) {
             super(E);
         }
 
@@ -168,11 +161,11 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
                     0, 0, 0, 0, 1,
                     0, 0, 0, 0, 0});
             /* Set enviroment */
-            Enviroment Env = new Enviroment(G /* Graph */, true /* random pheromone trail */);
+            Environment Env = new Environment(G /* Graph */, true /* random pheromone trail */);
             this.setParam(SP_ACS.initialNode, problemInitialNode);
             this.setParam(SP_ACS.destinationNode, problemDestinationNode);
             switch (parametersSet) {
-                case 0:
+                case 0 -> {
                     this.setParam(SP_ACS.maxNumIterations, 5);
                     this.setParam(SP_ACS.beta, 0.25);
                     this.setParam(SP_ACS.maxCandidates, 50);
@@ -181,8 +174,8 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
                     this.setParam(SP_ACS.ro_2, 0.9);
                     this.setParam(SP_ACS.tau_0, 0.1);
                     Env.setAnts(5);
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     this.setParam(SP_ACS.maxNumIterations, 50);
                     this.setParam(SP_ACS.beta, 1);
                     this.setParam(SP_ACS.maxCandidates, 50);
@@ -191,8 +184,8 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
                     this.setParam(SP_ACS.ro_2, 0.9);
                     this.setParam(SP_ACS.tau_0, 0.1);
                     Env.setAnts(5);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     this.setParam(SP_ACS.maxNumIterations, 100);
                     this.setParam(SP_ACS.beta, 0.8);
                     this.setParam(SP_ACS.maxCandidates, Integer.MAX_VALUE);
@@ -201,8 +194,8 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
                     this.setParam(SP_ACS.ro_2, 0.9);
                     this.setParam(SP_ACS.tau_0, 0.1);
                     Env.setAnts(10);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     this.setParam(SP_ACS.maxNumIterations, 200);
                     this.setParam(SP_ACS.beta, 0.5);
                     this.setParam(SP_ACS.maxCandidates, 50);
@@ -211,7 +204,7 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
                     this.setParam(SP_ACS.ro_2, 0.9);
                     this.setParam(SP_ACS.tau_0, 0.1);
                     Env.setAnts(15);
-                    break;
+                }
             }
             /* set enviroment*/
             this.setE(Env);
@@ -237,7 +230,6 @@ public class AntColonySystemPanel extends javax.swing.JPanel {
             int rows = G.getRows(), cols = G.getColumns(), cont;
 
             for (int i = 0; i < rows; i++) {
-                cont = 0;
                 Vector<Node> nodes = new Vector<>();
                 for (int j = 0; j < cols; j++) {
                     if ((G.position(i, j) < Integer.MAX_VALUE)) {

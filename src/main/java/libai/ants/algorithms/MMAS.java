@@ -25,7 +25,7 @@ package libai.ants.algorithms;
 
 import libai.ants.Ant;
 import libai.ants.AntFrameworkException;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 import java.util.Vector;
 
@@ -33,12 +33,12 @@ import java.util.Vector;
  * This class belong to the core classes of the Ant Framework.
  * <p>
  * First introduced by Stutzle and Hoos, this class implements the Min-Max Ant
- * System algorithm. This algorithm was conceived as a fix of the prematurely
+ * System algorithm. This algorithm was conceived as a fix of the premature
  * stagnation behavior of AS for complex problem. Stagnation means that all ants
  * follow exactly the same path, and premature stagnation occurs when ants
  * explore little and too rapidly exploit the highest pheromone concentrations.
  * The main differences between MMAS and AS is that pheromone intensities are
- * restricted within given intervals and initial pheromoes are set to a max
+ * restricted within given intervals and initial pheromones are set to a max
  * allowed value.
  *
  * @author Enrique Areyan, enrique3 at gmail.com
@@ -55,20 +55,20 @@ abstract public class MMAS extends Metaheuristic {
      */
     protected static final int pheromonesEvaporationRate = 5;
     /**
-     * Minimun value for the pheromone trail
+     * Minimum value for the pheromone trail
      */
     protected static final int tau_min = 6;
     /**
-     * Maximun value for the pheromone trail
+     * Maximum value for the pheromone trail
      */
     protected static final int tau_max = 7;
 
     /**
-     * Constructor. Allocates the enviroment.
+     * Constructor. Allocates the environment.
      *
-     * @param E enviroment
+     * @param E environment
      */
-    protected MMAS(Enviroment E) {
+    protected MMAS(Environment E) {
         super(E);
     }
 
@@ -105,7 +105,6 @@ abstract public class MMAS extends Metaheuristic {
     public boolean stagnationPoint() {
         double total_lambda = 0, lambda_i, tau_i_min, tau_i_max;
         for (int i = 0, r = this.Graph.getM().getRows(); i < r; i++) {
-            lambda_i = 0;
             tau_i_min = Double.MAX_VALUE;
             tau_i_max = 0;
             for (int j = 0, c = this.Graph.getM().getColumns(); j < c; j++) {
@@ -133,17 +132,17 @@ abstract public class MMAS extends Metaheuristic {
 
     @Override
     public int decisionRule(int i, Vector<Integer> currentSolution) {
-        /* counter of the number of times a node have been triying to selected a next node and maximun number of tries allowed*/
+        /* counter of the number of times a node have been trying to select a next node and maximum number of tries allowed*/
         int counter = 0, allowedNumberOfTries = 2 * this.getNumberOfNodes();
         /* Get possible nodes */
         Vector<Integer> possibleNodes = this.constrains(i, currentSolution);
         int cantPossibleNodes = possibleNodes.size();
         /* check if there is at least 1 possible node to be selected */
-        if (cantPossibleNodes <= 0) {
+        if (cantPossibleNodes == 0) {
             //There aren't any possible next candidates, therefore
             return -1;
         }
-        /* Get alpha (desicion rule) and beta (heuristic information) parameters */
+        /* Get alpha (decision rule) and beta (heuristic information) parameters */
         double localAlpha = this.Parameters.get(AntSystem.alpha);
         double localBeta = this.Parameters.get(AntSystem.beta);
 
@@ -173,7 +172,7 @@ abstract public class MMAS extends Metaheuristic {
     public void pheromonesUpdate() {
         /* Update pheromones only on the best tour so far */
         //System.out.println("pheromonesUpdate of the best tour = "+this.bestSolution );
-        int node_i = 0, node_j = 0;
+        int node_i, node_j;
         for (int i = 0; i < this.bestSolution.size() - 1; i++) {
             node_i = this.bestSolution.get(i);
             node_j = this.bestSolution.get(i + 1);

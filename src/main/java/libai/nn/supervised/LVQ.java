@@ -33,10 +33,10 @@ import java.io.Serial;
 import java.util.Random;
 
 /**
- * Learning Vector Quantization or LVQ. Is an hybrid neural network with 3
+ * Learning Vector Quantization or LVQ. Is a hybrid neural network with 3
  * layers (1-input, 1-hidden, 1-output). The first set of weights are trained
  * using a competitive approach, and the second set of weights are trained using
- * a supervised approach. Therefore the first steps are taken from the
+ * a supervised approach. Therefore, the first steps are taken from the
  * competitive network. This network was proposed by Teuvo Kohonen as
  * alternative to the standard competitive. networks.
  *

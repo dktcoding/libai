@@ -46,7 +46,7 @@ public class ArcTangent implements Function {
         }
 
         @Override
-        public Function getDerivate() {
+        public Function getDerivative() {
             String msg = "Second derivative not implemented for 'ArcTan(x)'";
             throw new UnsupportedOperationException(msg);
         }
@@ -58,7 +58,7 @@ public class ArcTangent implements Function {
     }
 
     @Override
-    public Function getDerivate() {
+    public Function getDerivative() {
         return derivate;
     }
 }

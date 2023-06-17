@@ -207,9 +207,7 @@ public class SVMTest {
             for (int i = n; i < patterns.length; i++) {
                 assertEquals(net.simulate(patterns[i]).position(0, 0), net2.simulate(patterns[i]).position(0, 0), 0);
             }
-        } catch (IOException e) {
-            fail();
-        } catch (ClassNotFoundException e1) {
+        } catch (IOException | ClassNotFoundException e) {
             fail();
         }
 

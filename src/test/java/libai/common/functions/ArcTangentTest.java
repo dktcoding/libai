@@ -58,7 +58,7 @@ public class ArcTangentTest {
 
     @Test
     public void testGetDerivate() {
-        Function der = new ArcTangent().getDerivate();
+        Function der = new ArcTangent().getDerivative();
         assertNotNull(der);
         double x = Math.random();
         assertEquals(der.eval(x), der.eval(-x), 1e-12);
@@ -74,6 +74,6 @@ public class ArcTangentTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetGetDerivative() {
-        new ArcTangent().getDerivate().getDerivate();
+        new ArcTangent().getDerivative().getDerivative();
     }
 }

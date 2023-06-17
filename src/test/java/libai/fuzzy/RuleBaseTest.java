@@ -40,52 +40,53 @@ public class RuleBaseTest {
 
         RuleBase ruleBase = new RuleBase("rulebase", ActivationMethod.MIN, AndMethod.PROD, OrMethod.PROBOR, ruleA, ruleB);
 
-        assertEquals("<RuleBase name=\"rulebase\" type=\"mamdani\" activationMethod=\"MIN\" andMethod=\"PROD\" orMethod=\"PROBOR\">\n" +
-                "\t<Rule name=\"tipper\" weight=\"1.000000\" operator=\"PROBOR\" connector=\"OR\">\n" +
-                "\t\t<Antecedent>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable1</Variable>\n" +
-                "\t\t\t\t<Term>good</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable2</Variable>\n" +
-                "\t\t\t\t<Term>big</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t</Antecedent>\n" +
-                "\t\t<Consequent>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable3</Variable>\n" +
-                "\t\t\t\t<Term>bad</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable4</Variable>\n" +
-                "\t\t\t\t<Term>small</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t</Consequent>\n" +
-                "\t</Rule>\n" +
-                "\t<Rule name=\"whatever\" weight=\"1.000000\" operator=\"MIN\" connector=\"AND\">\n" +
-                "\t\t<Antecedent>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable1</Variable>\n" +
-                "\t\t\t\t<Term>good</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable2</Variable>\n" +
-                "\t\t\t\t<Term>big</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t</Antecedent>\n" +
-                "\t\t<Consequent>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable3</Variable>\n" +
-                "\t\t\t\t<Term>bad</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t\t<Clause>\n" +
-                "\t\t\t\t<Variable>variable4</Variable>\n" +
-                "\t\t\t\t<Term>small</Term>\n" +
-                "\t\t\t</Clause>\n" +
-                "\t\t</Consequent>\n" +
-                "\t</Rule>\n" +
-                "</RuleBase>", ruleBase.toXMLString(""));
+        assertEquals("""
+                <RuleBase name="rulebase" type="mamdani" activationMethod="MIN" andMethod="PROD" orMethod="PROBOR">
+                \t<Rule name="tipper" weight="1.000000" operator="PROBOR" connector="OR">
+                \t\t<Antecedent>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable1</Variable>
+                \t\t\t\t<Term>good</Term>
+                \t\t\t</Clause>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable2</Variable>
+                \t\t\t\t<Term>big</Term>
+                \t\t\t</Clause>
+                \t\t</Antecedent>
+                \t\t<Consequent>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable3</Variable>
+                \t\t\t\t<Term>bad</Term>
+                \t\t\t</Clause>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable4</Variable>
+                \t\t\t\t<Term>small</Term>
+                \t\t\t</Clause>
+                \t\t</Consequent>
+                \t</Rule>
+                \t<Rule name="whatever" weight="1.000000" operator="MIN" connector="AND">
+                \t\t<Antecedent>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable1</Variable>
+                \t\t\t\t<Term>good</Term>
+                \t\t\t</Clause>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable2</Variable>
+                \t\t\t\t<Term>big</Term>
+                \t\t\t</Clause>
+                \t\t</Antecedent>
+                \t\t<Consequent>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable3</Variable>
+                \t\t\t\t<Term>bad</Term>
+                \t\t\t</Clause>
+                \t\t\t<Clause>
+                \t\t\t\t<Variable>variable4</Variable>
+                \t\t\t\t<Term>small</Term>
+                \t\t\t</Clause>
+                \t\t</Consequent>
+                \t</Rule>
+                </RuleBase>""", ruleBase.toXMLString(""));
     }
 
     @Test

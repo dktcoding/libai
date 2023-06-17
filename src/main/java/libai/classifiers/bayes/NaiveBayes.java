@@ -257,15 +257,14 @@ public class NaiveBayes {
             if (clazz.getNodeName().equals("class")) {
                 NodeList p = clazz.getChildNodes();
                 Attribute key = null;
-                int index = -1;
+                int index;
                 for (int j = 0; j < p.getLength(); j++) {
                     Node current = p.item(j);
                     if (current.getNodeName().equals("params")) {
                         key = Attribute.load(current);
                     } else if (current.getNodeName().equals("attribute")) {
                         index = Integer.parseInt(current.getAttributes().getNamedItem("index").getTextContent());
-                        if (params.get(key) == null)
-                            params.put(key, new Object[attributeCount]);
+                        params.computeIfAbsent(key, k -> new Object[attributeCount]);
                         params.get(key)[index] = getParams(current);
                     }
                 }
@@ -282,16 +281,20 @@ public class NaiveBayes {
         HashMap<String, Integer> freq = new HashMap<>();
         for (int i = 0; i < children.getLength(); i++) {
             Node current = children.item(i);
-            if (current.getNodeName().equals("count"))
-                return Integer.parseInt(current.getTextContent());
-            else if (current.getNodeName().equals("stats")) {
-                double mean = Double.parseDouble(current.getAttributes().getNamedItem("mean").getTextContent());
-                double sd = Double.parseDouble(current.getAttributes().getNamedItem("sd").getTextContent());
-                return new Pair<>(mean, sd);
-            } else if (current.getNodeName().equals("item")) {
-                int count = Integer.parseInt(current.getAttributes().getNamedItem("count").getTextContent());
-                String key = current.getTextContent();
-                freq.put(key, count);
+            switch (current.getNodeName()) {
+                case "count" -> {
+                    return Integer.parseInt(current.getTextContent());
+                }
+                case "stats" -> {
+                    double mean = Double.parseDouble(current.getAttributes().getNamedItem("mean").getTextContent());
+                    double sd = Double.parseDouble(current.getAttributes().getNamedItem("sd").getTextContent());
+                    return new Pair<>(mean, sd);
+                }
+                case "item" -> {
+                    int count = Integer.parseInt(current.getAttributes().getNamedItem("count").getTextContent());
+                    String key = current.getTextContent();
+                    freq.put(key, count);
+                }
             }
         }
         return freq;

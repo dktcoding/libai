@@ -71,11 +71,11 @@ public class Engine {
     /**
      * The cross probability
      */
-    private double pc = .6;
+    private double pc;
     /**
      * The mutation probability
      */
-    private double pm = .01;
+    private double pm;
     private JProgressBar progress;
 
     /**
@@ -106,7 +106,7 @@ public class Engine {
         random = getDefaultRandomGenerator();
 
         try {
-            best = (Chromosome) chromotype.newInstance();
+            best = (Chromosome) chromotype.getConstructor().newInstance();
             best.setFitness(evaluator.theWorst());
             best.setFitnessReal(evaluator.theWorst());
         } catch (Exception ex) {
@@ -137,7 +137,7 @@ public class Engine {
      * @param maximum The maximum value for the fitness in this population.
      */
     private void roulette(double maximum) {
-        Chromosome current = null;
+        Chromosome current;
         double q = 0;
         for (Chromosome chromosome : population) {
             current = chromosome;
@@ -214,9 +214,9 @@ public class Engine {
             progress.setValue(0);
         }
 
-        double maximum = 0;
+        double maximum;
         for (int iter = 0; iter < ages; iter++) {
-            Chromosome current = null;
+            Chromosome current;
             maximum = 0;
 
             //eval fitness

@@ -28,15 +28,15 @@ import java.util.Vector;
 /**
  * This class belong to the core classes of the Ant Framework.
  * <p>
- * It represent an Ant. An Ant is composed of a current position, an index where
- * it belong in the Enviroment array an a current solution
+ * It represents an Ant. An Ant is composed of a current position, an index where
+ * it belongs in the Environment array and a current solution
  *
  * @author Enrique Areyan, enrique3 at gmail.com
  * @version 1
  */
 public class Ant {
     /**
-     * This Ant's position in the Enviroment's Ants array
+     * This Ant's position in the Environment's Ants array
      */
     protected final int index;
     /**
@@ -51,7 +51,7 @@ public class Ant {
     /**
      * Constructor. Allocates the ant's index and initial position
      *
-     * @param index      ant's index in the enviroment array
+     * @param index      ant's index in the environment array
      * @param initialPos ant's initial position (node index) in the problem
      *                   graph
      */
@@ -144,7 +144,7 @@ public class Ant {
     /**
      * Return the string representation of an ant. Useful for debugging.
      *
-     * @return An string with the ant's index an current solution.
+     * @return A string with the ant's index and current solution.
      */
     @Override
     public String toString() {

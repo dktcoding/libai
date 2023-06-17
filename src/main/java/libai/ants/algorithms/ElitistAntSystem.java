@@ -24,7 +24,7 @@
 package libai.ants.algorithms;
 
 import libai.ants.AntFrameworkException;
-import libai.ants.Enviroment;
+import libai.ants.Environment;
 
 /**
  * This class belong to the core classes of the Ant Framework.
@@ -54,7 +54,7 @@ public abstract class ElitistAntSystem extends AntSystem {
      *
      * @param E enviroment
      */
-    protected ElitistAntSystem(Enviroment E) {
+    protected ElitistAntSystem(Environment E) {
         super(E);
     }
 
@@ -78,7 +78,7 @@ public abstract class ElitistAntSystem extends AntSystem {
         /* Update pheromones only on the best tour so far */
         //System.out.println("epsilon = "+ this.Parameters.get(ElitistAntSystem.epsilon));
         //System.out.println("pheromonesUpdate of the best tour = "+this.bestSolution );
-        int node_i = 0, node_j = 0;
+        int node_i, node_j;
         for (int i = 0; i < this.bestSolution.size() - 1; i++) {
             node_i = this.bestSolution.get(i);
             node_j = this.bestSolution.get(i + 1);

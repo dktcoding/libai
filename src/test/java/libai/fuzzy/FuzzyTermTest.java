@@ -81,9 +81,10 @@ public class FuzzyTermTest {
             }
         }, "term");
 
-        assertEquals("<FuzzyTerm name=\"term\" complement=\"false\">\n" +
-                "\t<SingletonShape Param1=\"10\"/>\n" +
-                "</FuzzyTerm>", term.toXMLString(""));
+        assertEquals("""
+                <FuzzyTerm name="term" complement="false">
+                \t<SingletonShape Param1="10"/>
+                </FuzzyTerm>""", term.toXMLString(""));
     }
 
     @Test
