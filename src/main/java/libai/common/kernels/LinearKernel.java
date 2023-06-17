@@ -25,16 +25,19 @@ package libai.common.kernels;
 
 import libai.common.matrix.Matrix;
 
+import java.io.Serial;
+
 /**
  * Implements a linear kernel based on the dot product.
  *
  * @author kronenthaler
  */
 public class LinearKernel implements Kernel {
-	private static final long serialVersionUID = 1077977714890090768L;
+    @Serial
+    private static final long serialVersionUID = 1077977714890090768L;
 
-	@Override
-	public double eval(Matrix A, Matrix B) {
-		return A.dotProduct(B);
-	}
+    @Override
+    public double eval(Matrix A, Matrix B) {
+        return A.dotProduct(B);
+    }
 }

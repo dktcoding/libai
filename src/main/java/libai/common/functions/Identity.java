@@ -23,33 +23,36 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Identity function f(x) = x; The first derivate of I(x), I'(x) = 1.
  *
  * @author kronenthaler
  */
 public class Identity implements Function {
-	private static final long serialVersionUID = 6331460636579541011L;
+    @Serial
+    private static final long serialVersionUID = 6331460636579541011L;
 
-	private static final Function derivate = new Function() {
-		@Override
-		public double eval(double x) {
-			return 1;
-		}
+    private static final Function derivate = new Function() {
+        @Override
+        public double eval(double x) {
+            return 1;
+        }
 
-		@Override
-		public Function getDerivate() {
-			return null;
-		}
-	};
+        @Override
+        public Function getDerivate() {
+            return null;
+        }
+    };
 
-	@Override
-	public double eval(double x) {
-		return x;
-	}
+    @Override
+    public double eval(double x) {
+        return x;
+    }
 
-	@Override
-	public Function getDerivate() {
-		return derivate;
-	}
+    @Override
+    public Function getDerivate() {
+        return derivate;
+    }
 }

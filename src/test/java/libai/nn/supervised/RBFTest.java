@@ -40,113 +40,113 @@ import static org.junit.Assume.assumeTrue;
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class RBFTest {
-	public static double f(double x) {
-		return Math.sin(x) + Math.cos(x);
-	}
+    public static double f(double x) {
+        return Math.sin(x) + Math.cos(x);
+    }
 
-	@Test
-	public void testDemo() {
-		int n = 40;
-		int m = 1;
-		int l = 1;
-		int test = 12;
-		Column[] p = new Column[n + test];
-		Column[] t = new Column[n + test];
-		double delta = 0.1;
-		double x = 0;
-		for (int i = 0; i < n; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+    @Test
+    public void testDemo() {
+        int n = 40;
+        int m = 1;
+        int l = 1;
+        int test = 12;
+        Column[] p = new Column[n + test];
+        Column[] t = new Column[n + test];
+        double delta = 0.1;
+        double x = 0;
+        for (int i = 0; i < n; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		delta = 0.33;
-		x = 0;
-		for (int i = n; i < n + test && x < 4; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+        delta = 0.33;
+        x = 0;
+        for (int i = n; i < n + test && x < 4; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		int nperlayer[] = {m, 10, l};
-		RBF net = new RBF(nperlayer, new Random(0));
-		net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
-		net.train(p, t, 0.001, 600000, 0, n);
+        int[] nperlayer = {m, 10, l};
+        RBF net = new RBF(nperlayer, new Random(0));
+        net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
+        net.train(p, t, 0.001, 600000, 0, n);
 
-		assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
 
-		for (int i = n; i < p.length; i++) {
-			assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
-		}
-	}
+        for (int i = n; i < p.length; i++) {
+            assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+        }
+    }
 
-	@Test
-	public void testSaveOpen() {
-		int n = 40;
-		int m = 1;
-		int l = 1;
-		int test = 12;
-		Column[] p = new Column[n + test];
-		Column[] t = new Column[n + test];
-		double delta = 0.1;
-		double x = 0;
-		for (int i = 0; i < n; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+    @Test
+    public void testSaveOpen() {
+        int n = 40;
+        int m = 1;
+        int l = 1;
+        int test = 12;
+        Column[] p = new Column[n + test];
+        Column[] t = new Column[n + test];
+        double delta = 0.1;
+        double x = 0;
+        for (int i = 0; i < n; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		delta = 0.33;
-		x = 0;
-		for (int i = n; i < n + test && x < 4; i++, x += delta) {
-			p[i] = new Column(m);
-			t[i] = new Column(l);
+        delta = 0.33;
+        x = 0;
+        for (int i = n; i < n + test && x < 4; i++, x += delta) {
+            p[i] = new Column(m);
+            t[i] = new Column(l);
 
-			p[i].position(0, 0, x);
-			t[i].position(0, 0, f(x));
-		}
+            p[i].position(0, 0, x);
+            t[i].position(0, 0, f(x));
+        }
 
-		int nperlayer[] = {m, 10, l};
-		RBF net = new RBF(nperlayer, new Random(0));
-		net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
-		net.train(p, t, 0.001, 600000, 0, n);
+        int[] nperlayer = {m, 10, l};
+        RBF net = new RBF(nperlayer, new Random(0));
+        net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
+        net.train(p, t, 0.001, 600000, 0, n);
 
-		assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
 
-		for (int i = n; i < p.length; i++) {
-			assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
-		}
+        for (int i = n; i < p.length; i++) {
+            assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+        }
 
-		assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
+        assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
 
-		String tmp = System.getProperty("java.io.tmpdir") + File.separator;
-		tmp = tmp + "foo.rbf";
-		assertTrue(net.save(tmp));
-		try {
-			RBF net2 = RBF.open(tmp);
-			assertNotNull(net2);
-			new File(tmp).delete();
+        String tmp = System.getProperty("java.io.tmpdir") + File.separator;
+        tmp = tmp + "foo.rbf";
+        assertTrue(net.save(tmp));
+        try {
+            RBF net2 = RBF.open(tmp);
+            assertNotNull(net2);
+            new File(tmp).delete();
 
-			assertEquals(net.error(p, t), net2.error(p, t), 0);
-			for (int i = n; i < p.length; i++) {
-				assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
-			}
-		} catch (IOException e) {
-			fail();
-		} catch (ClassNotFoundException e1) {
-			fail();
-		}
+            assertEquals(net.error(p, t), net2.error(p, t), 0);
+            for (int i = n; i < p.length; i++) {
+                assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
+            }
+        } catch (IOException e) {
+            fail();
+        } catch (ClassNotFoundException e1) {
+            fail();
+        }
 
-	}
+    }
 
-	@Test(expected = NullPointerException.class)
-	public void testNullPath() throws IOException, ClassNotFoundException {
-		RBF.open((String) null);
-	}
+    @Test(expected = NullPointerException.class)
+    public void testNullPath() throws IOException, ClassNotFoundException {
+        RBF.open((String) null);
+    }
 }

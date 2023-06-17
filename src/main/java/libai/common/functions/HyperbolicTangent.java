@@ -23,6 +23,8 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Hyperbolic Tangent. F(x) = tanh(x). The first derivate of tanh(x) =
  * 1-(tanh(x)*tanh(x))
@@ -30,28 +32,29 @@ package libai.common.functions;
  * @author kronenthaler
  */
 public class HyperbolicTangent implements Function {
-	private static final long serialVersionUID = 452564541626561512L;
+    @Serial
+    private static final long serialVersionUID = 452564541626561512L;
 
-	private static final Function derivate = new Function() {
-		@Override
-		public double eval(double x) {
-			double a = Math.tanh(x);
-			return (1.0 - (a * a));
-		}
+    private static final Function derivate = new Function() {
+        @Override
+        public double eval(double x) {
+            double a = Math.tanh(x);
+            return (1.0 - (a * a));
+        }
 
-		@Override
-		public Function getDerivate() {
-			return null;
-		}
-	};
+        @Override
+        public Function getDerivate() {
+            return null;
+        }
+    };
 
-	@Override
-	public double eval(double x) {
-		return Math.tanh(x);
-	}
+    @Override
+    public double eval(double x) {
+        return Math.tanh(x);
+    }
 
-	@Override
-	public Function getDerivate() {
-		return derivate;
-	}
+    @Override
+    public Function getDerivate() {
+        return derivate;
+    }
 }

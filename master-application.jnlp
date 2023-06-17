@@ -2,7 +2,7 @@
     <information>
         <title>${APPLICATION.TITLE}</title>
         <vendor>${APPLICATION.VENDOR}</vendor>
-        <homepage href="http://www.sourceforge.net/projects/libai"/>
+        <homepage href="https://www.sourceforge.net/projects/libai"/>
         <description>${APPLICATION.DESC}</description>
         <description kind="short">${APPLICATION.DESC.SHORT}</description>
 <!--${JNLP.ICONS}-->

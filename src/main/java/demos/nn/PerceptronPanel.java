@@ -25,7 +25,6 @@ package demos.nn;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import libai.common.matrix.Matrix;
 import libai.nn.NeuralNetwork;
 import libai.nn.supervised.Adaline;
 
@@ -33,10 +32,7 @@ import libai.nn.supervised.Adaline;
  * @author kronenthaler
  */
 public class PerceptronPanel extends javax.swing.JPanel {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form PerceptronPanel
@@ -55,8 +51,9 @@ public class PerceptronPanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 
 		jProgressBar1.setString("training");

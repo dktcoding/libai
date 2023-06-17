@@ -38,11 +38,7 @@ import java.util.Vector;
 public class AntQPanel extends javax.swing.JPanel {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JTextArea answerTxt;
-	private javax.swing.JButton jButton3;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JTextArea jTextArea1;
 	private javax.swing.JComboBox parameterSet;
 	/**
 	 * Creates new form AntSystemPanel
@@ -60,11 +56,11 @@ public class AntQPanel extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jTextArea1 = new javax.swing.JTextArea();
-		jScrollPane2 = new javax.swing.JScrollPane();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+		javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
+		javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
 		answerTxt = new javax.swing.JTextArea();
-		jButton3 = new javax.swing.JButton();
+		javax.swing.JButton jButton3 = new javax.swing.JButton();
 		jProgressBar1 = new javax.swing.JProgressBar();
 		parameterSet = new javax.swing.JComboBox();
 
@@ -139,7 +135,7 @@ public class AntQPanel extends javax.swing.JPanel {
 						jProgressBar1.setValue(as.getCurrentIterationNumber());
 						try {
 							Thread.sleep(1);
-						} catch (Exception e) {
+						} catch (Exception ignored) {
 						}
 					}
 					jProgressBar1.setValue(jProgressBar1.getMaximum());

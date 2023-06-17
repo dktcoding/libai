@@ -31,11 +31,11 @@ import java.util.Set;
  * @author kronenthaler
  */
 public interface MetaData {
-	public boolean isCategorical(int fieldIndex);
+    boolean isCategorical(int fieldIndex);
 
-	public String getAttributeName(int fieldIndex);
+    String getAttributeName(int fieldIndex);
 
-	public int getAttributeCount();
+    int getAttributeCount();
 
-	public Set<Attribute> getClasses();
+    Set<Attribute> getClasses();
 }

@@ -9,22 +9,22 @@ import org.w3c.dom.Node;
  * @author kronenthaler
  */
 public class RectangularShape extends TwoParameterSet {
-	public RectangularShape(Node xmlNode){
-		load(xmlNode);
-	}
+    public RectangularShape(Node xmlNode){
+        load(xmlNode);
+    }
 
-	/**
-	 * Constructor.
-	 * @param a Left vertex of the rectangle.
-	 * @param b Right vertex of the rectangle.
-	 **/
-	public RectangularShape(double a, double b){
-		this.a = a;
-		this.b = b;
-	}
+    /**
+     * Constructor.
+     * @param a Left vertex of the rectangle.
+     * @param b Right vertex of the rectangle.
+     **/
+    public RectangularShape(double a, double b){
+        this.a = a;
+        this.b = b;
+    }
 
-	@Override
-	public double eval(double x) {
-		return a <= x && x <= b ? 1 : 0;
-	}
+    @Override
+    public double eval(double x) {
+        return a <= x && x <= b ? 1 : 0;
+    }
 }

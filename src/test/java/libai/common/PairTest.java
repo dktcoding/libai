@@ -34,71 +34,73 @@ import static org.junit.Assert.*;
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class PairTest {
-	@Test
-	public void testSort() {
-		Pair[] pairs = new Pair[]{
-				new Pair(-10, 4),
-				new Pair(10, 6),
-				new Pair(3, 2),
-				new Pair(2, 4),
-		};
-		Pair[] pairsSorted = new Pair[]{
-				new Pair(-10, 4),
-				new Pair(2, 4),
-				new Pair(3, 2),
-				new Pair(10, 6),
-		};
-		Arrays.sort(pairs);
-		assertArrayEquals(pairs, pairsSorted);
-	}
+    @Test
+    public void testSort() {
+        Pair<Integer, Integer>[] pairs = new Pair[]{
+                new Pair<>(-10, 4),
+                new Pair<>(10, 6),
+                new Pair<>(3, 2),
+                new Pair<>(2, 4),
+        };
+        Pair<Integer, Integer>[] pairsSorted = new Pair[]{
+                new Pair<>(-10, 4),
+                new Pair<>(2, 4),
+                new Pair<>(3, 2),
+                new Pair<>(10, 6),
+        };
+        Arrays.sort(pairs);
+        assertArrayEquals(pairs, pairsSorted);
+    }
 
-	@Test
-	public void testHashCodeEquals() {
-		HashMap<Pair, Pair> map = new HashMap<>();
+    @Test
+    public void testHashCodeEquals() {
+        HashMap<Pair<Integer, Integer>, Pair<Integer, Integer>> map = new HashMap<>();
 
-		Pair[] pairs = new Pair[]{
-				new Pair(-10, 4),
-				new Pair(10, 6),
-				new Pair(3, 2),
-				new Pair(2, 4),
-		};
+        Pair<Integer, Integer>[] pairs = new Pair[]{
+                new Pair<>(-10, 4),
+                new Pair<>(10, 6),
+                new Pair<>(3, 2),
+                new Pair<>(2, 4),
+        };
 
-		for (Pair p : pairs) {
-			map.put(p, p);
-		}
+        for (Pair<Integer, Integer> p : pairs) {
+            map.put(p, p);
+        }
 
-		for (Pair p : pairs) {
-			assertEquals(p, map.get(p));
-			assertTrue(p == map.get(p));
-		}
-	}
+        for (Pair<Integer, Integer> p : pairs) {
+            assertEquals(p, map.get(p));
+            assertSame(p, map.get(p));
+        }
+    }
 
-	@Test
-	public void testHashCode() {
-		Pair p1 = new Pair(-10, 4);
-		Pair p2 = new Pair(-10, 4);
+    @Test
+    public void testHashCode() {
+        Pair<Integer, Integer>  p1 = new Pair<>(-10, 4);
+        Pair<Integer, Integer>  p2 = new Pair<>(-10, 4);
 
-		assertEquals(p1.hashCode(), p1.hashCode());
-		assertEquals(p1.hashCode(), p2.hashCode());
-		p2.first = "-10";
-		assertNotEquals(p1.hashCode(), p2.hashCode());
-		p2.first = -10;
-		assertEquals(p1.hashCode(), p2.hashCode());
-		p2.second = 4.0;
-		assertNotEquals(p1.hashCode(), p2.hashCode());
-	}
+        assertEquals(p1.hashCode(), p1.hashCode());
+        assertEquals(p1.hashCode(), p2.hashCode());
+        p2.first = Integer.valueOf("-10");
+        assertEquals(p1.hashCode(), p2.hashCode());
+        p2.first = -10;
+        assertEquals(p1.hashCode(), p2.hashCode());
+        p2.second = (int) 5.0;
+        assertNotEquals(p1.hashCode(), p2.hashCode());
+        p2.second = (int) 4.0;
+        assertEquals(p1.hashCode(), p2.hashCode());
+    }
 
-	@Test
-	public void testToString() {
-		Pair pair = new Pair("abc", "def");
-		assertEquals("(abc,def)", pair.toString());
-	}
+    @Test
+    public void testToString() {
+        Pair<String, String>  pair = new Pair<>("abc", "def");
+        assertEquals("(abc,def)", pair.toString());
+    }
 
-	@Test
-	public void testEquals() {
-		Pair pair = new Pair("abc", "def");
-		assertNotEquals(pair, null);
-		assertNotEquals(new Object(), pair);
-		assertNotEquals(4, pair);
-	}
+    @Test
+    public void testEquals() {
+        Pair<String, String> pair = new Pair<>("abc", "def");
+        assertNotEquals(pair, null);
+        assertNotEquals(new Object(), pair);
+        assertNotEquals(4, pair);
+    }
 }

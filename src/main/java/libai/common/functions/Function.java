@@ -33,18 +33,18 @@ import java.io.Serializable;
  * @author kronenthaler
  */
 public interface Function extends Serializable {
-	/**
-	 * Function to evaluate.
-	 *
-	 * @param x the input value
-	 * @return f(x)
-	 */
-	public double eval(double x);
+    /**
+     * Function to evaluate.
+     *
+     * @param x the input value
+     * @return f(x)
+     */
+    double eval(double x);
 
-	/**
-	 * Evaluate the first derivate of this function f'(x)
-	 *
-	 * @return a new Function object with the derivate function.
-	 */
-	public Function getDerivate();
+    /**
+     * Evaluate the first derivate of this function f'(x)
+     *
+     * @return a new Function object with the derivate function.
+     */
+    Function getDerivate();
 }

@@ -32,10 +32,7 @@ import libai.genetics.chromosomes.IntegerChromosome;
  * @author kronenthaler
  */
 public class Permutation extends javax.swing.JPanel implements Fitness {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form Permutation
@@ -53,10 +50,11 @@ public class Permutation extends javax.swing.JPanel implements Fitness {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
 
 		jTextPane1.setText("Evolve a population of permutation chromosomes to approximate the function F(x) < F(x+1), ie, sort the positions in ascending order.\nThe evolving algorithm uses the roulette selection method and elitism. The pm = 0.01 and the pc = 0.6, with a population of 200 individuals.\nThe best chromosome is showed and the fitness for that chromosome.\n");
 		jScrollPane1.setViewportView(jTextPane1);
@@ -110,8 +108,8 @@ public class Permutation extends javax.swing.JPanel implements Fitness {
 
 				jTextPane1.setText(jTextPane1.getText() + "Best Chromosome: " + best + "\n");
 				int[] g = best.getGenes();
-				for (int i = 0; i < g.length; i++) {
-					jTextPane1.setText(jTextPane1.getText() + g[i] + " ");
+				for (int j : g) {
+					jTextPane1.setText(jTextPane1.getText() + j + " ");
 				}
 				jTextPane1.setText(jTextPane1.getText() + "\nNumber of wrong positions: " + fitness(best));
 			}
@@ -122,7 +120,7 @@ public class Permutation extends javax.swing.JPanel implements Fitness {
 	@Override
 	public double fitness(Chromosome c1) {
 		IntegerChromosome c = (IntegerChromosome) c1;
-		int g[] = c.getGenes();
+		int[] g = c.getGenes();
 		int count = g.length;
 		for (int i = 0; i < g.length; i++) {
 			if (g[i] == i)

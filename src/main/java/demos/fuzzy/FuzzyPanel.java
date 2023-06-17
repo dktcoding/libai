@@ -42,39 +42,39 @@ import java.util.Map;
  */
 public class FuzzyPanel extends javax.swing.JPanel {
 	boolean exit = false;
-	FuzzyTerm left = new FuzzyTerm(new RightLinearShape(-1,0), "left");
-	FuzzyTerm middle = new FuzzyTerm(new TriangularShape(-1,0,1), "middle");
-	FuzzyTerm right = new FuzzyTerm(new LeftLinearShape(0, 1), "right");
-	FuzzyVariable position = new libai.fuzzy.FuzzyVariable("position", -2,2,"meters", left, middle, right);
+	final FuzzyTerm left = new FuzzyTerm(new RightLinearShape(-1,0), "left");
+	final FuzzyTerm middle = new FuzzyTerm(new TriangularShape(-1,0,1), "middle");
+	final FuzzyTerm right = new FuzzyTerm(new LeftLinearShape(0, 1), "right");
+	final FuzzyVariable position = new libai.fuzzy.FuzzyVariable("position", -2,2,"meters", left, middle, right);
 
-	FuzzyTerm movingLeft = new FuzzyTerm(new RightLinearShape(-0.5,0), "movingLeft");
-	FuzzyTerm standingStill = new FuzzyTerm(new TriangularShape(-0.5,0,1), "standingStill");
-	FuzzyTerm movingRight = new FuzzyTerm(new LeftLinearShape(0, 1), "movingRight");
-	FuzzyVariable velocity = new FuzzyVariable("velocity", -1, 2, "m/s", movingLeft, standingStill, movingRight);
+	final FuzzyTerm movingLeft = new FuzzyTerm(new RightLinearShape(-0.5,0), "movingLeft");
+	final FuzzyTerm standingStill = new FuzzyTerm(new TriangularShape(-0.5,0,1), "standingStill");
+	final FuzzyTerm movingRight = new FuzzyTerm(new LeftLinearShape(0, 1), "movingRight");
+	final FuzzyVariable velocity = new FuzzyVariable("velocity", -1, 2, "m/s", movingLeft, standingStill, movingRight);
 
-	FuzzyTerm pull = new FuzzyTerm(new RightLinearShape(-0.5,0), "pull");
-	FuzzyTerm none = new FuzzyTerm(new TriangularShape(-0.5,0,0.5), "none");
-	FuzzyTerm push = new FuzzyTerm(new LeftLinearShape(0, 0.5), "push");
-	FuzzyVariable force = new FuzzyVariable("force", -1, 1, 0, "Newtons", Accumulation.MAX, Defuzzifier.COG, pull, none, push);
-	KnowledgeBase kb = new KnowledgeBase(position, velocity, force);
+	final FuzzyTerm pull = new FuzzyTerm(new RightLinearShape(-0.5,0), "pull");
+	final FuzzyTerm none = new FuzzyTerm(new TriangularShape(-0.5,0,0.5), "none");
+	final FuzzyTerm push = new FuzzyTerm(new LeftLinearShape(0, 0.5), "push");
+	final FuzzyVariable force = new FuzzyVariable("force", -1, 1, 0, "Newtons", Accumulation.MAX, Defuzzifier.COG, pull, none, push);
+	final KnowledgeBase kb = new KnowledgeBase(position, velocity, force);
 
-	Rule r1 = new Rule("r1", 1, AndMethod.MIN, new Antecedent(new Clause("position", "middle"), new Clause("velocity", "standingStill")), new Consequent(new Clause("force", "none")));
-	Rule r2 = new Rule("r2", 1, AndMethod.MIN, new Antecedent(new Clause("position", "left")), new Consequent(new Clause("force", "push")));
-	Rule r3 = new Rule("r3", 1, AndMethod.MIN, new Antecedent(new Clause("position", "right")), new Consequent(new Clause("force", "pull")));
-	Rule r4 = new Rule("r4", 1, AndMethod.MIN, new Antecedent(new Clause("position", "middle")), new Consequent(new Clause("force", "none")));
-	Rule r5 = new Rule("r5", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "movingLeft")), new Consequent(new Clause("force", "push")));
-	Rule r6 = new Rule("r6", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "standingStill")), new Consequent(new Clause("force", "none")));
-	Rule r7 = new Rule("r7", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "movingRight")), new Consequent(new Clause("force", "pull")));
-	Rule r8 = new Rule("r8", 1, AndMethod.MIN, new Antecedent(new Clause("position", "left"), new Clause("velocity", "movingLeft")), new Consequent(new Clause("force", "push")));
-	Rule r9 = new Rule("r9", 1, AndMethod.MIN, new Antecedent(new Clause("position", "right"), new Clause("velocity", "movingRight")), new Consequent(new Clause("force", "pull")));
-	RuleBase rb = new RuleBase("rules", ActivationMethod.MIN, r1, r2, r3, r4, r5, r6, r7, r8, r9);
+	final Rule r1 = new Rule("r1", 1, AndMethod.MIN, new Antecedent(new Clause("position", "middle"), new Clause("velocity", "standingStill")), new Consequent(new Clause("force", "none")));
+	final Rule r2 = new Rule("r2", 1, AndMethod.MIN, new Antecedent(new Clause("position", "left")), new Consequent(new Clause("force", "push")));
+	final Rule r3 = new Rule("r3", 1, AndMethod.MIN, new Antecedent(new Clause("position", "right")), new Consequent(new Clause("force", "pull")));
+	final Rule r4 = new Rule("r4", 1, AndMethod.MIN, new Antecedent(new Clause("position", "middle")), new Consequent(new Clause("force", "none")));
+	final Rule r5 = new Rule("r5", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "movingLeft")), new Consequent(new Clause("force", "push")));
+	final Rule r6 = new Rule("r6", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "standingStill")), new Consequent(new Clause("force", "none")));
+	final Rule r7 = new Rule("r7", 1, AndMethod.MIN, new Antecedent(new Clause("velocity", "movingRight")), new Consequent(new Clause("force", "pull")));
+	final Rule r8 = new Rule("r8", 1, AndMethod.MIN, new Antecedent(new Clause("position", "left"), new Clause("velocity", "movingLeft")), new Consequent(new Clause("force", "push")));
+	final Rule r9 = new Rule("r9", 1, AndMethod.MIN, new Antecedent(new Clause("position", "right"), new Clause("velocity", "movingRight")), new Consequent(new Clause("force", "pull")));
+	final RuleBase rb = new RuleBase("rules", ActivationMethod.MIN, r1, r2, r3, r4, r5, r6, r7, r8, r9);
 
-	FuzzyController controller = new FuzzyController("car-control", kb, rb);
+	final FuzzyController controller = new FuzzyController("car-control", kb, rb);
 
-	class Car {
+	static class Car {
 		double position; // m
 		double velocity; // m/s
-		double mass; // kg
+		final double mass; // kg
 
 		Car(double position, double mass){
 			this.position = position;
@@ -98,16 +98,12 @@ public class FuzzyPanel extends javax.swing.JPanel {
 		}
 	}
 
-	private Car car = new Car(-0.5, 1);
+	private final Car car = new Car(-0.5, 1);
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel canvas;
 	private javax.swing.JSpinner frictionsSpn;
 	private javax.swing.JButton jButton1;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JTextPane jTextPane1;
 	private javax.swing.JSpinner posSpn;
 	/**
 	 * Creates new form FuzzyPanel
@@ -125,8 +121,8 @@ public class FuzzyPanel extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jTextPane1 = new javax.swing.JTextPane();
+		JScrollPane jScrollPane1 = new JScrollPane();
+		JTextPane jTextPane1 = new JTextPane();
 		jButton1 = new javax.swing.JButton();
 		canvas = new JPanel() {
 			public void paint(Graphics g) {
@@ -150,8 +146,8 @@ public class FuzzyPanel extends javax.swing.JPanel {
 			}
 		};
 		posSpn = new javax.swing.JSpinner();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
+		JLabel jLabel1 = new JLabel();
+		JLabel jLabel2 = new JLabel();
 		frictionsSpn = new javax.swing.JSpinner();
 
 		jTextPane1.setText("This fuzzy example is about the classical problem of controlling a car to stop in the middle of a track, the track is 4 meters long, [-2, 2] are the possible starting positions for the car." +
@@ -275,7 +271,7 @@ public class FuzzyPanel extends javax.swing.JPanel {
 
 							if (currentFrame - lastFrame < 1000/fps)
 								Thread.sleep((long)((1000/fps) - (currentFrame - lastFrame)));
-						}catch(Exception e){}
+						}catch(Exception ignored){}
 
 						lastFrame = System.currentTimeMillis();
 						frames++;

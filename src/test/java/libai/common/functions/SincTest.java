@@ -32,52 +32,52 @@ import static org.junit.Assert.assertNotNull;
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
  */
 public class SincTest {
-	@Test
-	public void testEval() {
-		Sinc sinc = new Sinc();
-		assertEquals(1, sinc.eval(0), 0d);
-		assertEquals(0, sinc.eval(Math.PI), 1e-12);
-		assertEquals(0, sinc.eval(-Math.PI), 1e-12);
-		assertEquals(0, sinc.eval(-2 * Math.PI), 1e-12);
-		assertEquals(0, sinc.eval(2 * Math.PI), 1e-12);
+    @Test
+    public void testEval() {
+        Sinc sinc = new Sinc();
+        assertEquals(1, sinc.eval(0), 0d);
+        assertEquals(0, sinc.eval(Math.PI), 1e-12);
+        assertEquals(0, sinc.eval(-Math.PI), 1e-12);
+        assertEquals(0, sinc.eval(-2 * Math.PI), 1e-12);
+        assertEquals(0, sinc.eval(2 * Math.PI), 1e-12);
 
-		double x = Math.random();
-		assertEquals(Math.sin(x) / x, sinc.eval(x), 1e-12);
-	}
+        double x = Math.random();
+        assertEquals(Math.sin(x) / x, sinc.eval(x), 1e-12);
+    }
 
-	@Test
-	public void testEval2() {
-		Sinc sinc = new Sinc();
-		double accum = 0;
-		for (int i = 1; i < 1000000; i++) {
-			accum += sinc.eval(i);
-		}
-		assertEquals(accum, (Math.PI - 1) / 2, 1e-6);
-	}
+    @Test
+    public void testEval2() {
+        Sinc sinc = new Sinc();
+        double accum = 0;
+        for (int i = 1; i < 1000000; i++) {
+            accum += sinc.eval(i);
+        }
+        assertEquals(accum, (Math.PI - 1) / 2, 1e-6);
+    }
 
-	@Test
-	public void testEval3() {
-		Sinc sinc = new Sinc();
-		double accum = 0;
-		for (int i = 1; i < 1000000; i++) {
-			double res = sinc.eval(i);
-			accum += res * res;
-		}
-		assertEquals(accum, (Math.PI - 1) / 2, 1e-6);
-	}
+    @Test
+    public void testEval3() {
+        Sinc sinc = new Sinc();
+        double accum = 0;
+        for (int i = 1; i < 1000000; i++) {
+            double res = sinc.eval(i);
+            accum += res * res;
+        }
+        assertEquals(accum, (Math.PI - 1) / 2, 1e-6);
+    }
 
-	@Test
-	public void testGetDerivate() {
-		Function der = new Sinc().getDerivate();
-		assertNotNull(der);
-		assertEquals(0, der.eval(0), 0);
-		double x = Math.random();
-		assertEquals((x * Math.cos(x) - Math.sin(x)) / x / x, der.eval(x), 1e-12);
-	}
+    @Test
+    public void testGetDerivate() {
+        Function der = new Sinc().getDerivate();
+        assertNotNull(der);
+        assertEquals(0, der.eval(0), 0);
+        double x = Math.random();
+        assertEquals((x * Math.cos(x) - Math.sin(x)) / x / x, der.eval(x), 1e-12);
+    }
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetGetDerivative() {
-		new Sinc().getDerivate().getDerivate();
-	}
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetGetDerivative() {
+        new Sinc().getDerivate().getDerivate();
+    }
 
 }

@@ -32,25 +32,25 @@ import static org.junit.Assert.*;
  */
 public class SigmoidTest {
 
-	@Test
-	public void testEval() {
-		Sigmoid sigmoid = new Sigmoid();
-		for (int i = 0; i < 100; i++) {
-			double x = Math.random() * 10 - 5;
-			assertEquals(1 - 1 / (Math.exp(x) + 1), sigmoid.eval(x), 1e-12);
-		}
-	}
+    @Test
+    public void testEval() {
+        Sigmoid sigmoid = new Sigmoid();
+        for (int i = 0; i < 100; i++) {
+            double x = Math.random() * 10 - 5;
+            assertEquals(1 - 1 / (Math.exp(x) + 1), sigmoid.eval(x), 1e-12);
+        }
+    }
 
-	@Test
-	public void testGetDerivate() {
-		Function der = new Sigmoid().getDerivate();
-		assertNotNull(der);
-		assertEquals(1. / 4, der.eval(0), 1e-12);
-		assertEquals(0, der.eval(Double.POSITIVE_INFINITY), 1e-12);
-	}
+    @Test
+    public void testGetDerivate() {
+        Function der = new Sigmoid().getDerivate();
+        assertNotNull(der);
+        assertEquals(1. / 4, der.eval(0), 1e-12);
+        assertEquals(0, der.eval(Double.POSITIVE_INFINITY), 1e-12);
+    }
 
-	@Test
-	public void testGetGetDerivative() {
-		assertNull(new Sigmoid().getDerivate().getDerivate());
-	}
+    @Test
+    public void testGetGetDerivative() {
+        assertNull(new Sigmoid().getDerivate().getDerivate());
+    }
 }

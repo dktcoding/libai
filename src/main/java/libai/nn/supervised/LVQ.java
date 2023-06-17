@@ -29,6 +29,7 @@ import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
 import libai.common.matrix.Row;
 
+import java.io.Serial;
 import java.util.Random;
 
 /**
@@ -42,12 +43,14 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class LVQ extends SupervisedLearning {
+	@Serial
 	private static final long serialVersionUID = 6603129562167746698L;
 
-	protected Matrix W;
-	protected Matrix W2;
-	protected int ins, outs;
-	protected int subclasses;
+	protected final Matrix W;
+	protected final Matrix W2;
+	protected final int ins;
+	protected final int outs;
+	protected final int subclasses;
 
 	/**
 	 * Constructor. Number of inputs, number of subclasses and number of

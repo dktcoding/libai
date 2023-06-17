@@ -28,54 +28,53 @@ import java.util.Objects;
 /**
  * @author ignacio
  */
-public final class Triplet<V extends Comparable, K extends Comparable, Z extends Comparable> {
-	/**
-	 * First element of the tuple.
-	 */
-	public V first;
+public final class Triplet<V extends Comparable<?>, K extends Comparable<?>, Z extends Comparable<?>> {
+    /**
+     * First element of the tuple.
+     */
+    public V first;
 
-	/**
-	 * Second element of the tuple.
-	 */
-	public K second;
+    /**
+     * Second element of the tuple.
+     */
+    public K second;
 
-	/**
-	 * Third element of the tuple.
-	 */
-	public Z third;
+    /**
+     * Third element of the tuple.
+     */
+    public Z third;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param x the first element for the tuple.
-	 * @param y the second element for the tuple.
-	 * @param z the third element for the tuple.
-	 */
-	public Triplet(V x, K y, Z z) {
-		first = x;
-		second = y;
-		third = z;
-	}
+    /**
+     * Constructor.
+     *
+     * @param x the first element for the tuple.
+     * @param y the second element for the tuple.
+     * @param z the third element for the tuple.
+     */
+    public Triplet(V x, K y, Z z) {
+        first = x;
+        second = y;
+        third = z;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second, third);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(first, second, third);
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null || !(o instanceof Triplet))
-			return false;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Triplet<?,?,?> b) {
+            return first.equals(b.first) &&
+                   second.equals(b.second) &&
+                   third.equals(b.third);
+        }
+        return false;
+    }
 
-		Triplet<V, K, Z> b = (Triplet<V, K, Z>) o;
-		return first.equals(b.first)
-				&& second.equals(b.second)
-				&& third.equals(b.third);
-	}
-
-	@Override
-	public String toString() {
-		return "(" + first + "," + second + "," + third + ")";
-	}
+    @Override
+    public String toString() {
+        return "(" + first + "," + second + "," + third + ")";
+    }
 
 }

@@ -25,17 +25,13 @@ package demos.nn;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import libai.common.matrix.Matrix;
 import libai.nn.supervised.RBF;
 
 /**
  * @author kronenthaler
  */
 public class RBFPanel extends javax.swing.JPanel {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 
 	/**
@@ -59,8 +55,9 @@ public class RBFPanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 
 		jProgressBar1.setString("training");
@@ -134,7 +131,7 @@ public class RBFPanel extends javax.swing.JPanel {
 					t[i].position(0, 0, f(x));
 				}
 
-				int nperlayer[] = {m, 10, l};
+				int[] nperlayer = {m, 10, l};
 				RBF net = new RBF(nperlayer);
 				net.setProgressBar(new SimpleProgressDisplay(jProgressBar1));
 				net.train(p, t, 0.01, 60000, 0, n);

@@ -33,16 +33,16 @@ import static org.junit.Assert.assertNull;
  */
 public class SymmetricSignTest {
 
-	@Test
-	public void testEval() {
-		SymmetricSign ssign = new SymmetricSign();
-		assertEquals(-1, ssign.eval(-10), 0);
-		assertEquals(1, ssign.eval(0), 0);
-		assertEquals(1, ssign.eval(10), 0);
-	}
+    @Test
+    public void testEval() {
+        SymmetricSign ssign = new SymmetricSign();
+        assertEquals(-1, ssign.eval(-10), 0);
+        assertEquals(1, ssign.eval(0), 0);
+        assertEquals(1, ssign.eval(10), 0);
+    }
 
-	@Test
-	public void testGetDerivative() {
-		assertNull(new SymmetricSign().getDerivate());
-	}
+    @Test
+    public void testGetDerivative() {
+        assertNull(new SymmetricSign().getDerivate());
+    }
 }

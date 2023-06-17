@@ -28,33 +28,7 @@ package demos;
  * @author kronenthaler
  */
 public class Examples extends javax.swing.JFrame {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private demos.search.AStarPanel aStarPanel1;
-	private demos.ants.AntColonySystemPanel antColonySystemPanel1;
-	private demos.ants.AntQPanel antQPanel1;
-	private demos.ants.AntSystemPanel antSystemPanel1;
-	private demos.ants.AntSystemRankPanel antSystemRankPanel1;
-	private demos.search.BFSPanel bFSPanel1;
-	private demos.genetic.BinaryPanel binaryPanel1;
-	private demos.nn.CompetitivePanel competitivePanel1;
-	private demos.search.DFSPanel dFSPanel1;
-	private demos.ants.ElitistAntSystemPanel elitistAntSystemPanel1;
-	private demos.fuzzy.FuzzyPanel fuzzyPanel1;
-	private demos.nn.HopfieldPanel hebbPanel1;
-	private javax.swing.JTabbedPane jTabbedPane1;
-	private javax.swing.JTabbedPane jTabbedPane2;
-	private javax.swing.JTabbedPane jTabbedPane3;
-	private javax.swing.JTabbedPane jTabbedPane4;
-	private javax.swing.JTabbedPane jTabbedPane5;
-	private demos.nn.KohonenPanel kohonenPanel1;
-	private demos.nn.LVQPanel lVQPanel1;
-	private demos.ants.MMASPanel mMASPanel1;
-	private demos.nn.MPLPanel mPLPanel1;
-	private demos.nn.PerceptronPanel perceptronPanel1;
-	private demos.genetic.Permutation permutation1;
-	private demos.nn.RBFPanel rBFPanel1;
-	private demos.nn.SVMPanel sVMPanel1;
-	private demos.trees.TreesPanel treesPanel1;
+
 	/**
 	 * Creates new form Examples
 	 */
@@ -65,7 +39,7 @@ public class Examples extends javax.swing.JFrame {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -83,32 +57,33 @@ public class Examples extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jTabbedPane2 = new javax.swing.JTabbedPane();
-		fuzzyPanel1 = new demos.fuzzy.FuzzyPanel();
-		jTabbedPane3 = new javax.swing.JTabbedPane();
-		binaryPanel1 = new demos.genetic.BinaryPanel();
-		permutation1 = new demos.genetic.Permutation();
-		jTabbedPane1 = new javax.swing.JTabbedPane();
-		perceptronPanel1 = new demos.nn.PerceptronPanel();
-		mPLPanel1 = new demos.nn.MPLPanel();
-		rBFPanel1 = new demos.nn.RBFPanel();
-		lVQPanel1 = new demos.nn.LVQPanel();
-		sVMPanel1 = new demos.nn.SVMPanel();
-		kohonenPanel1 = new demos.nn.KohonenPanel();
-		competitivePanel1 = new demos.nn.CompetitivePanel();
-		hebbPanel1 = new demos.nn.HopfieldPanel();
-		jTabbedPane4 = new javax.swing.JTabbedPane();
-		bFSPanel1 = new demos.search.BFSPanel();
-		dFSPanel1 = new demos.search.DFSPanel();
-		aStarPanel1 = new demos.search.AStarPanel();
-		treesPanel1 = new demos.trees.TreesPanel();
-		jTabbedPane5 = new javax.swing.JTabbedPane();
-		antSystemPanel1 = new demos.ants.AntSystemPanel();
-		antColonySystemPanel1 = new demos.ants.AntColonySystemPanel();
-		antSystemRankPanel1 = new demos.ants.AntSystemRankPanel();
-		elitistAntSystemPanel1 = new demos.ants.ElitistAntSystemPanel();
-		antQPanel1 = new demos.ants.AntQPanel();
-		mMASPanel1 = new demos.ants.MMASPanel();
+		javax.swing.JTabbedPane jTabbedPane2 = new javax.swing.JTabbedPane();
+		demos.fuzzy.FuzzyPanel fuzzyPanel1 = new demos.fuzzy.FuzzyPanel();
+		javax.swing.JTabbedPane jTabbedPane3 = new javax.swing.JTabbedPane();
+		demos.genetic.BinaryPanel binaryPanel1 = new demos.genetic.BinaryPanel();
+		demos.genetic.Permutation permutation1 = new demos.genetic.Permutation();
+		javax.swing.JTabbedPane jTabbedPane1 = new javax.swing.JTabbedPane();
+		demos.nn.PerceptronPanel perceptronPanel1 = new demos.nn.PerceptronPanel();
+		demos.nn.MPLPanel mPLPanel1 = new demos.nn.MPLPanel();
+		demos.nn.RBFPanel rBFPanel1 = new demos.nn.RBFPanel();
+		demos.nn.LVQPanel lVQPanel1 = new demos.nn.LVQPanel();
+		demos.nn.SVMPanel sVMPanel1 = new demos.nn.SVMPanel();
+		demos.nn.KohonenPanel kohonenPanel1 = new demos.nn.KohonenPanel();
+		demos.nn.CompetitivePanel competitivePanel1 = new demos.nn.CompetitivePanel();
+		demos.nn.HopfieldPanel hebbPanel1 = new demos.nn.HopfieldPanel();
+		javax.swing.JTabbedPane jTabbedPane4 = new javax.swing.JTabbedPane();
+		demos.search.BFSPanel bFSPanel1 = new demos.search.BFSPanel();
+		demos.search.DFSPanel dFSPanel1 = new demos.search.DFSPanel();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		demos.search.AStarPanel aStarPanel1 = new demos.search.AStarPanel();
+		demos.trees.TreesPanel treesPanel1 = new demos.trees.TreesPanel();
+		javax.swing.JTabbedPane jTabbedPane5 = new javax.swing.JTabbedPane();
+		demos.ants.AntSystemPanel antSystemPanel1 = new demos.ants.AntSystemPanel();
+		demos.ants.AntColonySystemPanel antColonySystemPanel1 = new demos.ants.AntColonySystemPanel();
+		demos.ants.AntSystemRankPanel antSystemRankPanel1 = new demos.ants.AntSystemRankPanel();
+		demos.ants.ElitistAntSystemPanel elitistAntSystemPanel1 = new demos.ants.ElitistAntSystemPanel();
+		demos.ants.AntQPanel antQPanel1 = new demos.ants.AntQPanel();
+		demos.ants.MMASPanel mMASPanel1 = new demos.ants.MMASPanel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Examples libai");

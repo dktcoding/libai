@@ -23,6 +23,8 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Signum function F(x) = 0 if x &lt; 0 or 1 if x &gt;= 1 This function is not
  * derivable.
@@ -30,15 +32,16 @@ package libai.common.functions;
  * @author kronenthaler
  */
 public class Sign implements Function {
-	private static final long serialVersionUID = 1166867398304665624L;
+    @Serial
+    private static final long serialVersionUID = 1166867398304665624L;
 
-	@Override
-	public double eval(double x) {
-		return x > 0 ? 1 : 0;
-	}
+    @Override
+    public double eval(double x) {
+        return x > 0 ? 1 : 0;
+    }
 
-	@Override
-	public Function getDerivate() {
-		return null;
-	}
+    @Override
+    public Function getDerivate() {
+        return null;
+    }
 }

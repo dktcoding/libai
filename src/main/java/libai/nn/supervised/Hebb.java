@@ -28,6 +28,7 @@ import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
 import libai.common.functions.SymmetricSign;
 
+import java.io.Serial;
 import java.util.Random;
 
 /**
@@ -41,10 +42,11 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class Hebb extends SupervisedLearning {
+	@Serial
 	private static final long serialVersionUID = 7754681003525186940L;
-	protected static SymmetricSign sign = new SymmetricSign();
-	protected double phi;
-	protected Matrix W;
+	protected static final SymmetricSign sign = new SymmetricSign();
+	protected final double phi;
+	protected final Matrix W;
 
 
 	/**

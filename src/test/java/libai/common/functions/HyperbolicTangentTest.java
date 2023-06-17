@@ -32,28 +32,28 @@ import static org.junit.Assert.*;
  */
 public class HyperbolicTangentTest {
 
-	@Test
-	public void testEval() {
-		HyperbolicTangent tanh = new HyperbolicTangent();
-		for (int i = 0; i < 10; i++) {
-			double x = Math.random() * 10 - 5;
-			assertEquals(Math.tanh(x), tanh.eval(x), 1e-12);
-		}
-	}
+    @Test
+    public void testEval() {
+        HyperbolicTangent tanh = new HyperbolicTangent();
+        for (int i = 0; i < 10; i++) {
+            double x = Math.random() * 10 - 5;
+            assertEquals(Math.tanh(x), tanh.eval(x), 1e-12);
+        }
+    }
 
-	@Test
-	public void testGetDerivative() {
-		Function der = new HyperbolicTangent().getDerivate();
-		assertNotNull(der);
-		for (int i = 0; i < 10; i++) {
-			double x = Math.random() * 10 - 5;
-			//diff(tanh(x)) = sech^2(x)
-			assertEquals((1 / Math.cosh(x) / Math.cosh(x)), der.eval(x), 1e-12);
-		}
-	}
+    @Test
+    public void testGetDerivative() {
+        Function der = new HyperbolicTangent().getDerivate();
+        assertNotNull(der);
+        for (int i = 0; i < 10; i++) {
+            double x = Math.random() * 10 - 5;
+            //diff(tanh(x)) = sech^2(x)
+            assertEquals((1 / Math.cosh(x) / Math.cosh(x)), der.eval(x), 1e-12);
+        }
+    }
 
-	@Test
-	public void testGetGetDerivative() {
-		assertNull(new HyperbolicTangent().getDerivate().getDerivate());
-	}
+    @Test
+    public void testGetGetDerivative() {
+        assertNull(new HyperbolicTangent().getDerivate().getDerivate());
+    }
 }

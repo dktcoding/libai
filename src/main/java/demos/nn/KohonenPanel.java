@@ -25,7 +25,6 @@ package demos.nn;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import libai.common.matrix.Matrix;
 import libai.nn.unsupervised.Kohonen;
 
 import javax.swing.*;
@@ -36,12 +35,10 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class KohonenPanel extends javax.swing.JPanel {
-	int map[][], map2[][];
+	int[][] map, map2;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel canvas;
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form MPLPPanel
@@ -64,8 +61,8 @@ public class KohonenPanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
+		JButton jButton1 = new JButton();
+		JScrollPane jScrollPane1 = new JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 		canvas = new JPanel() {
 			public void paint(Graphics gr) {
@@ -192,7 +189,7 @@ public class KohonenPanel extends javax.swing.JPanel {
 					ex[tmp] = aux;
 				}
 
-				int nperlayer[] = {m, 30, 40};
+				int[] nperlayer = {m, 30, 40};
 				final Kohonen net = new Kohonen(nperlayer, 10);
 
 				net.setProgressBar(new SimpleProgressDisplay(jProgressBar1));

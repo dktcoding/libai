@@ -29,9 +29,9 @@ import java.awt.*;
  * @author kronenthaler
  */
 public interface Plotter {
-	public void paint(Graphics g2);
+    void paint(Graphics g2);
 
-	public void update(Graphics g2);
+    void update(Graphics g2);
 
-	public void setError(int epoch, double error);
+    void setError(int epoch, double error);
 }

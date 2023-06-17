@@ -210,7 +210,7 @@ public class MatrixIO {
 	/**
 	 * Serialization target
 	 */
-	public static enum Target {
+	public enum Target {
 		/**
 		 * Saves the matrix using the JVM serialization algorithm.
 		 */

@@ -32,26 +32,26 @@ import static org.junit.Assert.*;
  */
 public class IdentityTest {
 
-	@Test
-	public void testEval() {
-		Identity eye = new Identity();
-		for (int i = 0; i < 10; i++) {
-			double x = Math.random() * 10 - 5;
-			assertEquals(x, eye.eval(x), 0);
-		}
-	}
+    @Test
+    public void testEval() {
+        Identity eye = new Identity();
+        for (int i = 0; i < 10; i++) {
+            double x = Math.random() * 10 - 5;
+            assertEquals(x, eye.eval(x), 0);
+        }
+    }
 
-	@Test
-	public void testGetDerivative() {
-		Function der = new Identity().getDerivate();
-		assertNotNull(der);
-		for (int i = 0; i < 10; i++) {
-			assertEquals(1, der.eval(Math.random() * 10 - 5), 0);
-		}
-	}
+    @Test
+    public void testGetDerivative() {
+        Function der = new Identity().getDerivate();
+        assertNotNull(der);
+        for (int i = 0; i < 10; i++) {
+            assertEquals(1, der.eval(Math.random() * 10 - 5), 0);
+        }
+    }
 
-	@Test
-	public void testGetGetDerivative() {
-		assertNull(new Identity().getDerivate().getDerivate());
-	}
+    @Test
+    public void testGetGetDerivative() {
+        assertNull(new Identity().getDerivate().getDerivate());
+    }
 }

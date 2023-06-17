@@ -33,32 +33,32 @@ import static org.junit.Assert.assertNotNull;
  */
 public class GaussianTest {
 
-	@Test
-	public void testEval() {
-		Gaussian gauss = new Gaussian();
-		assertEquals(1, gauss.eval(0), 1e-12);
-		for (int i = 0; i < 100; i++) {
-			double x = Math.random();
-			assertEquals(gauss.eval(x), gauss.eval(-x), 1e-12);
-			assertEquals(-(x * x), Math.log(gauss.eval(x)), 1e-12);
-		}
-	}
+    @Test
+    public void testEval() {
+        Gaussian gauss = new Gaussian();
+        assertEquals(1, gauss.eval(0), 1e-12);
+        for (int i = 0; i < 100; i++) {
+            double x = Math.random();
+            assertEquals(gauss.eval(x), gauss.eval(-x), 1e-12);
+            assertEquals(-(x * x), Math.log(gauss.eval(x)), 1e-12);
+        }
+    }
 
-	@Test
-	public void testGetDerivate() {
-		Gaussian gauss = new Gaussian();
-		Function der = gauss.getDerivate();
-		assertNotNull(der);
-		for (int i = 0; i < 100; i++) {
-			double x = Math.random();
-			assertEquals(-der.eval(x), der.eval(-x), 1e-12);
-			assertEquals(-2 * x, der.eval(x) / gauss.eval(x), 1e-12);
-		}
-	}
+    @Test
+    public void testGetDerivate() {
+        Gaussian gauss = new Gaussian();
+        Function der = gauss.getDerivate();
+        assertNotNull(der);
+        for (int i = 0; i < 100; i++) {
+            double x = Math.random();
+            assertEquals(-der.eval(x), der.eval(-x), 1e-12);
+            assertEquals(-2 * x, der.eval(x) / gauss.eval(x), 1e-12);
+        }
+    }
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testGetGetDerivative() {
-		new Gaussian().getDerivate().getDerivate();
-	}
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetGetDerivative() {
+        new Gaussian().getDerivate().getDerivate();
+    }
 
 }

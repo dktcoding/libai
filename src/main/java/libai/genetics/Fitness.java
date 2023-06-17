@@ -31,28 +31,28 @@ import libai.genetics.chromosomes.Chromosome;
  * @author kronenthaler
  */
 public interface Fitness {
-	/**
-	 * evaluate the fitness of the passed chromosome.
-	 *
-	 * @param c {@code c}
-	 * @return fitness value for a given Chromosome
-	 */
-	public double fitness(Chromosome c);
+    /**
+     * evaluate the fitness of the passed chromosome.
+     *
+     * @param c {@code c}
+     * @return fitness value for a given Chromosome
+     */
+    double fitness(Chromosome c);
 
-	/**
-	 * is this fitness better than the best fitness known?
-	 *
-	 * @param fitness {@code fitness}
-	 * @param best    {@code best}
-	 * @return {@code true} is this fitness better than the best fitness and
-	 * {@code false} otherwise
-	 */
-	public boolean isBetter(double fitness, double best);
+    /**
+     * is this fitness better than the best fitness known?
+     *
+     * @param fitness {@code fitness}
+     * @param best    {@code best}
+     * @return {@code true} is this fitness better than the best fitness and
+     * {@code false} otherwise
+     */
+    boolean isBetter(double fitness, double best);
 
-	/**
-	 * the worst possible value OO or -OO
-	 *
-	 * @return worst possible value OO or -OO
-	 */
-	public double theWorst();
+    /**
+     * the worst possible value OO or -OO
+     *
+     * @return worst possible value OO or -OO
+     */
+    double theWorst();
 }

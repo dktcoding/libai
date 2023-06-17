@@ -25,6 +25,8 @@ package libai.common.kernels;
 
 import libai.common.matrix.Matrix;
 
+import java.io.Serial;
+
 /**
  * Gaussian Kernel or RBF kernel. Follows the form: K(x,y) = e(||x-y||^2 / (2*s^2)), where s is a parameter of this
  * kernel, aka as sigma or standard deviation.
@@ -32,21 +34,22 @@ import libai.common.matrix.Matrix;
  * @author kronenthaler
  */
 public class GaussianKernel implements Kernel {
-	private static final long serialVersionUID = 7002651958563140173L;
+    @Serial
+    private static final long serialVersionUID = 7002651958563140173L;
 
-	private double gamma; // = 1 / (2 * sigma ^ 2)
+    private final double gamma; // = 1 / (2 * sigma ^ 2)
 
-	public GaussianKernel(double sigma) {
-		this.gamma = 1.0 / (sigma * sigma * 2);
-	}
+    public GaussianKernel(double sigma) {
+        this.gamma = 1.0 / (sigma * sigma * 2);
+    }
 
-	@Override
-	public double eval(Matrix A, Matrix B) {
-		double AB = A.dotProduct(B);
-		double AA = A.dotProduct(A);
-		double BB = B.dotProduct(B);
+    @Override
+    public double eval(Matrix A, Matrix B) {
+        double AB = A.dotProduct(B);
+        double AA = A.dotProduct(A);
+        double BB = B.dotProduct(B);
 
-		double s = -2 * AB + AA + BB;
-		return Math.exp(-s * gamma);
-	}
+        double s = -2 * AB + AA + BB;
+        return Math.exp(-s * gamma);
+    }
 }

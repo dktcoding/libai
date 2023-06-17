@@ -23,6 +23,8 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Function Gaussian.
  * <pre>
@@ -33,29 +35,30 @@ package libai.common.functions;
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
  */
 public class Gaussian implements Function {
-	private static final long serialVersionUID = 8592095509162668948L;
+    @Serial
+    private static final long serialVersionUID = 8592095509162668948L;
 
-	private static final Function derivate = new Function() {
-		@Override
-		public double eval(double x) {
-			double g = Math.exp(-(x * x));
-			return -2. * x * g;
-		}
+    private static final Function derivate = new Function() {
+        @Override
+        public double eval(double x) {
+            double g = Math.exp(-(x * x));
+            return -2. * x * g;
+        }
 
-		@Override
-		public Function getDerivate() {
-			String msg = "Second derivative not implemented for 'Gaussian(x)'";
-			throw new UnsupportedOperationException(msg);
-		}
-	};
+        @Override
+        public Function getDerivate() {
+            String msg = "Second derivative not implemented for 'Gaussian(x)'";
+            throw new UnsupportedOperationException(msg);
+        }
+    };
 
-	@Override
-	public double eval(double x) {
-		return Math.exp(-(x * x));
-	}
+    @Override
+    public double eval(double x) {
+        return Math.exp(-(x * x));
+    }
 
-	@Override
-	public Function getDerivate() {
-		return derivate;
-	}
+    @Override
+    public Function getDerivate() {
+        return derivate;
+    }
 }

@@ -25,27 +25,30 @@ package libai.common.kernels;
 
 import libai.common.matrix.Matrix;
 
+import java.io.Serial;
+
 /**
  * Polynomial Kernel. Follows the form: K(x,y) = (a * xy + c)^p, where a, b & p are parameters of this kernel.
  *
  * @author kronenthaler
  */
 public class PolynomialKernel implements Kernel {
-	private static final long serialVersionUID = 5132845207274843125L;
+    @Serial
+    private static final long serialVersionUID = 5132845207274843125L;
 
-	private double a;
-	private double c;
-	private double p;
+    private final double a;
+    private final double c;
+    private final double p;
 
-	public PolynomialKernel(double a, double c, double p) {
-		this.a = a;
-		this.c = c;
-		this.p = p;
-	}
+    public PolynomialKernel(double a, double c, double p) {
+        this.a = a;
+        this.c = c;
+        this.p = p;
+    }
 
-	@Override
-	public double eval(Matrix A, Matrix B) {
-		double dotProduct = A.dotProduct(B);
-		return Math.pow(a * dotProduct + c, p);
-	}
+    @Override
+    public double eval(Matrix A, Matrix B) {
+        double dotProduct = A.dotProduct(B);
+        return Math.pow(a * dotProduct + c, p);
+    }
 }

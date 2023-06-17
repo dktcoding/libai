@@ -30,6 +30,7 @@ import libai.common.matrix.Matrix;
 import libai.common.functions.SymmetricSign;
 import libai.common.kernels.Kernel;
 
+import java.io.Serial;
 import java.util.Random;
 
 /**
@@ -38,7 +39,7 @@ import java.util.Random;
  * X. Jiang and H. Yu. SVM-JAVA: A Java implementation of the SMO (Sequential
  * Minimal Optimization) for training SVM.<br>
  * Department of Computer Science and Engineering, Pohang University of Science
- * and Technology (POSTECH), http://iis.hwanjoyu.org/svm-java, 2008. The code
+ * and Technology (POSTECH), <a href="https://iis.hwanjoyu.org/svm-java">...</a>, 2008. The code
  * was adapted to the data structures and architecture of the libai. Some little
  * optimization was made.
  *
@@ -49,8 +50,9 @@ public class SVM extends SupervisedLearning {
 	public static final int PARAM_C = 0;
 	public static final int PARAM_EPSILON = 1;
 	public static final int PARAM_TOLERANCE = 2;
+	@Serial
 	private static final long serialVersionUID = 5875835056527034341L;
-	protected static SymmetricSign ssign = new SymmetricSign();
+	protected static final SymmetricSign ssign = new SymmetricSign();
 
 	// learning constants
 	private transient double C = 0.05;
@@ -58,11 +60,11 @@ public class SVM extends SupervisedLearning {
 	private transient double epsilon = 0.01;
 
 	// state of the neural network
-	private Kernel kernel;
+	private final Kernel kernel;
 	private double[] lambda; /* Lagrange multipliers */
 	private double b = 0; /* threshold */
 	private int[] target; // answers, need to be learned too.
-	private Matrix densePoints[]; // equivalent to W or matrix of prototype vectors
+	private Matrix[] densePoints; // equivalent to W or matrix of prototype vectors
 
 	public SVM(Kernel _kernel) {
 		this(_kernel, getDefaultRandomGenerator());

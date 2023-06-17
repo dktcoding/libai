@@ -32,10 +32,7 @@ import libai.genetics.chromosomes.Chromosome;
  * @author kronenthaler
  */
 public class BinaryPanel extends javax.swing.JPanel implements Fitness {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form GeneticPanel
@@ -53,9 +50,10 @@ public class BinaryPanel extends javax.swing.JPanel implements Fitness {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
-		jButton1 = new javax.swing.JButton();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
 		jProgressBar1 = new javax.swing.JProgressBar();
 
 		jTextPane1.setText("Evolve a population of binary chromosomes to approximate the function x = e^-x. Having a precission of 1.e-5. \nThe evolving algorithm uses the roulette selection method and elitism. The pm = 0.01 and the pc = 0.6, with a population of 200 individuals.\nThe best chromosome is showed in its binary form and the representing value.\n");

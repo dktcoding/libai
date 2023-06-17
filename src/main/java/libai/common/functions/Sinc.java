@@ -23,6 +23,8 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Function Sinc.
  * <pre>
@@ -36,34 +38,35 @@ package libai.common.functions;
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
  */
 public class Sinc implements Function {
-	private static final long serialVersionUID = 5841748521168749702L;
+    @Serial
+    private static final long serialVersionUID = 5841748521168749702L;
 
-	private static final Function derivate = new Function() {
-		@Override
-		public double eval(double x) {
-			if (x == 0) {
-				return 0;
-			}
-			return (Math.cos(x) / x) - (Math.sin(x) / (x * x));
-		}
+    private static final Function derivate = new Function() {
+        @Override
+        public double eval(double x) {
+            if (x == 0) {
+                return 0;
+            }
+            return (Math.cos(x) / x) - (Math.sin(x) / (x * x));
+        }
 
-		@Override
-		public Function getDerivate() {
-			String msg = "Second derivative not implemented for 'Sinc(x)'";
-			throw new UnsupportedOperationException(msg);
-		}
-	};
+        @Override
+        public Function getDerivate() {
+            String msg = "Second derivative not implemented for 'Sinc(x)'";
+            throw new UnsupportedOperationException(msg);
+        }
+    };
 
-	@Override
-	public double eval(double x) {
-		if (x == 0) {
-			return 1;
-		}
-		return Math.sin(x) / x;
-	}
+    @Override
+    public double eval(double x) {
+        if (x == 0) {
+            return 1;
+        }
+        return Math.sin(x) / x;
+    }
 
-	@Override
-	public Function getDerivate() {
-		return derivate;
-	}
+    @Override
+    public Function getDerivate() {
+        return derivate;
+    }
 }

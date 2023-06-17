@@ -9,28 +9,28 @@ import org.w3c.dom.Node;
  * @author kronenthaler
  */
 public class RightLinearShape extends TwoParameterSet {
-	public RightLinearShape(Node xmlNode) {
-		load(xmlNode);
-	}
+    public RightLinearShape(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	/**
-	 * Constructor.
-	 * @param a Left value of the line.
-	 * @param b Right value of the line.
-	 **/
-	public RightLinearShape(double a, double b){
-		this.a = a;
-		this.b = b;
-	}
+    /**
+     * Constructor.
+     * @param a Left value of the line.
+     * @param b Right value of the line.
+     **/
+    public RightLinearShape(double a, double b){
+        this.a = a;
+        this.b = b;
+    }
 
-	@Override
-	public double eval(double x) {
-		if (x >= b)
-			return 0;
+    @Override
+    public double eval(double x) {
+        if (x >= b)
+            return 0;
 
-		if (x <= a)
-			return 1;
+        if (x <= a)
+            return 1;
 
-		return (b - x) / (b - a);
-	}
+        return (b - x) / (b - a);
+    }
 }

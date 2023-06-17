@@ -26,6 +26,7 @@ package libai.nn.supervised;
 import libai.common.matrix.Column;
 import libai.nn.NeuralNetwork;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -43,10 +44,11 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class RBF extends Adaline {
+	@Serial
 	private static final long serialVersionUID = 6772562276994202439L;
-	protected int nperlayer[];//{#inputs,#Neurons,#outputs}
-	protected double[] sigma;
-	private Column centers[];
+	protected final int[] nperlayer;//{#inputs,#Neurons,#outputs}
+	protected final double[] sigma;
+	private Column[] centers;
 
 	/**
 	 * Constructor. Receives an array with the information of the number of
@@ -117,13 +119,13 @@ public class RBF extends Adaline {
 		for (int i = 0; i < nperlayer[1]; i++) {
 			double acum = 0;
 			for (int j = 0; j < nperlayer[0] && !neighbors[i].isEmpty(); j++) {
-				acum += -neighbors[i].poll();
+				acum -= neighbors[i].poll();
 			}
 			sigma[i] = acum / nperlayer[0];
 		}
 
 		//precalculate the ouputs for each pattern in the hidden layer
-		Column Y[] = new Column[patterns.length];
+		Column[] Y = new Column[patterns.length];
 		for (int j = 0; j < length; j++) {
 			Y[j + offset] = new Column(nperlayer[1]);
 			simulateNoChange(patterns[j + offset], Y[j + offset]);

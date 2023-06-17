@@ -25,7 +25,6 @@ package demos.nn;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import libai.common.matrix.Matrix;
 import libai.common.kernels.LinearKernel;
 import libai.nn.NeuralNetwork;
 import libai.nn.supervised.SVM;
@@ -37,10 +36,7 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class SVMPanel extends javax.swing.JPanel {
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form SVMPanel
@@ -58,10 +54,11 @@ public class SVMPanel extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
 
 		jTextPane1.setText("Train a SVM network to learn the the classes upper and lower 2x+3 (as +1 and -1 respectively). The kernel used is a Linear kernel.");
 		jScrollPane1.setViewportView(jTextPane1);

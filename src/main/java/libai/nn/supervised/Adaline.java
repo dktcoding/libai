@@ -25,6 +25,7 @@ package libai.nn.supervised;
 
 import libai.common.matrix.Column;
 
+import java.io.Serial;
 import java.util.Random;
 
 /**
@@ -37,6 +38,7 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class Adaline extends Perceptron {
+	@Serial
 	private static final long serialVersionUID = 6108456796562627466L;
 
 	/**

@@ -36,71 +36,71 @@ import static org.junit.Assert.assertTrue;
  * Created by kronenthaler on 31/01/2017.
  */
 public class KohonenTest {
-	private static final ProgressDisplay progress = new ProgressDisplay() {
-		int value, min, max;
+    private static final ProgressDisplay progress = new ProgressDisplay() {
+        int value, min, max;
 
-		@Override
-		public int getMaximum() {
-			return max;
-		}
+        @Override
+        public int getMaximum() {
+            return max;
+        }
 
-		@Override
-		public void setMaximum(int v) {
-			max = v;
-		}
+        @Override
+        public void setMaximum(int v) {
+            max = v;
+        }
 
-		@Override
-		public int getMinimum() {
-			return min;
-		}
+        @Override
+        public int getMinimum() {
+            return min;
+        }
 
-		@Override
-		public void setMinimum(int v) {
-			min = v;
-		}
+        @Override
+        public void setMinimum(int v) {
+            min = v;
+        }
 
-		@Override
-		public int getValue() {
-			return value;
-		}
+        @Override
+        public int getValue() {
+            return value;
+        }
 
-		@Override
-		public void setValue(int v) {
-			value = v;
-			assertTrue(v >= min);
-			assertTrue(v <= max);
-		}
-	};
+        @Override
+        public void setValue(int v) {
+            value = v;
+            assertTrue(v >= min);
+            assertTrue(v <= max);
+        }
+    };
 
-	@Test
-	public void testDemo() {
-		Column[] p = new Column[100];
-		Column[] c = new Column[100];
-		Column[] test = new Column[20];
-		Column[] ctest = new Column[20];
-		Random r = new Random(0);
+    @Test
+    public void testDemo() {
+        Column[] p = new Column[100];
+        Column[] c = new Column[100];
+        Column[] test = new Column[20];
+        Column[] ctest = new Column[20];
+        Random r = new Random(0);
 
-		for (int i = 0; i < p.length; i++) {
-			p[i] = new Column(2);
-			c[i] = new Column(1, new double[]{i / (int) (p.length / 2)});
-			p[i].fill(true, r);
-			p[i].add(new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10}), p[i]);
-		}
+        for (int i = 0; i < p.length; i++) {
+            p[i] = new Column(2);
+            c[i] = new Column(1, new double[]{i / (int) (p.length / 2)});
+            p[i].fill(true, r);
+            p[i].add(new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10}), p[i]);
+        }
 
-		for (int i = 0; i < test.length; i++) {
-			test[i] = new Column(2);
-			ctest[i] = new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10});
-			test[i].fill(true, r);
-			test[i].add(new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10}), test[i]);
-		}
+        for (int i = 0; i < test.length; i++) {
+            test[i] = new Column(2);
+            ctest[i] = new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10});
+            test[i].fill(true, r);
+            test[i].add(new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10}), test[i]);
+        }
 
-		int nperlayer[] = {2, 20, 20};
-		final Kohonen net = new Kohonen(nperlayer, 10, r);
-		net.setProgressBar(progress);
-		net.train(p, c, 1, 1000, 0, p.length);
+        int[] nperlayer = {2, 20, 20};
+        final Kohonen net = new Kohonen(nperlayer, 10, r);
+        net.setProgressBar(progress);
+        net.train(p, c, 1, 1000, 0, p.length);
 
-		// the winning cell should not be too far away from the ideal (-10, 10) or (10, 10) pattern.
-		assertTrue(net.error(test, ctest, 0, test.length) < 0.7);
-		assertEquals(net.getProgressBar().getValue(), net.getProgressBar().getMaximum());
-	}
+        // the winning cell should not be too far away from the ideal (-10, 10) or (10, 10) pattern.
+        assertTrue(net.error(test, ctest, 0, test.length) < 0.7);
+        assertEquals(net.getProgressBar().getValue(), net.getProgressBar().getMaximum());
+    }
 }

@@ -30,9 +30,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SimplePlotter extends Canvas implements Plotter {
-	private ArrayList<Pair<Integer, Double>> errors;
+	private final ArrayList<Pair<Integer, Double>> errors;
 	private double min, max;
-	private int pixels = 3;
+	private final int pixels = 3;
 
 	public SimplePlotter() {
 		errors = new ArrayList<>();

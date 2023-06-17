@@ -39,53 +39,53 @@ import org.w3c.dom.Node;
  * @author kronenthaler
  */
 public class TriangularShape implements FuzzySet {
-	private double a;
-	private double b;
-	private double c;
+    private double a;
+    private double b;
+    private double c;
 
-	public TriangularShape(Node xmlNode) {
-		load(xmlNode);
-	}
+    public TriangularShape(Node xmlNode) {
+        load(xmlNode);
+    }
 
-	/**
-	 * Constructor.
-	 * @param a Left vertex of the triangle.
-	 * @param b Middle vertex of the triangle.
-	 * @param c Right vertex of the triangle.
-	 **/
-	public TriangularShape(double a, double b, double c){
-		this.a = a;
-		this.b = b;
-		this.c = c;
-	}
+    /**
+     * Constructor.
+     * @param a Left vertex of the triangle.
+     * @param b Middle vertex of the triangle.
+     * @param c Right vertex of the triangle.
+     **/
+    public TriangularShape(double a, double b, double c){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
 
-	@Override
-	public double eval(double x) {
-		if ((a == b && x == a) || (b == c && x == b))
-			return 1;
+    @Override
+    public double eval(double x) {
+        if ((a == b && x == a) || (b == c && x == b))
+            return 1;
 
-		if (x <= a || x >= c)
-			return 0;
+        if (x <= a || x >= c)
+            return 0;
 
-		if (x == b)
-			return 1;
+        if (x == b)
+            return 1;
 
-		if (x > a && x < b)
-			return (x - a) / (b - a);
+        if (x > a && x < b)
+            return (x - a) / (b - a);
 
-		return (c - x) / (c - b);
-	}
+        return (c - x) / (c - b);
+    }
 
-	@Override
-	public String toXMLString(String indent) {
-		return String.format("%s<TriangularShape Param1=\"%f\" Param2=\"%f\" Param3=\"%f\"/>", indent, a, b, c);
-	}
+    @Override
+    public String toXMLString(String indent) {
+        return String.format("%s<TriangularShape Param1=\"%f\" Param2=\"%f\" Param3=\"%f\"/>", indent, a, b, c);
+    }
 
-	@Override
-	public void load(Node xmlNode) {
-		NamedNodeMap attributes = xmlNode.getAttributes();
-		a = Double.parseDouble(attributes.getNamedItem("Param1").getTextContent());
-		b = Double.parseDouble(attributes.getNamedItem("Param2").getTextContent());
-		c = Double.parseDouble(attributes.getNamedItem("Param3").getTextContent());
-	}
+    @Override
+    public void load(Node xmlNode) {
+        NamedNodeMap attributes = xmlNode.getAttributes();
+        a = Double.parseDouble(attributes.getNamedItem("Param1").getTextContent());
+        b = Double.parseDouble(attributes.getNamedItem("Param2").getTextContent());
+        c = Double.parseDouble(attributes.getNamedItem("Param3").getTextContent());
+    }
 }

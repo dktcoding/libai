@@ -25,7 +25,6 @@ package demos.nn;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import libai.common.matrix.Matrix;
 import libai.common.functions.Function;
 import libai.common.functions.Identity;
 import libai.common.functions.Sigmoid;
@@ -41,9 +40,7 @@ import libai.nn.supervised.backpropagation.StandardBackpropagation;
 public class MPLPanel extends javax.swing.JPanel {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JComboBox algorithmType;
-	private javax.swing.JButton jButton1;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	/**
 	 * Creates new form MPLPPanel
@@ -66,8 +63,8 @@ public class MPLPanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
+		javax.swing.JButton jButton1 = new javax.swing.JButton();
+		javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 		algorithmType = new javax.swing.JComboBox();
 
@@ -147,7 +144,7 @@ public class MPLPanel extends javax.swing.JPanel {
 					t[i].position(0, 0, f(x));
 				}
 
-				int nperlayer[] = {m, 4, l};
+				int[] nperlayer = {m, 4, l};
 				Backpropagation trainer;
 
 				if (algorithmType.getSelectedIndex() == 0) {

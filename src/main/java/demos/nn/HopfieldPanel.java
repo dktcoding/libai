@@ -14,12 +14,7 @@ import javax.swing.*;
  */
 public class HopfieldPanel extends javax.swing.JPanel {
 	Hopfield net;
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
 	private javax.swing.JProgressBar jProgressBar1;
-	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextPane jTextPane1;
 	private javax.swing.JCheckBox p0;
 	private javax.swing.JCheckBox p1;
@@ -71,7 +66,7 @@ public class HopfieldPanel extends javax.swing.JPanel {
 	private javax.swing.JCheckBox p7;
 	private javax.swing.JCheckBox p8;
 	private javax.swing.JCheckBox p9;
-	private javax.swing.JButton testBtn;
+
 	/**
 	 * Creates new form HebbPanel
 	 */
@@ -88,10 +83,11 @@ public class HopfieldPanel extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
+		JScrollPane jScrollPane1 = new JScrollPane();
 		jTextPane1 = new javax.swing.JTextPane();
 		jProgressBar1 = new javax.swing.JProgressBar();
-		jButton1 = new javax.swing.JButton();
+		// Variables declaration - do not modify//GEN-BEGIN:variables
+		JButton jButton1 = new JButton();
 		p0 = new javax.swing.JCheckBox();
 		p1 = new javax.swing.JCheckBox();
 		p2 = new javax.swing.JCheckBox();
@@ -117,9 +113,9 @@ public class HopfieldPanel extends javax.swing.JPanel {
 		p22 = new javax.swing.JCheckBox();
 		p23 = new javax.swing.JCheckBox();
 		p24 = new javax.swing.JCheckBox();
-		testBtn = new javax.swing.JButton();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
+		JButton testBtn = new JButton();
+		JLabel jLabel1 = new JLabel();
+		JLabel jLabel2 = new JLabel();
 		p25 = new javax.swing.JCheckBox();
 		p26 = new javax.swing.JCheckBox();
 		p27 = new javax.swing.JCheckBox();
@@ -447,8 +443,6 @@ public class HopfieldPanel extends javax.swing.JPanel {
 			@Override
 			public void run() {
 				int n = 2;
-				int m = 25;
-				int l = 3;
 				Column[] patterns = new Column[]{
 						new Column(25, new double[]{
 								-1, -1, +1, -1, -1,
@@ -465,8 +459,6 @@ public class HopfieldPanel extends javax.swing.JPanel {
 								+1, -1, -1, -1, +1,
 						}),
 				};
-				Matrix[] ans = patterns;
-
 				net = new Hopfield(25);
 				net.setProgressBar(new SimpleProgressDisplay(jProgressBar1));
 				net.train(patterns, patterns, 1, 80);
@@ -475,10 +467,10 @@ public class HopfieldPanel extends javax.swing.JPanel {
 				//jTextPane1.setText(jTextPane1.getText()+"\nError for test set: "+net.error(patterns, ans, n,test));
 
 				jTextPane1.setText(jTextPane1.getText() + "\n\nValues for the test set:");
-				for (int i = 0; i < patterns.length; i++) {
+				for (Column pattern : patterns) {
 					jTextPane1.setText(jTextPane1.getText() + "\nexp:\n");
-					for (int j = 0; j < patterns[i].getRows(); j++)
-						jTextPane1.setText(jTextPane1.getText() + patterns[i].position(j, 0) + " vs " + net.simulate(patterns[i]).position(j, 0) + "\n");
+					for (int j = 0; j < pattern.getRows(); j++)
+						jTextPane1.setText(jTextPane1.getText() + pattern.position(j, 0) + " vs " + net.simulate(pattern).position(j, 0) + "\n");
 					jTextPane1.setText(jTextPane1.getText() + "---\n");
 				}
 			}

@@ -33,16 +33,16 @@ import static org.junit.Assert.assertNull;
  */
 public class SignTest {
 
-	@Test
-	public void testEval() {
-		Sign sign = new Sign();
-		assertEquals(0, sign.eval(-10), 0);
-		assertEquals(0, sign.eval(0), 0);
-		assertEquals(1, sign.eval(10), 0);
-	}
+    @Test
+    public void testEval() {
+        Sign sign = new Sign();
+        assertEquals(0, sign.eval(-10), 0);
+        assertEquals(0, sign.eval(0), 0);
+        assertEquals(1, sign.eval(10), 0);
+    }
 
-	@Test
-	public void testGetDerivative() {
-		assertNull(new Sign().getDerivate());
-	}
+    @Test
+    public void testGetDerivative() {
+        assertNull(new Sign().getDerivate());
+    }
 }

@@ -34,14 +34,11 @@ import java.util.ArrayList;
  */
 public class AStarPanel extends javax.swing.JPanel {
 	// End of variables declaration//GEN-END:variables
-	static Node target = new Node("12345678.", null, '\0', 0);
+	static final Node target = new Node("12345678.", null, '\0', 0);
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JTextArea answerTxt;
 	private javax.swing.JTextField inputTxt;
-	private javax.swing.JButton jButton1;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JTextArea jTextArea1;
+
 	/**
 	 * Creates new form AStarPanel
 	 */
@@ -58,12 +55,12 @@ public class AStarPanel extends javax.swing.JPanel {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jTextArea1 = new javax.swing.JTextArea();
-		jScrollPane2 = new javax.swing.JScrollPane();
+		JScrollPane jScrollPane1 = new JScrollPane();
+		JTextArea jTextArea1 = new JTextArea();
+		JScrollPane jScrollPane2 = new JScrollPane();
 		answerTxt = new javax.swing.JTextArea();
 		inputTxt = new javax.swing.JTextField();
-		jButton1 = new javax.swing.JButton();
+		JButton jButton1 = new JButton();
 
 		jTextArea1.setColumns(20);
 		jTextArea1.setEditable(false);
@@ -135,14 +132,15 @@ public class AStarPanel extends javax.swing.JPanel {
 	}//GEN-LAST:event_jButton1ActionPerformed
 
 	static class Node extends State {
-		static int stepsx[] = {0, 0, 1, -1};
-		static int stepsy[] = {1, -1, 0, 0};
-		static char dir[] = {'d', 'u', 'r', 'l'};
+		static final int[] stepsx = {0, 0, 1, -1};
+		static final int[] stepsy = {1, -1, 0, 0};
+		static final char[] dir = {'d', 'u', 'r', 'l'};
 		String table = "";
 		Node parent = null;
 		char move = ' ';
 		int point = 0;
-		int g, h;
+		final int g;
+		int h;
 		//down, up, right, left
 
 		Node(String t, Node p, char m, int cost) {
@@ -224,7 +222,7 @@ public class AStarPanel extends javax.swing.JPanel {
 
 		@Override
 		public boolean equals(Object o) {
-			return o != null && o instanceof Node && table.equals(((Node) o).table);
+			return o instanceof Node && table.equals(((Node) o).table);
 		}
 
 		@Override

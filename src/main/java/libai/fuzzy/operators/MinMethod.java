@@ -5,14 +5,14 @@ package libai.fuzzy.operators;
  */
 public class MinMethod extends AndMethod {
 
-	@Override
-	public double eval(double a, double b) {
-		return Math.min(a, b);
-	}
+    @Override
+    public double eval(double a, double b) {
+        return Math.min(a, b);
+    }
 
-	@Override
-	public double neutral() { return 1; }
+    @Override
+    public double neutral() { return 1; }
 
-	@Override
-	public String toString(){ return "MIN"; }
+    @Override
+    public String toString(){ return "MIN"; }
 }

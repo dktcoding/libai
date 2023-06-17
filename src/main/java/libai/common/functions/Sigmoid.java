@@ -23,6 +23,8 @@
  */
 package libai.common.functions;
 
+import java.io.Serial;
+
 /**
  * Sigmoid function: f(x) = 1/(1+e^-x) The first derivate of the sigmoid
  * function S(x) S'(x) = S(x)*(1-S(x))
@@ -30,28 +32,29 @@ package libai.common.functions;
  * @author kronenthaler
  */
 public class Sigmoid implements Function {
-	private static final long serialVersionUID = 910726042653348547L;
+    @Serial
+    private static final long serialVersionUID = 910726042653348547L;
 
-	private static final Function derivate = new Function() {
-		@Override
-		public double eval(double x) {
-			double a = (1.0 / (1.0 + Math.exp(-x)));
-			return a * (1.0 - a);
-		}
+    private static final Function derivate = new Function() {
+        @Override
+        public double eval(double x) {
+            double a = (1.0 / (1.0 + Math.exp(-x)));
+            return a * (1.0 - a);
+        }
 
-		@Override
-		public Function getDerivate() {
-			return null;
-		}
-	};
+        @Override
+        public Function getDerivate() {
+            return null;
+        }
+    };
 
-	@Override
-	public double eval(double x) {
-		return (1.0 / (1.0 + Math.exp(-x)));
-	}
+    @Override
+    public double eval(double x) {
+        return (1.0 / (1.0 + Math.exp(-x)));
+    }
 
-	@Override
-	public Function getDerivate() {
-		return derivate;
-	}
+    @Override
+    public Function getDerivate() {
+        return derivate;
+    }
 }
