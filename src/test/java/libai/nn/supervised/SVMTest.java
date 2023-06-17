@@ -31,7 +31,9 @@ import libai.common.kernels.PolynomialKernel;
 import libai.common.kernels.SigmoidalKernel;
 import libai.common.matrix.Column;
 import libai.nn.NeuralNetwork;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.io.File;
@@ -39,9 +41,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
-
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -72,10 +71,10 @@ public class SVMTest {
         net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
         net.train(patterns, answers, 0.001, 10000, 0, n);
 
-        assumeTrue("SVM didn't converge, try again", 0.001 > net.error(patterns, answers, n, t));
+        Assumptions.assumeTrue(0.001 > net.error(patterns, answers, n, t), "SVM didn't converge, try again");
 
         for (int i = n; i < patterns.length; i++) {
-            assertEquals(answers[i].position(0, 0), net.simulate(patterns[i]).position(0, 0), 1e-12);
+            Assertions.assertEquals(answers[i].position(0, 0), net.simulate(patterns[i]).position(0, 0), 1e-12);
         }
     }
 
@@ -105,7 +104,7 @@ public class SVMTest {
         net.setTrainingParam(SVM.PARAM_C, 0.5);
         net.train(patterns, answers, 0, 10000000, 0, patterns.length);
 
-        assertEquals(0.008350730688935281, net.error(patterns, answers), 0.0);
+        Assertions.assertEquals(0.008350730688935281, net.error(patterns, answers), 0.0);
     }
 
     @Test
@@ -135,7 +134,7 @@ public class SVMTest {
         net.setTrainingParam(SVM.PARAM_EPSILON, 0.0001);
 
         net.train(patterns, answers, 0, 10000, 0, n);
-        assertTrue(net.error(patterns, answers, n, t) < 0.1);
+        Assertions.assertTrue(net.error(patterns, answers, n, t) < 0.1);
     }
 
     @Test
@@ -165,7 +164,7 @@ public class SVMTest {
         net.setTrainingParam(SVM.PARAM_EPSILON, 0.0001);
 
         net.train(patterns, answers, 0, 10000, 0, n);
-        assertTrue(net.error(patterns, answers, n, t) < 0.15);
+        Assertions.assertTrue(net.error(patterns, answers, n, t) < 0.15);
     }
 
     @Test
@@ -193,28 +192,30 @@ public class SVMTest {
         net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
         net.train(patterns, ans, 0.001, 1000, 0, n);
 
-        assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
+        Assumptions.assumeTrue(MatrixIOTest.checkTemp(), "Can't use temp dir...");
 
         String tmp = System.getProperty("java.io.tmpdir") + File.separator;
         tmp = tmp + "foo.svm";
-        assertTrue(net.save(tmp));
+        Assertions.assertTrue(net.save(tmp));
         try {
             SVM net2 = SVM.open(tmp);
-            assertNotNull(net2);
+            Assertions.assertNotNull(net2);
             new File(tmp).delete();
 
-            assertEquals(net.error(patterns, ans), net2.error(patterns, ans), 0);
+            Assertions.assertEquals(net.error(patterns, ans), net2.error(patterns, ans), 0);
             for (int i = n; i < patterns.length; i++) {
-                assertEquals(net.simulate(patterns[i]).position(0, 0), net2.simulate(patterns[i]).position(0, 0), 0);
+                Assertions.assertEquals(net.simulate(patterns[i]).position(0, 0), net2.simulate(patterns[i]).position(0, 0), 0);
             }
         } catch (IOException | ClassNotFoundException e) {
-            fail();
+            Assertions.fail();
         }
 
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testNullPath() throws IOException, ClassNotFoundException {
-        SVM.open((String) null);
+    @Test
+    public void testNullPath() {
+        Assertions.assertThrowsExactly(NullPointerException.class, () -> {
+            SVM.open((String) null);
+        });
     }
 }

@@ -27,12 +27,11 @@ import libai.common.functions.Function;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
 import libai.common.matrix.Row;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Random;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -78,41 +77,46 @@ public class MatrixTest {
     };
     public final double result = 1.7274931467510147E-4;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorFail1() {
-        Matrix m = new Matrix(-5, 5, false);
-        assertNull(m);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix m = new Matrix(-5, 5, false);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorFail2() {
-        Matrix m = new Matrix(5, -5, false);
-        assertNull(m);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix m = new Matrix(5, -5, false);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorFail4() {
-        Matrix m = new Matrix(5, 5, null);
-        assertNull(m);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix m = new Matrix(5, 5, null);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testConstructorCopyFail() {
-        Matrix m = new Matrix(null);
-        assertNull(m);
+        Assertions.assertThrowsExactly(NullPointerException.class, () -> {
+            Matrix m = new Matrix(null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorFail5() {
-        Matrix m = new Matrix(5, 5, new double[5 * 4]);
-        assertNull(m);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix m = new Matrix(5, 5, new double[5 * 4]);
+        });
     }
 
     @Test
     public void testConstructorNotIdentity1() {
         Matrix m = new Matrix(5, 5, false);
         for (int i = 0; i < m.getRows(); i++) {
-            assertArrayEquals(new double[]{0, 0, 0, 0, 0}, m.getRow(i), DELTA);
+            Assertions.assertArrayEquals(new double[]{0, 0, 0, 0, 0}, m.getRow(i), DELTA);
         }
     }
 
@@ -121,7 +125,7 @@ public class MatrixTest {
         Matrix m = new Matrix(15, 5, false);
         for (int i = 0; i < m.getRows(); i++) {
             for (int j = 0; j < m.getColumns(); j++) {
-                assertEquals(0, m.position(i, j), DELTA);
+                Assertions.assertEquals(0, m.position(i, j), DELTA);
             }
         }
     }
@@ -132,7 +136,7 @@ public class MatrixTest {
         for (int i = 0; i < m.getRows(); i++) {
             double[] test = new double[5];
             test[i] = 1;
-            assertArrayEquals(test, m.getRow(i), DELTA);
+            Assertions.assertArrayEquals(test, m.getRow(i), DELTA);
         }
     }
 
@@ -142,7 +146,7 @@ public class MatrixTest {
         for (int i = 0; i < m.getColumns(); i++) {
             double[] test = new double[5];
             test[i] = 1;
-            assertArrayEquals(test, m.getRow(i), DELTA);
+            Assertions.assertArrayEquals(test, m.getRow(i), DELTA);
         }
     }
 
@@ -152,7 +156,7 @@ public class MatrixTest {
         for (int i = 0; i < m.getRows(); i++) {
             double[] test = new double[15];
             test[i] = 1;
-            assertArrayEquals(test, m.getRow(i), DELTA);
+            Assertions.assertArrayEquals(test, m.getRow(i), DELTA);
         }
     }
 
@@ -160,7 +164,7 @@ public class MatrixTest {
     public void testMatrixRandom() {
         Matrix a = Matrix.random(50, 100, true);
         Matrix b = Matrix.random(50, 100, false);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
 
         boolean hasNegativeA = false;
         boolean hasNegativeB = false;
@@ -172,8 +176,8 @@ public class MatrixTest {
             }
         }
 
-        assertTrue(hasNegativeA);
-        assertFalse(hasNegativeB);
+        Assertions.assertTrue(hasNegativeA);
+        Assertions.assertFalse(hasNegativeB);
     }
 
     @Test
@@ -182,7 +186,7 @@ public class MatrixTest {
         Random rand2 = new Random(0);
         Matrix a = Matrix.random(50, 100, true, rand1);
         Matrix b = Matrix.random(50, 100, false, rand2);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
 
         boolean hasNegativeA = false;
         boolean hasNegativeB = false;
@@ -194,8 +198,8 @@ public class MatrixTest {
             }
         }
 
-        assertTrue(hasNegativeA);
-        assertFalse(hasNegativeB);
+        Assertions.assertTrue(hasNegativeA);
+        Assertions.assertFalse(hasNegativeB);
     }
 
     @Test
@@ -203,17 +207,17 @@ public class MatrixTest {
         Random rand = new Random(0);
         Matrix a = Matrix.random(50, 100, true, rand);
         Matrix b = Matrix.random(50, 100, true, rand);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a = Matrix.random(50, 100, true, new Random(0));
         b = Matrix.random(50, 100, true, new Random(0));
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
     }
 
     @Test
     public void testRandomIntInt() {
         Matrix a = Matrix.random(50, 100);
         Matrix b = Matrix.random(50, 100);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
@@ -222,14 +226,14 @@ public class MatrixTest {
         Matrix b = new Matrix(10, 40);
         Matrix c = new Matrix(10, 40);
         a.multiply(0, b);
-        assertNotEquals(a, b);
-        assertEquals(b, c);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertEquals(b, c);
         a.multiply(1, b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.multiply(2, b);
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
-                assertEquals(2 * a.position(i, j), b.position(i, j), DELTA);
+                Assertions.assertEquals(2 * a.position(i, j), b.position(i, j), DELTA);
             }
         }
     }
@@ -240,10 +244,10 @@ public class MatrixTest {
         Matrix b = new Matrix(10, 10, true);
         Matrix c = new Matrix(10, 10, true);
         a.multiply(b, c);
-        assertEquals(a, b);
-        assertEquals(a, c);
+        Assertions.assertEquals(a, b);
+        Assertions.assertEquals(a, c);
         a.multiply(a, a);
-        assertEquals(a, a);
+        Assertions.assertEquals(a, a);
     }
 
     @Test
@@ -252,8 +256,8 @@ public class MatrixTest {
         Matrix b = Matrix.random(10, 40);
         Matrix c = new Matrix(10, 40);
         a.multiply(b, c);
-        assertEquals(b, c);
-        assertNotEquals(a, c);
+        Assertions.assertEquals(b, c);
+        Assertions.assertNotEquals(a, c);
     }
 
     @Test
@@ -264,7 +268,7 @@ public class MatrixTest {
         Matrix c = new Matrix(2, 2);
         Matrix d = new Matrix(2, 2, d1_data);
         a.multiply(b, c);
-        assertEquals(c, d);
+        Assertions.assertEquals(c, d);
     }
 
     @Test
@@ -275,7 +279,7 @@ public class MatrixTest {
         Matrix c = new Column(1);
         Matrix d = new Column(1, d2_data);
         a.multiply(b, c);
-        assertEquals(c, d);
+        Assertions.assertEquals(c, d);
     }
 
     @Test
@@ -295,7 +299,7 @@ public class MatrixTest {
         Matrix b = new Matrix(10, 10);
         Matrix c = new Matrix(10, 10);
         a.apply(f, b);
-        assertEquals(c, b);
+        Assertions.assertEquals(c, b);
     }
 
     @Test
@@ -314,7 +318,7 @@ public class MatrixTest {
         Matrix a = Matrix.random(10, 10);
         Matrix b = new Matrix(10, 10);
         a.apply(f, b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
     }
 
     @Test
@@ -333,33 +337,33 @@ public class MatrixTest {
         Matrix a = new Matrix(5, 5, true);
         Matrix b = new Matrix(5, 5);
         a.apply(f, b);
-        assertArrayEquals(new double[]{0, 1, 1, 1, 1}, b.getRow(0), DELTA);
-        assertArrayEquals(new double[]{1, 0, 1, 1, 1}, b.getRow(1), DELTA);
-        assertArrayEquals(new double[]{1, 1, 0, 1, 1}, b.getRow(2), DELTA);
-        assertArrayEquals(new double[]{1, 1, 1, 0, 1}, b.getRow(3), DELTA);
-        assertArrayEquals(new double[]{1, 1, 1, 1, 0}, b.getRow(4), DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 1, 1, 1, 1}, b.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 0, 1, 1, 1}, b.getRow(1), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 1, 0, 1, 1}, b.getRow(2), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 1, 1, 0, 1}, b.getRow(3), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 1, 1, 1, 0}, b.getRow(4), DELTA);
     }
 
     @Test
     public void testCopy() {
         Matrix a = Matrix.random(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a.copy(b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.position(0, 0, 0);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
     public void testCopy1() {
         Matrix a = Matrix.random(10, 5);
         Matrix b = new Matrix(10, 5);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a.copy(b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.position(0, 0, 0);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
@@ -367,10 +371,10 @@ public class MatrixTest {
         Matrix a = new Matrix(5, 15, true);
         Matrix b = new Matrix(15, 5, true);
         a.transpose(b);
-        assertNotEquals(a, b);
-        assertEquals(a, b.transpose());
-        assertEquals(a.getColumns(), b.getRows());
-        assertEquals(a.getRows(), b.getColumns());
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertEquals(a, b.transpose());
+        Assertions.assertEquals(a.getColumns(), b.getRows());
+        Assertions.assertEquals(a.getRows(), b.getColumns());
     }
 
     @Test
@@ -379,25 +383,25 @@ public class MatrixTest {
         Matrix b = new Matrix(5, 5, true);
         Matrix c = new Matrix(5, 5, true);
         a.transpose(b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill();
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a.transpose(b);
         b.transpose(c);
-        assertEquals(a, c);
-        assertNotEquals(a, b);
+        Assertions.assertEquals(a, c);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
     public void testSetValue() {
         Matrix a = Matrix.random(10, 15);
         Matrix b = Matrix.random(10, 15);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a.setValue(Math.PI);
         b.setValue(Math.PI);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.setValue(0);
-        assertEquals(a, new Matrix(10, 15));
+        Assertions.assertEquals(a, new Matrix(10, 15));
     }
 
     @Test
@@ -412,8 +416,8 @@ public class MatrixTest {
                 double prev = m.position(i, j);
                 m.increment(i, j, inc);
 
-                assertEquals(prev, m.position(i, j) - inc, DELTA);
-                assertNotEquals(prev, m.position(i, j), DELTA);
+                Assertions.assertEquals(prev, m.position(i, j) - inc, DELTA);
+                Assertions.assertNotEquals(prev, m.position(i, j), DELTA);
             }
         }
     }
@@ -430,8 +434,8 @@ public class MatrixTest {
                 double prev = m.position(i, j);
                 m.scale(i, j, inc);
 
-                assertEquals(prev, m.position(i, j) / inc, DELTA);
-                assertNotEquals(prev, m.position(i, j), DELTA);
+                Assertions.assertEquals(prev, m.position(i, j) / inc, DELTA);
+                Assertions.assertNotEquals(prev, m.position(i, j), DELTA);
             }
         }
     }
@@ -440,33 +444,33 @@ public class MatrixTest {
     public void testSwap() {
         Matrix m = new Matrix(5, 5, true);
         double[] prev_row = m.getRow(3);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0}, prev_row, DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0}, prev_row, DELTA);
         m.swap(0, 3);
-        assertArrayEquals(prev_row, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0}, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{1, 0, 0, 0, 0}, m.getRow(3), DELTA);
+        Assertions.assertArrayEquals(prev_row, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0}, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 0, 0, 0, 0}, m.getRow(3), DELTA);
     }
 
     @Test
     public void testSwap1() {
         Matrix m = new Matrix(15, 5, true);
         double[] prev_row = m.getRow(3);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0}, prev_row, DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0}, prev_row, DELTA);
         m.swap(0, 3);
-        assertArrayEquals(prev_row, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0}, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{1, 0, 0, 0, 0}, m.getRow(3), DELTA);
+        Assertions.assertArrayEquals(prev_row, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0}, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 0, 0, 0, 0}, m.getRow(3), DELTA);
     }
 
     @Test
     public void testSwap2() {
         Matrix m = new Matrix(5, 10, true);
         double[] prev_row = m.getRow(3);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, prev_row, DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, prev_row, DELTA);
         m.swap(0, 3);
-        assertArrayEquals(prev_row, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, m.getRow(0), DELTA);
-        assertArrayEquals(new double[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, m.getRow(3), DELTA);
+        Assertions.assertArrayEquals(prev_row, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, m.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, m.getRow(3), DELTA);
     }
 
     @Test
@@ -476,14 +480,14 @@ public class MatrixTest {
         Row c = new Row(10);
 
         a.copy(b);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         b.position(1, 1, 1);
-        assertNotEquals(a, b);
-        assertNotEquals(a, c);
-        assertNotEquals(b, c);
-        assertEquals(a, a);
-        assertEquals(b, b);
-        assertEquals(c, c);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, c);
+        Assertions.assertNotEquals(b, c);
+        Assertions.assertEquals(a, a);
+        Assertions.assertEquals(b, b);
+        Assertions.assertEquals(c, c);
     }
 
     @Test
@@ -491,9 +495,9 @@ public class MatrixTest {
         Matrix a = new Column(10);
         Matrix b = new Row(10);
 
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b = b.transpose();
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
     }
 
     @Test
@@ -501,42 +505,42 @@ public class MatrixTest {
         Matrix a = new Matrix(10, 10, true);
         Matrix b = new Matrix(10, 10, true);
 
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         b = b.transpose();
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
     }
 
     @Test
     public void testEquals3() {
         Matrix a = new Matrix(10, 10, true);
 
-        assertNotEquals(a, null);
-        assertNotEquals(a, new Object());
+        Assertions.assertNotEquals(a, null);
+        Assertions.assertNotEquals(a, new Object());
     }
 
     @Test
     public void testGetRows() {
         Matrix m = new Matrix(20, 10);
-        assertEquals(20, m.getRows());
+        Assertions.assertEquals(20, m.getRows());
     }
 
     @Test
     public void testGetColumns() {
         Matrix m = new Matrix(20, 10);
-        assertEquals(10, m.getColumns());
+        Assertions.assertEquals(10, m.getColumns());
     }
 
     @Test
     public void testPosition() {
         Matrix a = new Matrix(5, 5);
         Matrix b = new Matrix(5, 5, true);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         a.position(0, 0, 1);
         a.position(1, 1, 1);
         a.position(2, 2, 1);
         a.position(3, 3, 1);
         a.position(4, 4, 1);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
     }
 
     @Test
@@ -548,7 +552,7 @@ public class MatrixTest {
         a.position(0, 2, 3);
         a.position(0, 3, 4);
         a.position(0, 4, 5);
-        assertArrayEquals(new double[]{1, 2, 3, 4, 5}, a.getRow(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 2, 3, 4, 5}, a.getRow(0), DELTA);
     }
 
     @Test
@@ -560,7 +564,7 @@ public class MatrixTest {
         a.position(2, 0, 3);
         a.position(3, 0, 4);
         a.position(4, 0, 5);
-        assertArrayEquals(new double[]{1, 2, 3, 4, 5}, a.getCol(0), DELTA);
+        Assertions.assertArrayEquals(new double[]{1, 2, 3, 4, 5}, a.getCol(0), DELTA);
     }
 
     @Test
@@ -568,7 +572,7 @@ public class MatrixTest {
         Matrix a = new Matrix(10, 10, true);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                assertEquals(i == j ? 1 : 0, a.position(i, j), DELTA);
+                Assertions.assertEquals(i == j ? 1 : 0, a.position(i, j), DELTA);
             }
         }
     }
@@ -582,11 +586,11 @@ public class MatrixTest {
         a.position(2, 0, 3);
         a.position(3, 0, 4);
         a.position(4, 0, 5);
-        assertEquals(1, a.position(0, 0), DELTA);
-        assertEquals(2, a.position(1, 0), DELTA);
-        assertEquals(3, a.position(2, 0), DELTA);
-        assertEquals(4, a.position(3, 0), DELTA);
-        assertEquals(5, a.position(4, 0), DELTA);
+        Assertions.assertEquals(1, a.position(0, 0), DELTA);
+        Assertions.assertEquals(2, a.position(1, 0), DELTA);
+        Assertions.assertEquals(3, a.position(2, 0), DELTA);
+        Assertions.assertEquals(4, a.position(3, 0), DELTA);
+        Assertions.assertEquals(5, a.position(4, 0), DELTA);
     }
 
     @Test
@@ -598,23 +602,23 @@ public class MatrixTest {
         a.position(0, 2, 3);
         a.position(0, 3, 4);
         a.position(0, 4, 5);
-        assertEquals(1, a.position(0, 0), DELTA);
-        assertEquals(2, a.position(0, 1), DELTA);
-        assertEquals(3, a.position(0, 2), DELTA);
-        assertEquals(4, a.position(0, 3), DELTA);
-        assertEquals(5, a.position(0, 4), DELTA);
+        Assertions.assertEquals(1, a.position(0, 0), DELTA);
+        Assertions.assertEquals(2, a.position(0, 1), DELTA);
+        Assertions.assertEquals(3, a.position(0, 2), DELTA);
+        Assertions.assertEquals(4, a.position(0, 3), DELTA);
+        Assertions.assertEquals(5, a.position(0, 4), DELTA);
     }
 
     @Test
     public void testAdd() {
         Matrix a = new Matrix(10, 10, true);
         Matrix b = new Matrix(10, 10, true);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.add(a, b);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                assertEquals(i == j ? 2 : 0, b.position(i, j), DELTA);
+                Assertions.assertEquals(i == j ? 2 : 0, b.position(i, j), DELTA);
             }
         }
     }
@@ -625,13 +629,13 @@ public class MatrixTest {
         Matrix b = new Matrix(5, 15, true);
         Matrix c = new Matrix(5, 15);
         a.add(b, c);
-        assertNotEquals(a, b);
-        assertNotEquals(b, c);
-        assertNotEquals(a, c);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertNotEquals(b, c);
+        Assertions.assertNotEquals(a, c);
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
                 double av = a.position(i, j);
-                assertEquals(i == j ? av + 1 : av, c.position(i, j), DELTA);
+                Assertions.assertEquals(i == j ? av + 1 : av, c.position(i, j), DELTA);
             }
         }
     }
@@ -640,10 +644,10 @@ public class MatrixTest {
     public void testSubtract() {
         Matrix a = new Matrix(10, 10, true);
         Matrix b = new Matrix(10, 10, true);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.subtract(a, b);
-        assertNotEquals(a, b);
-        assertEquals(new Matrix(10, 10), b);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertEquals(new Matrix(10, 10), b);
     }
 
     @Test
@@ -652,13 +656,13 @@ public class MatrixTest {
         Matrix b = new Matrix(5, 15, true);
         Matrix c = new Matrix(5, 15);
         a.subtract(b, c);
-        assertNotEquals(a, b);
-        assertNotEquals(b, c);
-        assertNotEquals(a, c);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertNotEquals(b, c);
+        Assertions.assertNotEquals(a, c);
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
                 double av = a.position(i, j);
-                assertEquals(i == j ? av - 1 : av, c.position(i, j), DELTA);
+                Assertions.assertEquals(i == j ? av - 1 : av, c.position(i, j), DELTA);
             }
         }
     }
@@ -667,11 +671,11 @@ public class MatrixTest {
     public void testFillBooleanRandom() {
         Matrix a = new Matrix(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill(true);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b.fill(true);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
 
         boolean hasNegativeA = false;
         boolean hasNegativeB = false;
@@ -683,14 +687,14 @@ public class MatrixTest {
             }
         }
 
-        assertTrue(hasNegativeA);
-        assertTrue(hasNegativeB);
+        Assertions.assertTrue(hasNegativeA);
+        Assertions.assertTrue(hasNegativeB);
 
         hasNegativeA = false;
         hasNegativeB = false;
         a.fill(false);
         b.fill(false);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
 
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
@@ -699,8 +703,8 @@ public class MatrixTest {
             }
         }
 
-        assertFalse(hasNegativeA);
-        assertFalse(hasNegativeB);
+        Assertions.assertFalse(hasNegativeA);
+        Assertions.assertFalse(hasNegativeB);
     }
 
     @Test
@@ -709,11 +713,11 @@ public class MatrixTest {
         Random rand2 = new Random(0);
         Matrix a = new Matrix(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill(true, rand1);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b.fill(true, rand2);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
 
         boolean hasNegativeA = false;
         boolean hasNegativeB = false;
@@ -725,14 +729,14 @@ public class MatrixTest {
             }
         }
 
-        assertTrue(hasNegativeA);
-        assertTrue(hasNegativeB);
+        Assertions.assertTrue(hasNegativeA);
+        Assertions.assertTrue(hasNegativeB);
 
         hasNegativeA = false;
         hasNegativeB = false;
         a.fill(false, rand1);
         b.fill(false, rand2);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
 
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
@@ -741,8 +745,8 @@ public class MatrixTest {
             }
         }
 
-        assertFalse(hasNegativeA);
-        assertFalse(hasNegativeB);
+        Assertions.assertFalse(hasNegativeA);
+        Assertions.assertFalse(hasNegativeB);
     }
 
     @Test
@@ -750,33 +754,33 @@ public class MatrixTest {
         Random rand = new Random(0);
         Matrix a = new Matrix(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill(true, rand);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b.fill(true, rand);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
     public void testFillBooleanRandom4() {
         Matrix a = new Matrix(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill(true);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b.fill(true);
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
     }
 
     @Test
     public void testFill() {
         Matrix a = new Matrix(5, 10);
         Matrix b = new Matrix(5, 10);
-        assertEquals(a, b);
+        Assertions.assertEquals(a, b);
         a.fill();
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
         b.fill();
-        assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, b);
 
         boolean hasNegativeA = false;
         boolean hasNegativeB = false;
@@ -788,20 +792,22 @@ public class MatrixTest {
             }
         }
 
-        assertTrue(hasNegativeA);
-        assertTrue(hasNegativeB);
+        Assertions.assertTrue(hasNegativeA);
+        Assertions.assertTrue(hasNegativeB);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductError1() {
-        Matrix a = new Matrix(2, 10, a3_data);
-        assertNull(a);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix a = new Matrix(2, 10, a3_data);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductError2() {
-        Matrix b = new Matrix(10, 2, b3_data);
-        assertNull(b);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix b = new Matrix(10, 2, b3_data);
+        });
     }
 
     @Test
@@ -810,7 +816,7 @@ public class MatrixTest {
         Matrix a = new Row(10, a3_data);
         Matrix b = new Row(10, b3_data);
         double product = a.dotProduct(b);
-        assertEquals(result, product, DELTA);
+        Assertions.assertEquals(result, product, DELTA);
     }
 
     @Test
@@ -819,7 +825,7 @@ public class MatrixTest {
         Matrix a = new Column(10, a3_data);
         Matrix b = new Column(10, b3_data);
         double product = a.dotProduct(b);
-        assertEquals(result, product, DELTA);
+        Assertions.assertEquals(result, product, DELTA);
     }
 
     @Test
@@ -828,7 +834,7 @@ public class MatrixTest {
         Matrix a = new Row(10, a3_data);
         Matrix b = new Column(10, b3_data);
         double product = a.dotProduct(b);
-        assertEquals(result, product, DELTA);
+        Assertions.assertEquals(result, product, DELTA);
     }
 
     @Test
@@ -837,7 +843,7 @@ public class MatrixTest {
         Matrix a = new Column(10, a3_data);
         Matrix b = new Row(10, b3_data);
         double product = a.dotProduct(b);
-        assertEquals(result, product, DELTA);
+        Assertions.assertEquals(result, product, DELTA);
     }
 
     @Test
@@ -850,21 +856,21 @@ public class MatrixTest {
         a.setRow(2, row);
         assertArrayNotEquals(row, a.getRow(0), DELTA);
         assertArrayNotEquals(row, a.getRow(1), DELTA);
-        assertArrayEquals(row, a.getRow(2), DELTA);
+        Assertions.assertArrayEquals(row, a.getRow(2), DELTA);
     }
 
     @Test
     public void testGetCol() {
         Matrix a = Matrix.random(10, 15);
-        assertArrayEquals(a.getCol(12), a.transpose().getRow(12), DELTA);
+        Assertions.assertArrayEquals(a.getCol(12), a.transpose().getRow(12), DELTA);
         for (int i = 0; i < 10; i++) {
             a.position(i, 9, 0);
         }
-        assertArrayEquals(new double[10], a.getCol(9), DELTA);
+        Assertions.assertArrayEquals(new double[10], a.getCol(9), DELTA);
         for (int i = 0; i < 10; i++) {
             a.position(i, 3, i);
         }
-        assertArrayEquals(new double[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, a.getCol(3), DELTA);
+        Assertions.assertArrayEquals(new double[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, a.getCol(3), DELTA);
     }
 
     @Test
@@ -873,14 +879,14 @@ public class MatrixTest {
         Matrix b = Matrix.random(5, 10);
         Matrix c = Matrix.random(5, 10);
         Matrix d = Matrix.random(5, 10);
-        assertNotEquals(a, d);
+        Assertions.assertNotEquals(a, d);
         a.subtractAndCopy(b, c, d);
-        assertEquals(a, d);
+        Assertions.assertEquals(a, d);
         a.subtract(b, d);
-        assertEquals(c, d);
+        Assertions.assertEquals(c, d);
         a.subtractAndCopy(a, b, c);
-        assertEquals(a, c);
-        assertEquals(new Matrix(5, 10), b);
+        Assertions.assertEquals(a, c);
+        Assertions.assertEquals(new Matrix(5, 10), b);
     }
 
     @Test
@@ -889,15 +895,15 @@ public class MatrixTest {
         Matrix b = Matrix.random(10, 20);
         Matrix c = new Matrix(10, 20);
         Matrix d = new Matrix(10, 20);
-        assertNotEquals(a, b);
-        assertNotEquals(a, c);
+        Assertions.assertNotEquals(a, b);
+        Assertions.assertNotEquals(a, c);
         a.multiplyAndAdd(0, b, c);
-        assertEquals(b, c);
+        Assertions.assertEquals(b, c);
         double scale = Math.random();
         a.multiply(scale, d);
         d.add(b, d);
         a.multiplyAndAdd(scale, b, c);
-        assertEquals(c, d);
+        Assertions.assertEquals(c, d);
     }
 
     @Test
@@ -917,7 +923,7 @@ public class MatrixTest {
         Matrix b = new Column(10);
         b.applyInIdentity(f, a);
         for (int i = 0; i < a.getRows(); i++) {
-            assertEquals(0, a.position(i, i), DELTA);
+            Assertions.assertEquals(0, a.position(i, i), DELTA);
         }
         b.setValue(5);
         f = new Function() {
@@ -935,40 +941,48 @@ public class MatrixTest {
         for (int i = 0; i < a.getRows(); i++) {
             for (int j = 0; j < a.getColumns(); j++) {
                 if (i == j) {
-                    assertEquals(5, a.position(i, j), DELTA);
+                    Assertions.assertEquals(5, a.position(i, j), DELTA);
                 } else {
-                    assertNotEquals(5, a.position(i, j), DELTA);
+                    Assertions.assertNotEquals(5, a.position(i, j), DELTA);
                 }
             }
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductThisNotRow() {
-        Matrix a = Matrix.random(2, 10);
-        Matrix b = Matrix.random(1, 20);
-        a.dotProduct(b);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix a = Matrix.random(2, 10);
+            Matrix b = Matrix.random(1, 20);
+            a.dotProduct(b);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductThisNotColumn() {
-        Matrix a = Matrix.random(10, 2);
-        Matrix b = Matrix.random(1, 20);
-        a.dotProduct(b);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix a = Matrix.random(10, 2);
+            Matrix b = Matrix.random(1, 20);
+            a.dotProduct(b);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductOtherNotRow() {
-        Matrix a = Matrix.random(1, 20);
-        Matrix b = Matrix.random(2, 10);
-        a.dotProduct(b);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix a = Matrix.random(1, 20);
+            Matrix b = Matrix.random(2, 10);
+            a.dotProduct(b);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testDotProductOtherNotColumn() {
-        Matrix a = Matrix.random(1, 20);
-        Matrix b = Matrix.random(10, 2);
-        a.dotProduct(b);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            Matrix a = Matrix.random(1, 20);
+            Matrix b = Matrix.random(10, 2);
+            a.dotProduct(b);
+        });
     }
 
     @Test
@@ -984,34 +998,34 @@ public class MatrixTest {
         map.put(c, c);
         map.put(d, d);
 
-        assertSame(a, map.get(a));
-        assertSame(b, map.get(b));
-        assertSame(c, map.get(c));
-        assertSame(d, map.get(d));
+        Assertions.assertSame(a, map.get(a));
+        Assertions.assertSame(b, map.get(b));
+        Assertions.assertSame(c, map.get(c));
+        Assertions.assertSame(d, map.get(d));
     }
 
     @Test
     public void testHashCode2() {
         Matrix a = Matrix.random(10, 10);
-        assertEquals(a.hashCode(), a.hashCode());
+        Assertions.assertEquals(a.hashCode(), a.hashCode());
         Matrix b = new Matrix(10, 10);
         a.copy(b);
-        assertEquals(a.hashCode(), b.hashCode());
+        Assertions.assertEquals(a.hashCode(), b.hashCode());
         b.position(0, 0, b.position(0, 0) + 1);
-        assertNotEquals(a.hashCode(), b.hashCode());
+        Assertions.assertNotEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void testToString() {
         Matrix a = new Column(2);
-        assertEquals("0.00000000 \n0.00000000 \n\n", a.toString());
+        Assertions.assertEquals("0.00000000 \n0.00000000 \n\n", a.toString());
         a = new Row(2);
-        assertEquals("0.00000000 0.00000000 \n\n", a.toString());
+        Assertions.assertEquals("0.00000000 0.00000000 \n\n", a.toString());
     }
 
     private void assertArrayNotEquals(double[] a, double[] b, double DELTA) {
         try {
-            assertArrayEquals(a, b, DELTA);
+            Assertions.assertArrayEquals(a, b, DELTA);
             throw new AssertionError("Both arrays are equal!");
         } catch (AssertionError ignoreMe) {
         }

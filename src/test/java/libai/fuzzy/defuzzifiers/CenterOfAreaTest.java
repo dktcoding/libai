@@ -1,12 +1,11 @@
 package libai.fuzzy.defuzzifiers;
 
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 17/05/2017.
@@ -25,7 +24,7 @@ public class CenterOfAreaTest {
         // area of first part of second triangle = 0.5
         // area of second part of second triangle = 2.5
         // total area = 5, half point at 2.5 area accumulated = center of second triangle
-        assertEquals(5, Defuzzifier.COA.getValue(points), 1.e-3);
+        Assertions.assertEquals(5, Defuzzifier.COA.getValue(points), 1.e-3);
     }
 
     @Test
@@ -36,6 +35,6 @@ public class CenterOfAreaTest {
             points.add(new Point.Double(x, a.eval(x)));
         }
 
-        assertEquals(3, Defuzzifier.COA.getValue(points), 1.e-3);
+        Assertions.assertEquals(3, Defuzzifier.COA.getValue(points), 1.e-3);
     }
 }

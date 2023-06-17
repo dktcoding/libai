@@ -1,15 +1,14 @@
 package libai.fuzzy;
 
 import libai.fuzzy.modifiers.Modifier;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 27/04/2017.
@@ -18,7 +17,7 @@ public class ClauseTest {
     @Test
     public void testXMLGeneration() {
         Clause clause = new Clause("tip", "good", Modifier.VERY);
-        assertEquals("""
+        Assertions.assertEquals("""
                 <Clause modifier="very">
                 \t<Variable>tip</Variable>
                 \t<Term>good</Term>
@@ -36,7 +35,7 @@ public class ClauseTest {
         Element root = doc.getDocumentElement();
 
         Clause newClause = new Clause(root);
-        assertEquals(clause.toXMLString(""), newClause.toXMLString(""));
+        Assertions.assertEquals(clause.toXMLString(""), newClause.toXMLString(""));
     }
 
 }

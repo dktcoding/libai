@@ -2,15 +2,14 @@ package libai.fuzzy;
 
 import libai.fuzzy.operators.AndMethod;
 import libai.fuzzy.operators.OrMethod;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -28,7 +27,7 @@ public class RuleTest {
 
         Rule rule = new Rule("tipper", 1, OrMethod.PROBOR, Rule.Connector.OR, antecedent, consequent);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <Rule name="tipper" weight="1.000000" operator="PROBOR" connector="OR">
                 \t<Antecedent>
                 \t\t<Clause>
@@ -72,16 +71,20 @@ public class RuleTest {
         Element root = doc.getDocumentElement();
 
         Rule newRule = new Rule(root);
-        assertEquals(rule.toXMLString(""), newRule.toXMLString(""));
+        Assertions.assertEquals(rule.toXMLString(""), newRule.toXMLString(""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidOperatorToOrConnector() {
-        new Rule("tipper", 1, AndMethod.MIN, Rule.Connector.OR, null, null);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            new Rule("tipper", 1, AndMethod.MIN, Rule.Connector.OR, null, null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidOperatorToAndConnector() {
-        new Rule("tipper", 1, OrMethod.MAX, Rule.Connector.AND, null, null);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            new Rule("tipper", 1, OrMethod.MAX, Rule.Connector.AND, null, null);
+        });
     }
 }

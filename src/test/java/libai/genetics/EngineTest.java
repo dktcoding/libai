@@ -26,12 +26,10 @@ package libai.genetics;
 import libai.genetics.chromosomes.BinaryChromosome;
 import libai.genetics.chromosomes.Chromosome;
 import libai.genetics.chromosomes.IntegerChromosome;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -66,12 +64,12 @@ public class EngineTest {
         BinaryChromosome best = (BinaryChromosome) engine.evolve(5000);
 
         double x = best.decode(0, 1);
-        assertEquals(Math.exp(-x), x, 1e-3);
+        Assertions.assertEquals(Math.exp(-x), x, 1e-3);
 
         //Test toString()
         String bStr = best.toString();
         String oStr = Long.toString(Long.reverse(best.decode()) >>> (64 - bStr.length()), 2);
-        assertTrue(bStr.endsWith(oStr));
+        Assertions.assertTrue(bStr.endsWith(oStr));
     }
 
     @Test
@@ -107,7 +105,7 @@ public class EngineTest {
         //the number of misplaced values decreases
         IntegerChromosome first = (IntegerChromosome) engine.evolve(1);
         IntegerChromosome last = (IntegerChromosome) engine.evolve(2000);
-        assertTrue(fitnessImpl.fitness(first) > fitnessImpl.fitness(last));
+        Assertions.assertTrue(fitnessImpl.fitness(first) > fitnessImpl.fitness(last));
 
         //Test toString()
         StringBuilder out = new StringBuilder();
@@ -115,7 +113,7 @@ public class EngineTest {
         for (int j : g) {
             out.append(j).append(" ");
         }
-        assertEquals(out.toString(), last.toString());
+        Assertions.assertEquals(out.toString(), last.toString());
     }
 
 }

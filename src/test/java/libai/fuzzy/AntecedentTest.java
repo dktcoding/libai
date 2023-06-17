@@ -5,7 +5,8 @@ import libai.fuzzy.operators.AndMethod;
 import libai.fuzzy.operators.OrMethod;
 import libai.fuzzy.operators.accumulation.Accumulation;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -14,8 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -27,7 +26,7 @@ public class AntecedentTest {
         Clause b = new Clause("variable2", "big");
         Antecedent antecedent = new Antecedent(a, b);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <Antecedent>
                 \t<Clause>
                 \t\t<Variable>variable1</Variable>
@@ -53,7 +52,7 @@ public class AntecedentTest {
         Element root = doc.getDocumentElement();
 
         Antecedent newAntecedent = new Antecedent(root);
-        assertEquals(antecedent.toXMLString(""), newAntecedent.toXMLString(""));
+        Assertions.assertEquals(antecedent.toXMLString(""), newAntecedent.toXMLString(""));
     }
 
     @Test
@@ -75,10 +74,10 @@ public class AntecedentTest {
         vars.put("quality", 3.);
         vars.put("tip", 6.);
 
-        assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-        assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
-        assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-        assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        Assertions.assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
     }
 
     @Test
@@ -101,9 +100,9 @@ public class AntecedentTest {
         vars.put("quality", 3.);
         vars.put("tip", 6.); // 10/13.
 
-        assertEquals(Math.min(3 / 7., 4 / 7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-        assertEquals((3 / 7. * 4 / 7.), antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
-        assertEquals(Math.max(3 / 7., 4 / 7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-        assertEquals(((3 / 7. + 4 / 7.) - (3 / 7. * 4 / 7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+        Assertions.assertEquals(Math.min(3 / 7., 4 / 7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        Assertions.assertEquals((3 / 7. * 4 / 7.), antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        Assertions.assertEquals(Math.max(3 / 7., 4 / 7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        Assertions.assertEquals(((3 / 7. + 4 / 7.) - (3 / 7. * 4 / 7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
     }
 }

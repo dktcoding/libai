@@ -23,12 +23,11 @@
  */
 package libai.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -49,7 +48,7 @@ public class PairTest {
                 new Pair<>(10, 6),
         };
         Arrays.sort(pairs);
-        assertArrayEquals(pairs, pairsSorted);
+        Assertions.assertArrayEquals(pairs, pairsSorted);
     }
 
     @Test
@@ -68,8 +67,8 @@ public class PairTest {
         }
 
         for (Pair<Integer, Integer> p : pairs) {
-            assertEquals(p, map.get(p));
-            assertSame(p, map.get(p));
+            Assertions.assertEquals(p, map.get(p));
+            Assertions.assertSame(p, map.get(p));
         }
     }
 
@@ -78,29 +77,29 @@ public class PairTest {
         Pair<Integer, Integer> p1 = new Pair<>(-10, 4);
         Pair<Integer, Integer> p2 = new Pair<>(-10, 4);
 
-        assertEquals(p1.hashCode(), p1.hashCode());
-        assertEquals(p1.hashCode(), p2.hashCode());
+        Assertions.assertEquals(p1.hashCode(), p1.hashCode());
+        Assertions.assertEquals(p1.hashCode(), p2.hashCode());
         p2.first = Integer.valueOf("-10");
-        assertEquals(p1.hashCode(), p2.hashCode());
+        Assertions.assertEquals(p1.hashCode(), p2.hashCode());
         p2.first = -10;
-        assertEquals(p1.hashCode(), p2.hashCode());
+        Assertions.assertEquals(p1.hashCode(), p2.hashCode());
         p2.second = (int) 5.0;
-        assertNotEquals(p1.hashCode(), p2.hashCode());
+        Assertions.assertNotEquals(p1.hashCode(), p2.hashCode());
         p2.second = (int) 4.0;
-        assertEquals(p1.hashCode(), p2.hashCode());
+        Assertions.assertEquals(p1.hashCode(), p2.hashCode());
     }
 
     @Test
     public void testToString() {
         Pair<String, String> pair = new Pair<>("abc", "def");
-        assertEquals("(abc,def)", pair.toString());
+        Assertions.assertEquals("(abc,def)", pair.toString());
     }
 
     @Test
     public void testEquals() {
         Pair<String, String> pair = new Pair<>("abc", "def");
-        assertNotEquals(pair, null);
-        assertNotEquals(new Object(), pair);
-        assertNotEquals(4, pair);
+        Assertions.assertNotEquals(pair, null);
+        Assertions.assertNotEquals(new Object(), pair);
+        Assertions.assertNotEquals(4, pair);
     }
 }

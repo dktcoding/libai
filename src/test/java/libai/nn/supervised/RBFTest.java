@@ -26,15 +26,14 @@ package libai.nn.supervised;
 import demos.common.SimpleProgressDisplay;
 import libai.common.MatrixIOTest;
 import libai.common.matrix.Column;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -77,10 +76,10 @@ public class RBFTest {
         net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
         net.train(p, t, 0.001, 600000, 0, n);
 
-        assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        Assumptions.assumeTrue(0.0001 > net.error(p, t), "RBF didn't converge, try again");
 
         for (int i = n; i < p.length; i++) {
-            assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+            Assertions.assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
         }
     }
 
@@ -117,34 +116,36 @@ public class RBFTest {
         net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
         net.train(p, t, 0.001, 600000, 0, n);
 
-        assumeTrue("RBF didn't converge, try again", 0.0001 > net.error(p, t));
+        Assumptions.assumeTrue(0.0001 > net.error(p, t), "RBF didn't converge, try again");
 
         for (int i = n; i < p.length; i++) {
-            assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
+            Assertions.assertEquals(t[i].position(0, 0), net.simulate(p[i]).position(0, 0), 0.1);
         }
 
-        assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
+        Assumptions.assumeTrue(MatrixIOTest.checkTemp(), "Can't use temp dir...");
 
         String tmp = System.getProperty("java.io.tmpdir") + File.separator;
         tmp = tmp + "foo.rbf";
-        assertTrue(net.save(tmp));
+        Assertions.assertTrue(net.save(tmp));
         try {
             RBF net2 = RBF.open(tmp);
-            assertNotNull(net2);
+            Assertions.assertNotNull(net2);
             new File(tmp).delete();
 
-            assertEquals(net.error(p, t), net2.error(p, t), 0);
+            Assertions.assertEquals(net.error(p, t), net2.error(p, t), 0);
             for (int i = n; i < p.length; i++) {
-                assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
+                Assertions.assertEquals(net.simulate(p[i]).position(0, 0), net2.simulate(p[i]).position(0, 0), 0);
             }
         } catch (IOException | ClassNotFoundException e) {
-            fail();
+            Assertions.fail();
         }
 
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testNullPath() throws IOException, ClassNotFoundException {
-        RBF.open((String) null);
+    @Test
+    public void testNullPath() {
+        Assertions.assertThrowsExactly(NullPointerException.class, () -> {
+            RBF.open((String) null);
+        });
     }
 }

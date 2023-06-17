@@ -23,9 +23,8 @@
  */
 package libai.search;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -42,8 +41,8 @@ public class BFSTest {
         StringBuilder sb = new StringBuilder(DEMO_STEPS.length());
         ans.printSolutionMoves(sb);
 
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_STEPS, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS, sb.toString());
     }
 
     @Test
@@ -55,11 +54,11 @@ public class BFSTest {
         String DEMO_STEPS_2 = "1234567.8\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_2.length());
         ans.printSolution(sb);
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_STEPS_2, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_2, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
-        assertEquals("-l", sb2.toString());
+        Assertions.assertEquals("-l", sb2.toString());
     }
 
     @Test
@@ -71,11 +70,11 @@ public class BFSTest {
         String DEMO_STEPS_3 = "12345.786\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_3.length());
         ans.printSolution(sb);
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_STEPS_3, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_3, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
-        assertEquals("-u", sb2.toString());
+        Assertions.assertEquals("-u", sb2.toString());
     }
 
     @Test
@@ -85,6 +84,6 @@ public class BFSTest {
         State init = new GemPuzzleState("21345678.", null, '-');
         GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
 
-        assertNull(ans);
+        Assertions.assertNull(ans);
     }
 }

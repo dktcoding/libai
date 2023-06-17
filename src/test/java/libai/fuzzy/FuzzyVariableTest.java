@@ -6,7 +6,8 @@ import libai.fuzzy.operators.accumulation.Accumulation;
 import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.sets.FuzzySet;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,8 +17,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 26/04/2017.
@@ -61,7 +60,7 @@ public class FuzzyVariableTest {
 
         FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <FuzzyVariable name="quality" domainLeft="0.000000" domainRight="10.000000" scale="stars" type="input">
                 \t<FuzzyTerm name="bad" complement="false">
                 \t\t<SingletonShape Param1="3"/>
@@ -85,7 +84,7 @@ public class FuzzyVariableTest {
         Element root = doc.getDocumentElement();
 
         FuzzyVariable newVar = new FuzzyVariable(root);
-        assertEquals(var.toXMLString(""), newVar.toXMLString(""));
+        Assertions.assertEquals(var.toXMLString(""), newVar.toXMLString(""));
     }
 
     @Test
@@ -101,7 +100,7 @@ public class FuzzyVariableTest {
         Element root = doc.getDocumentElement();
 
         FuzzyVariable newVar = new FuzzyVariable(root);
-        assertEquals(var.toXMLString(""), newVar.toXMLString(""));
+        Assertions.assertEquals(var.toXMLString(""), newVar.toXMLString(""));
     }
 
     @Test
@@ -124,7 +123,7 @@ public class FuzzyVariableTest {
         clauses.add(new Pair<>(0.375, new Clause("alarm", "off")));
 
         double alarmValue = alarm.defuzzify(ActivationMethod.MIN, kb, 0.01, clauses);
-        assertEquals(1.608, alarmValue, 1.e-3);
+        Assertions.assertEquals(1.608, alarmValue, 1.e-3);
 
         clauses = new ArrayList<>();
         clauses.add(new Pair<>(0.25, new Clause("sprinkles", "long")));
@@ -133,6 +132,6 @@ public class FuzzyVariableTest {
         clauses.add(new Pair<>(0.375, new Clause("sprinkles", "short")));
 
         double sprinklesValue = sprinkles.defuzzify(ActivationMethod.MIN, kb, 0.01, clauses);
-        assertEquals(0.745, sprinklesValue, 1.e-3);
+        Assertions.assertEquals(0.745, sprinklesValue, 1.e-3);
     }
 }

@@ -1,14 +1,13 @@
 package libai.fuzzy.sets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 28/05/2017.
@@ -18,7 +17,7 @@ public class LeftGaussianShapeTest {
     public void testXMLGeneration() {
         FuzzySet set = new LeftGaussianShape(5, 1);
 
-        assertEquals("<LeftGaussianShape Param1=\"5.000000\" Param2=\"1.000000\"/>", set.toXMLString(""));
+        Assertions.assertEquals("<LeftGaussianShape Param1=\"5.000000\" Param2=\"1.000000\"/>", set.toXMLString(""));
     }
 
     @Test
@@ -32,27 +31,27 @@ public class LeftGaussianShapeTest {
         Element root = doc.getDocumentElement();
 
         FuzzySet newSet = new LeftGaussianShape(root);
-        assertEquals(set.toXMLString(""), newSet.toXMLString(""));
+        Assertions.assertEquals(set.toXMLString(""), newSet.toXMLString(""));
     }
 
     @Test
     public void testBeforeAlpha() {
         FuzzySet set = new LeftGaussianShape(4, 0.5);
 
-        assertEquals(0, set.eval(-1), 1.e-5);
+        Assertions.assertEquals(0, set.eval(-1), 1.e-5);
     }
 
     @Test
     public void testBeforeCenter() {
         FuzzySet set = new LeftGaussianShape(4, 0.5);
 
-        assertEquals(0.882, set.eval(3.75), 1.e-3);
+        Assertions.assertEquals(0.882, set.eval(3.75), 1.e-3);
     }
 
     @Test
     public void testAfterCenter() {
         FuzzySet set = new LeftGaussianShape(4, 0.5);
 
-        assertEquals(1, set.eval(4.25), 1.e-3);
+        Assertions.assertEquals(1, set.eval(4.25), 1.e-3);
     }
 }

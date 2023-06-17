@@ -1,12 +1,11 @@
 package libai.fuzzy.defuzzifiers;
 
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 15/05/2017.
@@ -20,7 +19,7 @@ public class MeanOfMaximaTest {
             points.add(new Point.Double(x, set.eval(x)));
         }
 
-        assertEquals(3, Defuzzifier.MOM.getValue(points), 1.e-5);
+        Assertions.assertEquals(3, Defuzzifier.MOM.getValue(points), 1.e-5);
     }
 
     @Test
@@ -32,6 +31,6 @@ public class MeanOfMaximaTest {
             points.add(new Point.Double(x, Math.max(0.5 * a.eval(x), 0.75 * b.eval(x))));
         }
 
-        assertEquals(7, Defuzzifier.MOM.getValue(points), 1.e-5);
+        Assertions.assertEquals(7, Defuzzifier.MOM.getValue(points), 1.e-5);
     }
 }

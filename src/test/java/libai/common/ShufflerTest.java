@@ -1,8 +1,7 @@
 package libai.common;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by kronenthaler on 19/03/2017.
@@ -16,9 +15,9 @@ public class ShufflerTest extends Shuffler {
     public void testCreateSequentialArray() {
         Shuffler shuffler = new Shuffler(3);
 
-        assertEquals(shuffler.order[0], 0);
-        assertEquals(shuffler.order[1], 1);
-        assertEquals(shuffler.order[2], 2);
+        Assertions.assertEquals(shuffler.order[0], 0);
+        Assertions.assertEquals(shuffler.order[1], 1);
+        Assertions.assertEquals(shuffler.order[2], 2);
     }
 
     @Test
@@ -26,7 +25,7 @@ public class ShufflerTest extends Shuffler {
         Shuffler shuffler = new Shuffler(3);
         int[] sort = shuffler.shuffle();
 
-        assertNotEquals(sort, shuffler.order);
+        Assertions.assertNotEquals(sort, shuffler.order);
     }
 
     @Test
@@ -40,7 +39,7 @@ public class ShufflerTest extends Shuffler {
                 inPlace++;
         }
 
-        assertTrue(inPlace < sort.length);
+        Assertions.assertTrue(inPlace < sort.length);
     }
 
 }

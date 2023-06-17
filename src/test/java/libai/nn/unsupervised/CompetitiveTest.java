@@ -25,13 +25,11 @@ package libai.nn.unsupervised;
 
 import demos.common.SimpleProgressDisplay;
 import libai.common.matrix.Column;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -81,11 +79,11 @@ public class CompetitiveTest {
         net.setProgressBar(new SimpleProgressDisplay(new JProgressBar()));
         net.train(patterns, ans, 0.01, 1000);
 
-        assertTrue(net.error(patterns, ans, 0, n) < 5);
+        Assertions.assertTrue(net.error(patterns, ans, 0, n) < 5);
 
         for (int i = 0; i < patterns.length; i++) {
             for (int j = 0; j < ans[i].getRows(); j++) {
-                assertEquals(ans[i].position(j, 0), net.simulate(patterns[i]).position(j, 0), 1e-8);
+                Assertions.assertEquals(ans[i].position(j, 0), net.simulate(patterns[i]).position(j, 0), 1e-8);
             }
         }
 

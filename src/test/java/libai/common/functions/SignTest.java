@@ -23,10 +23,8 @@
  */
 package libai.common.functions;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -36,13 +34,13 @@ public class SignTest {
     @Test
     public void testEval() {
         Sign sign = new Sign();
-        assertEquals(0, sign.eval(-10), 0);
-        assertEquals(0, sign.eval(0), 0);
-        assertEquals(1, sign.eval(10), 0);
+        Assertions.assertEquals(0, sign.eval(-10), 0);
+        Assertions.assertEquals(0, sign.eval(0), 0);
+        Assertions.assertEquals(1, sign.eval(10), 0);
     }
 
     @Test
     public void testGetDerivative() {
-        assertNull(new Sign().getDerivative());
+        Assertions.assertNull(new Sign().getDerivative());
     }
 }

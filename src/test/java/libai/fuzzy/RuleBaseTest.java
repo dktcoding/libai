@@ -6,7 +6,8 @@ import libai.fuzzy.operators.OrMethod;
 import libai.fuzzy.operators.accumulation.Accumulation;
 import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -18,8 +19,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -40,7 +39,7 @@ public class RuleBaseTest {
 
         RuleBase ruleBase = new RuleBase("rulebase", ActivationMethod.MIN, AndMethod.PROD, OrMethod.PROBOR, ruleA, ruleB);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <RuleBase name="rulebase" type="mamdani" activationMethod="MIN" andMethod="PROD" orMethod="PROBOR">
                 \t<Rule name="tipper" weight="1.000000" operator="PROBOR" connector="OR">
                 \t\t<Antecedent>
@@ -111,10 +110,10 @@ public class RuleBaseTest {
         Element root = doc.getDocumentElement();
 
         RuleBase newRuleBase = new RuleBase(root);
-        assertEquals(ruleBase.toXMLString(""), newRuleBase.toXMLString(""));
+        Assertions.assertEquals(ruleBase.toXMLString(""), newRuleBase.toXMLString(""));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testTSKSupport() throws ParserConfigurationException, IOException, SAXException {
         String xml = "<RuleBase name=\"x\" type=\"tsk\"/>";
 
@@ -122,8 +121,9 @@ public class RuleBaseTest {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         Element root = doc.getDocumentElement();
-
-        new RuleBase(root);
+        Assertions.assertThrowsExactly(UnsupportedOperationException.class, () -> {
+            new RuleBase(root);
+        });
     }
 
     @Test
@@ -171,7 +171,7 @@ public class RuleBaseTest {
         vars.put("dryness", 4.35);
         Map<String, Double> adjusment = rb.fire(vars, kb, 0.01);
 
-        assertEquals(1.625, adjusment.get("alarm"), 1.e-3);
-        assertEquals(0, adjusment.get("sprinkles"), 1.e-3);
+        Assertions.assertEquals(1.625, adjusment.get("alarm"), 1.e-3);
+        Assertions.assertEquals(0, adjusment.get("sprinkles"), 1.e-3);
     }
 }

@@ -26,7 +26,9 @@ package libai.common;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
 import libai.io.MatrixIO;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -34,10 +36,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -95,24 +93,32 @@ public class MatrixIOTest {
         return isInstalled;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNull1() throws IOException {
-        MatrixIO.write(null, new Column(1), MatrixIO.Target.SERIAL);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            MatrixIO.write(null, new Column(1), MatrixIO.Target.SERIAL);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNull2() throws IOException {
-        MatrixIO.write(null, (Matrix) null, MatrixIO.Target.SERIAL);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            MatrixIO.write(null, (Matrix) null, MatrixIO.Target.SERIAL);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNull3() throws IOException {
-        MatrixIO.write(new ByteArrayOutputStream(), (Matrix) null, MatrixIO.Target.SERIAL);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            MatrixIO.write(new ByteArrayOutputStream(), (Matrix) null, MatrixIO.Target.SERIAL);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNull4() throws IOException {
-        MatrixIO.write(new ByteArrayOutputStream(), (Map<String, Matrix>) null, MatrixIO.Target.SERIAL);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            MatrixIO.write(new ByteArrayOutputStream(), (Map<String, Matrix>) null, MatrixIO.Target.SERIAL);
+        });
     }
 
     @Test
@@ -124,7 +130,7 @@ public class MatrixIOTest {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
             Matrix b = (Matrix) ois.readObject();
-            assertEquals(a, b);
+            Assertions.assertEquals(a, b);
         }
     }
 
@@ -137,7 +143,7 @@ public class MatrixIOTest {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
             Matrix b = (Matrix) ois.readObject();
-            assertEquals(a, b);
+            Assertions.assertEquals(a, b);
         }
     }
 
@@ -155,8 +161,8 @@ public class MatrixIOTest {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
             Map<String, Matrix> read = (Map<String, Matrix>) ois.readObject();
-            assertEquals(a, read.get("a"));
-            assertEquals(b, read.get("b"));
+            Assertions.assertEquals(a, read.get("a"));
+            Assertions.assertEquals(b, read.get("b"));
         }
     }
 
@@ -165,7 +171,7 @@ public class MatrixIOTest {
         Matrix a = new Matrix(2, 2, true);
         ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         MatrixIO.write(baos, a, MatrixIO.Target.CSV);
-        assertEquals("1.0,0.0\n0.0,1.0", baos.toString(StandardCharsets.UTF_8));
+        Assertions.assertEquals("1.0,0.0\n0.0,1.0", baos.toString(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -175,7 +181,7 @@ public class MatrixIOTest {
         data.put("b", new Matrix(2, 2, new double[]{0, 1, 1, 0}));
         ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         MatrixIO.write(baos, data, MatrixIO.Target.CSV);
-        assertEquals("1.0,0.0\n0.0,1.0\n0.0,1.0\n1.0,0.0", baos.toString(StandardCharsets.UTF_8));
+        Assertions.assertEquals("1.0,0.0\n0.0,1.0\n0.0,1.0\n1.0,0.0", baos.toString(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -183,7 +189,7 @@ public class MatrixIOTest {
         Matrix a = new Matrix(2, 2, true);
         ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         MatrixIO.write(baos, a, MatrixIO.Target.TSV);
-        assertEquals("1.0\t0.0\n0.0\t1.0", baos.toString(StandardCharsets.UTF_8));
+        Assertions.assertEquals("1.0\t0.0\n0.0\t1.0", baos.toString(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -193,13 +199,13 @@ public class MatrixIOTest {
         data.put("b", new Matrix(2, 2, new double[]{0, 1, 1, 0}));
         ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         MatrixIO.write(baos, data, MatrixIO.Target.TSV);
-        assertEquals("1.0\t0.0\n0.0\t1.0\n0.0\t1.0\n1.0\t0.0", baos.toString(StandardCharsets.UTF_8));
+        Assertions.assertEquals("1.0\t0.0\n0.0\t1.0\n0.0\t1.0\n1.0\t0.0", baos.toString(StandardCharsets.UTF_8));
     }
 
     @Test
     public void testWriteTargetOctave() {
-        assumeTrue("Can't use temp dir...", checkTemp());
-        assumeTrue("Can't find Octave...", checkOctaveInstall());
+        Assumptions.assumeTrue(checkTemp(), "Can't use temp dir...");
+        Assumptions.assumeTrue(checkOctaveInstall(), "Can't find Octave...");
 
         String tmp = System.getProperty("java.io.tmpdir") + File.separator;
 
@@ -227,20 +233,19 @@ public class MatrixIOTest {
         } catch (Exception ignored) {
         }
 
-        assertEquals("10", eval("load " + tmp + "a.mat; rows(a)"));
-        assertEquals("20", eval("load " + tmp + "a.mat; columns(a)"));
-        assertEquals("20", eval("load " + tmp + "b.mat; rows(b)"));
-        assertEquals("10", eval("load " + tmp + "b.mat; columns(b)"));
-        assertEquals("10", eval("load " + tmp + "c.mat; rows(c)"));
-        assertEquals("10", eval("load " + tmp + "c.mat; columns(c)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "a.mat; rows(a)"));
+        Assertions.assertEquals("20", eval("load " + tmp + "a.mat; columns(a)"));
+        Assertions.assertEquals("20", eval("load " + tmp + "b.mat; rows(b)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "b.mat; columns(b)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "c.mat; rows(c)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "c.mat; columns(c)"));
         //Octave usually rounds numbers when stdouting, this is the cleanest way
         //I could come up to test if values were correctly written/read...
-        assertEquals("0", eval(
+        Assertions.assertEquals("0", eval(
                 "load " + tmp + "a.mat;" +
                         "load " + tmp + "b.mat;" +
                         "load " + tmp + "c.mat;" +
-                        "sum((a * b - c > 1e-12)(:))")
-        );
+                        "sum((a * b - c > 1e-12)(:))"));
 
         new File(tmp + "a.mat").delete();
         new File(tmp + "b.mat").delete();
@@ -249,8 +254,8 @@ public class MatrixIOTest {
 
     @Test
     public void testWriteTargetOctave2() {
-        assumeTrue("Can't use temp dir...", checkTemp());
-        assumeTrue("Can't find Octave...", checkOctaveInstall());
+        Assumptions.assumeTrue(checkTemp(), "Can't use temp dir...");
+        Assumptions.assumeTrue(checkOctaveInstall(), "Can't find Octave...");
 
         String tmp = System.getProperty("java.io.tmpdir") + File.separator;
         File matFile = new File(tmp + "foo.mat");
@@ -269,15 +274,15 @@ public class MatrixIOTest {
         } catch (Exception ignored) {
         }
 
-        assertEquals("10", eval("load " + tmp + "foo.mat; rows(a)"));
-        assertEquals("20", eval("load " + tmp + "foo.mat; columns(a)"));
-        assertEquals("20", eval("load " + tmp + "foo.mat; rows(b)"));
-        assertEquals("10", eval("load " + tmp + "foo.mat; columns(b)"));
-        assertEquals("10", eval("load " + tmp + "foo.mat; rows(c)"));
-        assertEquals("20", eval("load " + tmp + "foo.mat; columns(c)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "foo.mat; rows(a)"));
+        Assertions.assertEquals("20", eval("load " + tmp + "foo.mat; columns(a)"));
+        Assertions.assertEquals("20", eval("load " + tmp + "foo.mat; rows(b)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "foo.mat; columns(b)"));
+        Assertions.assertEquals("10", eval("load " + tmp + "foo.mat; rows(c)"));
+        Assertions.assertEquals("20", eval("load " + tmp + "foo.mat; columns(c)"));
         //Octave usually rounds numbers when stdouting, this is the cleanest way
         //I could come up to test if values were correctly written/read...
-        assertEquals("0", eval("load " + tmp + "foo.mat; sum((a + b' != c)(:))"));
+        Assertions.assertEquals("0", eval("load " + tmp + "foo.mat; sum((a + b' != c)(:))"));
 
         new File(tmp + "foo.mat").delete();
     }
@@ -288,9 +293,9 @@ public class MatrixIOTest {
         Matrix m = new Matrix(3, 3, values);
         try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             MatrixIO.write(output, m, MatrixIO.Target.OPENOFFICE);
-            assertEquals(output.toString(StandardCharsets.US_ASCII), "a: \nleft [ matrix{1.0 # 2.0 # 3.0 ## 4.0 # 5.0 # 6.0 ## 7.0 # 8.0 # 9.0} right ]newLine\n");
+            Assertions.assertEquals(output.toString(StandardCharsets.US_ASCII), "a: \nleft [ matrix{1.0 # 2.0 # 3.0 ## 4.0 # 5.0 # 6.0 ## 7.0 # 8.0 # 9.0} right ]newLine\n");
         } catch (Exception e) {
-            fail("An unexpected IO error has occurred");
+            Assertions.fail("An unexpected IO error has occurred");
         }
     }
 }

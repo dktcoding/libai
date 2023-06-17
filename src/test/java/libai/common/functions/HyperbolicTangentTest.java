@@ -23,9 +23,8 @@
  */
 package libai.common.functions;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -37,23 +36,23 @@ public class HyperbolicTangentTest {
         HyperbolicTangent tanh = new HyperbolicTangent();
         for (int i = 0; i < 10; i++) {
             double x = Math.random() * 10 - 5;
-            assertEquals(Math.tanh(x), tanh.eval(x), 1e-12);
+            Assertions.assertEquals(Math.tanh(x), tanh.eval(x), 1e-12);
         }
     }
 
     @Test
     public void testGetDerivative() {
         Function der = new HyperbolicTangent().getDerivative();
-        assertNotNull(der);
+        Assertions.assertNotNull(der);
         for (int i = 0; i < 10; i++) {
             double x = Math.random() * 10 - 5;
             //diff(tanh(x)) = sech^2(x)
-            assertEquals((1 / Math.cosh(x) / Math.cosh(x)), der.eval(x), 1e-12);
+            Assertions.assertEquals((1 / Math.cosh(x) / Math.cosh(x)), der.eval(x), 1e-12);
         }
     }
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new HyperbolicTangent().getDerivative().getDerivative());
+        Assertions.assertNull(new HyperbolicTangent().getDerivative().getDerivative());
     }
 }

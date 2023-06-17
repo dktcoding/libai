@@ -26,7 +26,9 @@ package libai.nn;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
 import libai.io.MatrixIO;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -36,8 +38,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static libai.common.MatrixIOTest.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -56,7 +56,7 @@ public class NeuralNetworkTest {
             answers[i] = Column.random(10, true, r);
         }
         //old error -> 7.498344587525985
-        assertEquals(7.498344587525985, nn.error(patterns, answers), 1e-12);
+        Assertions.assertEquals(7.498344587525985, nn.error(patterns, answers), 1e-12);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class NeuralNetworkTest {
             answers[i] = Column.random(25, true, r);
         }
         //old error -> 17.015311661715778
-        assertEquals(17.015311661715778, nn.error(patterns, answers), 1e-12);
+        Assertions.assertEquals(17.015311661715778, nn.error(patterns, answers), 1e-12);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class NeuralNetworkTest {
             answers[i] = new Column(20);
             patterns[i].copy(answers[i]);
         }
-        assertEquals(0, nn.error(patterns, answers), 1e-12);
+        Assertions.assertEquals(0, nn.error(patterns, answers), 1e-12);
     }
 
     @Test
@@ -98,13 +98,13 @@ public class NeuralNetworkTest {
             answers[i] = new Column(20);
             patterns[i].copy(answers[i]);
         }
-        assertEquals(0, nn.error(patterns, answers, 2, 7), 1e-12);
+        Assertions.assertEquals(0, nn.error(patterns, answers, 2, 7), 1e-12);
     }
 
     @Test
     public void testEuclideanDistanceMatrix() {
-        assumeTrue("Can't use temp dir...", checkTemp());
-        assumeTrue("Can't find Octave...", checkOctaveInstall());
+        Assumptions.assumeTrue(checkTemp(), "Can't use temp dir...");
+        Assumptions.assumeTrue(checkOctaveInstall(), "Can't find Octave...");
         Column a = Column.random(10);
         Column b = Column.random(10);
 
@@ -121,13 +121,13 @@ public class NeuralNetworkTest {
         String command = "load " + tmp + "euclidean.mat; sum((a-b).^2)";
         double distLai = NeuralNetwork.euclideanDistance2(a, b);
         double distOct = Double.parseDouble(eval(command));
-        assertEquals(distOct, distLai, 1e-3);
+        Assertions.assertEquals(distOct, distLai, 1e-3);
     }
 
     @Test
     public void testEuclideanDistanceDouble() {
-        assumeTrue("Can't use temp dir...", checkTemp());
-        assumeTrue("Can't find Octave...", checkOctaveInstall());
+        Assumptions.assumeTrue(checkTemp(), "Can't use temp dir...");
+        Assumptions.assumeTrue(checkOctaveInstall(), "Can't find Octave...");
         Matrix a = Matrix.random(10, 1);
         Matrix b = Matrix.random(10, 1);
 
@@ -145,7 +145,7 @@ public class NeuralNetworkTest {
         String command = "load " + tmp + "euclidean.mat; sum((a-b).^2)";
         double distLai = NeuralNetwork.euclideanDistance2(a.getCol(0), b.getCol(0));
         double distOct = Double.parseDouble(eval(command));
-        assertEquals(distOct, distLai, 1e-3);
+        Assertions.assertEquals(distOct, distLai, 1e-3);
     }
 
 //    @Test

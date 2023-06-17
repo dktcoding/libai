@@ -30,7 +30,9 @@ import libai.common.functions.*;
 import libai.common.matrix.Column;
 import libai.nn.supervised.backpropagation.MomentumBackpropagation;
 import libai.nn.supervised.backpropagation.ResilientBackpropagation;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.File;
@@ -38,8 +40,6 @@ import java.io.IOException;
 import java.util.Random;
 
 import static java.lang.Math.round;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -76,8 +76,8 @@ public class MultiLayerPerceptronTest {
         @Override
         public void setValue(int v) {
             value = v;
-            assertTrue(v >= min);
-            assertTrue(v <= max);
+            Assertions.assertTrue(v >= min);
+            Assertions.assertTrue(v <= max);
         }
     };
 
@@ -102,16 +102,16 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{1});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.05, 100000, 0, 4, 0.1);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.1 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.1 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
     }
 
     @Test
@@ -136,16 +136,16 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{1});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.05, 100000, 0, 4, 0.1);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.1 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.1 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
     }
 
     @Test
@@ -170,21 +170,21 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{0});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.01, 1000000, 0, 4, 0.01);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.01 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.01 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
     }
 
     @Test
     public void testIO() {
-        assumeTrue("Can't use temp dir...", MatrixIOTest.checkTemp());
+        Assumptions.assumeTrue(MatrixIOTest.checkTemp(), "Can't use temp dir...");
         MultiLayerPerceptron mlp = new MultiLayerPerceptron(
                 new int[]{2, 3, 3, 2},
                 new Function[]{
@@ -206,33 +206,33 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(2, new double[]{1, 0});
         out[3] = new Column(2, new double[]{0, 1});
         mlp.train(ins, out, 0.01, 1000000, 0, 4, 0.01);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.01 > mlp.error(ins, out));
-        assumeTrue(0.1 > mlp.error(ins, out));
-        assertEquals(0, round(mlp.simulate(ins[0]).position(0, 0)));
-        assertEquals(1, round(mlp.simulate(ins[1]).position(0, 0)));
-        assertEquals(1, round(mlp.simulate(ins[2]).position(0, 0)));
-        assertEquals(0, round(mlp.simulate(ins[3]).position(0, 0)));
-        assertEquals(1, round(mlp.simulate(ins[0]).position(1, 0)));
-        assertEquals(0, round(mlp.simulate(ins[1]).position(1, 0)));
-        assertEquals(0, round(mlp.simulate(ins[2]).position(1, 0)));
-        assertEquals(1, round(mlp.simulate(ins[3]).position(1, 0)));
+        Assumptions.assumeTrue(0.01 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
+        Assumptions.assumeTrue(0.1 > mlp.error(ins, out));
+        Assertions.assertEquals(0, round(mlp.simulate(ins[0]).position(0, 0)));
+        Assertions.assertEquals(1, round(mlp.simulate(ins[1]).position(0, 0)));
+        Assertions.assertEquals(1, round(mlp.simulate(ins[2]).position(0, 0)));
+        Assertions.assertEquals(0, round(mlp.simulate(ins[3]).position(0, 0)));
+        Assertions.assertEquals(1, round(mlp.simulate(ins[0]).position(1, 0)));
+        Assertions.assertEquals(0, round(mlp.simulate(ins[1]).position(1, 0)));
+        Assertions.assertEquals(0, round(mlp.simulate(ins[2]).position(1, 0)));
+        Assertions.assertEquals(1, round(mlp.simulate(ins[3]).position(1, 0)));
 
         String foo = System.getProperty("java.io.tmpdir")
                 + File.separator + "perceptron.tmp";
         new File(foo).deleteOnExit();
 
-        assertTrue(mlp.save(foo));
+        Assertions.assertTrue(mlp.save(foo));
         try {
             MultiLayerPerceptron mlp2 = MultiLayerPerceptron.open(foo);
-            assertNotNull(mlp2);
-            assertNotEquals(mlp, mlp2);
+            Assertions.assertNotNull(mlp2);
+            Assertions.assertNotEquals(mlp, mlp2);
 
-            assertEquals(mlp.simulate(ins[0]), mlp2.simulate(ins[0]));
-            assertEquals(mlp.simulate(ins[1]), mlp2.simulate(ins[1]));
-            assertEquals(mlp.simulate(ins[2]), mlp2.simulate(ins[2]));
-            assertEquals(mlp.simulate(ins[3]), mlp2.simulate(ins[3]));
+            Assertions.assertEquals(mlp.simulate(ins[0]), mlp2.simulate(ins[0]));
+            Assertions.assertEquals(mlp.simulate(ins[1]), mlp2.simulate(ins[1]));
+            Assertions.assertEquals(mlp.simulate(ins[2]), mlp2.simulate(ins[2]));
+            Assertions.assertEquals(mlp.simulate(ins[3]), mlp2.simulate(ins[3]));
         } catch (IOException | ClassNotFoundException e) {
-            fail();
+            Assertions.fail();
         }
     }
 
@@ -276,28 +276,34 @@ public class MultiLayerPerceptronTest {
 
         net.train(p, t, 0.2, 50000, 0, n);
 
-        assertTrue(1e-3 > net.error(p, t, 0, n));
-        assertTrue(1e-3 > net.error(p, t, n, test));
+        Assertions.assertTrue(1e-3 > net.error(p, t, 0, n));
+        Assertions.assertTrue(1e-3 > net.error(p, t, n, test));
 
         for (int i = n; i < p.length; i++) {
             double res = net.simulate(p[i]).position(0, 0);
-            assertEquals(t[i].position(0, 0), res, 0.1);
+            Assertions.assertEquals(t[i].position(0, 0), res, 0.1);
         }
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testNullPath() throws IOException, ClassNotFoundException {
-        MultiLayerPerceptron.open((String) null);
+    @Test
+    public void testNullPath() {
+        Assertions.assertThrowsExactly(NullPointerException.class, () -> {
+            MultiLayerPerceptron.open((String) null);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrongBeta() {
-        new MultiLayerPerceptron(new int[2], new Function[2], new MomentumBackpropagation(-1));
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            new MultiLayerPerceptron(new int[2], new Function[2], new MomentumBackpropagation(-1));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testWrongBeta2() {
-        new MultiLayerPerceptron(new int[2], new Function[2], new MomentumBackpropagation(2));
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            new MultiLayerPerceptron(new int[2], new Function[2], new MomentumBackpropagation(2));
+        });
     }
 
     @Test
@@ -323,18 +329,18 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{0});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.01, 1000000, 0, 4, 0.01);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.01 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.01 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
 
-        assertTrue(((SimplePlotter) mlp.getPlotter()).called);
+        Assertions.assertTrue(((SimplePlotter) mlp.getPlotter()).called);
     }
 
     @Test
@@ -360,18 +366,18 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{0});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.01, 1000000, 0, 4, 0.01);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.01 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.01 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
 
-        assertTrue(((SimplePlotter) mlp.getPlotter()).called);
+        Assertions.assertTrue(((SimplePlotter) mlp.getPlotter()).called);
     }
 
     @Test
@@ -397,18 +403,18 @@ public class MultiLayerPerceptronTest {
         out[2] = new Column(1, new double[]{0});
         out[3] = new Column(1, new double[]{0});
         mlp.train(ins, out, 0.01, 1000000, 0, 4, 0.01);
-        assumeTrue("MultiLayerPerceptron didn't converge, try again", 0.01 > mlp.error(ins, out));
+        Assumptions.assumeTrue(0.01 > mlp.error(ins, out), "MultiLayerPerceptron didn't converge, try again");
         Column res = new Column(1);
         mlp.simulate(ins[0], res);
-        assertEquals(1, round(res.position(0, 0)));
+        Assertions.assertEquals(1, round(res.position(0, 0)));
         mlp.simulate(ins[1], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[2], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
         mlp.simulate(ins[3], res);
-        assertEquals(0, round(res.position(0, 0)));
+        Assertions.assertEquals(0, round(res.position(0, 0)));
 
-        assertTrue(((SimplePlotter) mlp.getPlotter()).called);
+        Assertions.assertTrue(((SimplePlotter) mlp.getPlotter()).called);
     }
 
     private double f(double x) {

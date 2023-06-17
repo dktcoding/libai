@@ -6,7 +6,8 @@ import libai.fuzzy.operators.OrMethod;
 import libai.fuzzy.operators.accumulation.Accumulation;
 import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -19,9 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -54,7 +52,7 @@ public class FuzzyControllerTest {
         RuleBase rb = new RuleBase("rulebase", ActivationMethod.MIN, AndMethod.PROD, OrMethod.PROBOR, ruleA, ruleB);
         FuzzyController fc = new FuzzyController("deController", "home.localhost", kb, rb);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <FuzzyController name="deController" ip="home.localhost">
                 \t<KnowledgeBase>
                 \t\t<FuzzyVariable name="tip" domainLeft="0.000000" domainRight="10.000000" scale="percentage" type="output" defaultValue="5.000000" defuzzifier="MOM" accumulation="SUM">
@@ -156,7 +154,7 @@ public class FuzzyControllerTest {
         Element root = doc.getDocumentElement();
 
         FuzzyController newFc = new FuzzyController(root);
-        assertEquals(fc.toXMLString(""), newFc.toXMLString(""));
+        Assertions.assertEquals(fc.toXMLString(""), newFc.toXMLString(""));
     }
 
     @Test
@@ -206,8 +204,8 @@ public class FuzzyControllerTest {
         vars.put("dryness", 4.35);
         Map<String, Double> adjusment = controller.fire(vars, 0.01);
 
-        assertEquals(1.625, adjusment.get("alarm"), 1.e-3);
-        assertEquals(0, adjusment.get("sprinkles"), 1.e-3);
+        Assertions.assertEquals(1.625, adjusment.get("alarm"), 1.e-3);
+        Assertions.assertEquals(0, adjusment.get("sprinkles"), 1.e-3);
     }
 
     @Test
@@ -237,7 +235,7 @@ public class FuzzyControllerTest {
         FuzzyController fc = new FuzzyController("deController", "home.localhost", kb, rb);
 
         File file = File.createTempFile("fc__", "fml");
-        assertTrue(fc.save(file.getAbsolutePath()));
+        Assertions.assertTrue(fc.save(file.getAbsolutePath()));
     }
 
     @Test
@@ -267,10 +265,10 @@ public class FuzzyControllerTest {
         FuzzyController fc = new FuzzyController("deController", "home.localhost", kb, rb);
 
         File file = File.createTempFile("fc__", "fml");
-        assertTrue(fc.save(file.getAbsolutePath()));
+        Assertions.assertTrue(fc.save(file.getAbsolutePath()));
 
         FuzzyController fc2 = FuzzyController.open(file.getAbsolutePath());
-        assertEquals(fc.toXMLString(""), fc2.toXMLString(""));
+        Assertions.assertEquals(fc.toXMLString(""), fc2.toXMLString(""));
     }
 
 

@@ -23,9 +23,8 @@
  */
 package libai.common.functions;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -37,20 +36,20 @@ public class SigmoidTest {
         Sigmoid sigmoid = new Sigmoid();
         for (int i = 0; i < 100; i++) {
             double x = Math.random() * 10 - 5;
-            assertEquals(1 - 1 / (Math.exp(x) + 1), sigmoid.eval(x), 1e-12);
+            Assertions.assertEquals(1 - 1 / (Math.exp(x) + 1), sigmoid.eval(x), 1e-12);
         }
     }
 
     @Test
-    public void testGetDerivate() {
+    public void testGetDerivative() {
         Function der = new Sigmoid().getDerivative();
-        assertNotNull(der);
-        assertEquals(1. / 4, der.eval(0), 1e-12);
-        assertEquals(0, der.eval(Double.POSITIVE_INFINITY), 1e-12);
+        Assertions.assertNotNull(der);
+        Assertions.assertEquals(1. / 4, der.eval(0), 1e-12);
+        Assertions.assertEquals(0, der.eval(Double.POSITIVE_INFINITY), 1e-12);
     }
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new Sigmoid().getDerivative().getDerivative());
+        Assertions.assertNull(new Sigmoid().getDerivative().getDerivative());
     }
 }

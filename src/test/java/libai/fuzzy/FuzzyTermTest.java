@@ -2,7 +2,8 @@ package libai.fuzzy;
 
 import libai.fuzzy.sets.FuzzySet;
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,9 +11,6 @@ import org.w3c.dom.Node;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kronenthaler on 23/04/2017.
@@ -37,7 +35,7 @@ public class FuzzyTermTest {
             }
         }, "term", true);
 
-        assertEquals(1, term.eval(1), 0.0);
+        Assertions.assertEquals(1, term.eval(1), 0.0);
     }
 
     @Test
@@ -59,7 +57,7 @@ public class FuzzyTermTest {
             }
         }, "term");
 
-        assertEquals(0, term.eval(1), 0.0);
+        Assertions.assertEquals(0, term.eval(1), 0.0);
     }
 
     @Test
@@ -81,7 +79,7 @@ public class FuzzyTermTest {
             }
         }, "term");
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <FuzzyTerm name="term" complement="false">
                 \t<SingletonShape Param1="10"/>
                 </FuzzyTerm>""", term.toXMLString(""));
@@ -98,10 +96,10 @@ public class FuzzyTermTest {
         Element root = doc.getDocumentElement();
 
         FuzzyTerm newTerm = new FuzzyTerm(root);
-        assertEquals(term.toXMLString(""), newTerm.toXMLString(""));
+        Assertions.assertEquals(term.toXMLString(""), newTerm.toXMLString(""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUnknownSetClass() throws Exception {
         String xml = "<FuzzyTerm name=\"term\"><UnknownSet /></FuzzyTerm>";
 
@@ -110,6 +108,9 @@ public class FuzzyTermTest {
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
         Element root = doc.getDocumentElement();
 
-        new FuzzyTerm(root);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            new FuzzyTerm(root);
+        });
     }
+
 }

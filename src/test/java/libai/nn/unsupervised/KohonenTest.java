@@ -25,12 +25,10 @@ package libai.nn.unsupervised;
 
 import libai.common.ProgressDisplay;
 import libai.common.matrix.Column;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kronenthaler on 31/01/2017.
@@ -67,8 +65,8 @@ public class KohonenTest {
         @Override
         public void setValue(int v) {
             value = v;
-            assertTrue(v >= min);
-            assertTrue(v <= max);
+            Assertions.assertTrue(v >= min);
+            Assertions.assertTrue(v <= max);
         }
     };
 
@@ -100,7 +98,7 @@ public class KohonenTest {
         net.train(p, c, 1, 1000, 0, p.length);
 
         // the winning cell should not be too far away from the ideal (-10, 10) or (10, 10) pattern.
-        assertTrue(net.error(test, ctest, 0, test.length) < 0.7);
-        assertEquals(net.getProgressBar().getValue(), net.getProgressBar().getMaximum());
+        Assertions.assertTrue(net.error(test, ctest, 0, test.length) < 0.7);
+        Assertions.assertEquals(net.getProgressBar().getValue(), net.getProgressBar().getMaximum());
     }
 }

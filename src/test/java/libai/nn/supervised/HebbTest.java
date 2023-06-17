@@ -3,10 +3,8 @@ package libai.nn.supervised;
 import libai.common.ProgressDisplay;
 import libai.common.matrix.Column;
 import libai.nn.NeuralNetwork;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by kronenthaler on 29/01/2017.
@@ -43,8 +41,8 @@ public class HebbTest {
         @Override
         public void setValue(int v) {
             value = v;
-            assertTrue(v >= min);
-            assertTrue(v <= max);
+            Assertions.assertTrue(v >= min);
+            Assertions.assertTrue(v <= max);
         }
     };
 
@@ -83,7 +81,7 @@ public class HebbTest {
         };
 
         nn.train(patterns, patterns, 0.005, 1000, 0, patterns.length);
-        assertTrue(nn.error(answers, patterns, 0, patterns.length) < 1.e-5);
+        Assertions.assertTrue(nn.error(answers, patterns, 0, patterns.length) < 1.e-5);
     }
 
     @Test
@@ -127,10 +125,10 @@ public class HebbTest {
                         -1, -1, -1, -1, -1,
                         -1, -1, -1, -1, -1,}),
         };
-        assertTrue(nn.error(patterns2, answers, 0, patterns2.length) < 1.e-5);
-        assertEquals(nn.simulate(patterns2[0]), answers[0]);
-        assertEquals(nn.simulate(patterns2[1]), answers[1]);
+        Assertions.assertTrue(nn.error(patterns2, answers, 0, patterns2.length) < 1.e-5);
+        Assertions.assertEquals(nn.simulate(patterns2[0]), answers[0]);
+        Assertions.assertEquals(nn.simulate(patterns2[1]), answers[1]);
 
-        assertEquals(nn.getProgressBar().getValue(), nn.getProgressBar().getMaximum());
+        Assertions.assertEquals(nn.getProgressBar().getValue(), nn.getProgressBar().getMaximum());
     }
 }

@@ -23,10 +23,8 @@
  */
 package libai.common.functions;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -36,29 +34,31 @@ public class GaussianTest {
     @Test
     public void testEval() {
         Gaussian gauss = new Gaussian();
-        assertEquals(1, gauss.eval(0), 1e-12);
+        Assertions.assertEquals(1, gauss.eval(0), 1e-12);
         for (int i = 0; i < 100; i++) {
             double x = Math.random();
-            assertEquals(gauss.eval(x), gauss.eval(-x), 1e-12);
-            assertEquals(-(x * x), Math.log(gauss.eval(x)), 1e-12);
+            Assertions.assertEquals(gauss.eval(x), gauss.eval(-x), 1e-12);
+            Assertions.assertEquals(-(x * x), Math.log(gauss.eval(x)), 1e-12);
         }
     }
 
     @Test
-    public void testGetDerivate() {
+    public void testGetDerivative() {
         Gaussian gauss = new Gaussian();
         Function der = gauss.getDerivative();
-        assertNotNull(der);
+        Assertions.assertNotNull(der);
         for (int i = 0; i < 100; i++) {
             double x = Math.random();
-            assertEquals(-der.eval(x), der.eval(-x), 1e-12);
-            assertEquals(-2 * x, der.eval(x) / gauss.eval(x), 1e-12);
+            Assertions.assertEquals(-der.eval(x), der.eval(-x), 1e-12);
+            Assertions.assertEquals(-2 * x, der.eval(x) / gauss.eval(x), 1e-12);
         }
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testGetGetDerivative() {
-        new Gaussian().getDerivative().getDerivative();
+        Assertions.assertThrowsExactly(UnsupportedOperationException.class, () -> {
+            new Gaussian().getDerivative().getDerivative();
+        });
     }
 
 }

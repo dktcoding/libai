@@ -23,9 +23,8 @@
  */
 package libai.common.functions;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Federico Vera {@literal <fedevera at unc.edu.ar>}
@@ -37,21 +36,21 @@ public class IdentityTest {
         Identity eye = new Identity();
         for (int i = 0; i < 10; i++) {
             double x = Math.random() * 10 - 5;
-            assertEquals(x, eye.eval(x), 0);
+            Assertions.assertEquals(x, eye.eval(x), 0);
         }
     }
 
     @Test
     public void testGetDerivative() {
         Function der = new Identity().getDerivative();
-        assertNotNull(der);
+        Assertions.assertNotNull(der);
         for (int i = 0; i < 10; i++) {
-            assertEquals(1, der.eval(Math.random() * 10 - 5), 0);
+            Assertions.assertEquals(1, der.eval(Math.random() * 10 - 5), 0);
         }
     }
 
     @Test
     public void testGetGetDerivative() {
-        assertNull(new Identity().getDerivative().getDerivative());
+        Assertions.assertNull(new Identity().getDerivative().getDerivative());
     }
 }

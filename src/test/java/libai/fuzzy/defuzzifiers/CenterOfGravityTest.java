@@ -1,12 +1,11 @@
 package libai.fuzzy.defuzzifiers;
 
 import libai.fuzzy.sets.TriangularShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 15/05/2017.
@@ -20,7 +19,7 @@ public class CenterOfGravityTest {
             points.add(new Point.Double(x, set.eval(x)));
         }
 
-        assertEquals(2, new CenterOfGravity().riemmanSum(points), 1.e-5);
+        Assertions.assertEquals(2, new CenterOfGravity().riemmanSum(points), 1.e-5);
     }
 
     @Test
@@ -32,7 +31,7 @@ public class CenterOfGravityTest {
             points.add(new Point.Double(x, Math.max(Math.min(0.5, a.eval(x)), Math.min(0.75, b.eval(x)))));
         }
 
-        assertEquals(2.25 + 2.8125, new CenterOfGravity().riemmanSum(points), 1.e-3);
+        Assertions.assertEquals(2.25 + 2.8125, new CenterOfGravity().riemmanSum(points), 1.e-3);
     }
 
     @Test
@@ -43,7 +42,7 @@ public class CenterOfGravityTest {
             points.add(new Point.Double(x, a.eval(x)));
         }
 
-        assertEquals((1.23 * a.eval(1.23)) / 2., new CenterOfGravity().riemmanSum(points, 1.23), 1.e-3);
+        Assertions.assertEquals((1.23 * a.eval(1.23)) / 2., new CenterOfGravity().riemmanSum(points, 1.23), 1.e-3);
     }
 
     @Test
@@ -55,7 +54,7 @@ public class CenterOfGravityTest {
             points.add(new Point.Double(x, Math.max(Math.min(0.25, a.eval(x)), Math.min(0.5, b.eval(x)))));
         }
 
-        assertEquals(1, new CenterOfGravity().riemmanSum(points), 1.e-8);
+        Assertions.assertEquals(1, new CenterOfGravity().riemmanSum(points), 1.e-8);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class CenterOfGravityTest {
             points.add(new Point.Double(x, Math.max(Math.min(0.25, a.eval(x)), Math.min(0.5, b.eval(x)))));
         }
 
-        assertEquals(1.656, Defuzzifier.COG.getValue(points), 1.e-3);
+        Assertions.assertEquals(1.656, Defuzzifier.COG.getValue(points), 1.e-3);
     }
 
     @Test
@@ -81,8 +80,8 @@ public class CenterOfGravityTest {
 
         double control = points.get(points.size() / 2).y;
 
-        assertEquals(1.656, Defuzzifier.COG.getValue(points), 1.e-3);
+        Assertions.assertEquals(1.656, Defuzzifier.COG.getValue(points), 1.e-3);
 
-        assertEquals(control, points.get(points.size() / 2).y, 1.e-3);
+        Assertions.assertEquals(control, points.get(points.size() / 2).y, 1.e-3);
     }
 }

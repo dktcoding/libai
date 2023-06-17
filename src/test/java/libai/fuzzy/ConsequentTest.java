@@ -1,14 +1,13 @@
 package libai.fuzzy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -20,7 +19,7 @@ public class ConsequentTest {
         Clause b = new Clause("variable2", "big");
         Consequent consequent = new Consequent(a, b);
 
-        assertEquals("""
+        Assertions.assertEquals("""
                 <Consequent>
                 \t<Clause>
                 \t\t<Variable>variable1</Variable>
@@ -46,6 +45,6 @@ public class ConsequentTest {
         Element root = doc.getDocumentElement();
 
         Consequent newConsequent = new Consequent(root);
-        assertEquals(consequent.toXMLString(""), newConsequent.toXMLString(""));
+        Assertions.assertEquals(consequent.toXMLString(""), newConsequent.toXMLString(""));
     }
 }

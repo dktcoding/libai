@@ -23,9 +23,8 @@
  */
 package libai.search;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author kronenthaler
@@ -72,8 +71,8 @@ public class DFSTest {
                 + "rrdlurdllurrdllurrulldrrdlluu";
         StringBuilder sb = new StringBuilder(DEMO_MOVES.length());
         ans.printSolutionMoves(sb);
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_MOVES, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_MOVES, sb.toString());
     }
 
     @Test
@@ -85,11 +84,11 @@ public class DFSTest {
         String DEMO_STEPS_2 = "1234567.8\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_2.length());
         ans.printSolution(sb);
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_STEPS_2, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_2, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
-        assertEquals("\0l", sb2.toString());
+        Assertions.assertEquals("\0l", sb2.toString());
     }
 
     @Test
@@ -101,11 +100,11 @@ public class DFSTest {
         String DEMO_STEPS_3 = "12345.786\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_3.length());
         ans.printSolution(sb);
-        assertNotEquals(0, sb.length());
-        assertEquals(DEMO_STEPS_3, sb.toString());
+        Assertions.assertNotEquals(0, sb.length());
+        Assertions.assertEquals(DEMO_STEPS_3, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
-        assertEquals("\0u", sb2.toString());
+        Assertions.assertEquals("\0u", sb2.toString());
     }
 
     @Test
@@ -115,6 +114,6 @@ public class DFSTest {
         State init = new GemPuzzleState("21345678.", null, '\0');
         GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
 
-        assertNull(ans);
+        Assertions.assertNull(ans);
     }
 }
