@@ -49,7 +49,7 @@ public class KnowledgeBase implements XMLSerializer {
         return variables.get(name);
     }
 
-    public FuzzyTerm getTerm(String variableName, String termName){
+    public FuzzyTerm getTerm(String variableName, String termName) {
         FuzzyVariable variable = getVariable(variableName);
         return variable.getTerm(termName);
     }

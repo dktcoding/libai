@@ -42,11 +42,11 @@ public class TripletTest {
                 new Triplet<>(3, 2, -1),
                 new Triplet<>(2, 4, -1),
         };
-        HashMap<Triplet<?,?,?>, Triplet<?,?,?>> map = new HashMap<>(4);
-        for (Triplet<?,?,?> t : trips) {
+        HashMap<Triplet<?, ?, ?>, Triplet<?, ?, ?>> map = new HashMap<>(4);
+        for (Triplet<?, ?, ?> t : trips) {
             map.put(t, t);
         }
-        for (Triplet<?,?,?> t : trips) {
+        for (Triplet<?, ?, ?> t : trips) {
             assertEquals(t, map.get(t));
             assertSame(t, map.get(t));
         }

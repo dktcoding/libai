@@ -56,14 +56,14 @@ public class TriangularShapeTest extends TestCase {
     }
 
     @Test
-    public void testRightLeftTriangle(){
+    public void testRightLeftTriangle() {
         TriangularShape set = new TriangularShape(0, 0, 10);
 
         assertTrue(set.eval(0) == 1);
     }
 
     @Test
-    public void testRightRightTriangle(){
+    public void testRightRightTriangle() {
         TriangularShape set = new TriangularShape(0, 10, 10);
 
         assertTrue(set.eval(10) == 1);

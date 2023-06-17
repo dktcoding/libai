@@ -36,7 +36,7 @@ public class RectangularShapeTest {
     }
 
     @Test
-    public void testBetweenAB(){
+    public void testBetweenAB() {
         RectangularShape set = new RectangularShape(3, 5);
         assertEquals(1, set.eval(3), 1.e-3);
         assertEquals(1, set.eval(3.5), 1.e-3);
@@ -44,7 +44,7 @@ public class RectangularShapeTest {
     }
 
     @Test
-    public void testOutsideAB(){
+    public void testOutsideAB() {
         RectangularShape set = new RectangularShape(3, 5);
         assertEquals(0, set.eval(2.999999), 1.e-3);
         assertEquals(0, set.eval(5.000001), 1.e-3);

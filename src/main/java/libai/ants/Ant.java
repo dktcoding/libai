@@ -36,6 +36,10 @@ import java.util.Vector;
  */
 public class Ant {
     /**
+     * This Ant's position in the Enviroment's Ants array
+     */
+    protected final int index;
+    /**
      * Current Ant solution
      */
     protected Vector<Integer> solution;
@@ -43,10 +47,6 @@ public class Ant {
      * Current Ant position, i.e.: the index of a node in the problem graph
      */
     protected int currentPos;
-    /**
-     * This Ant's position in the Enviroment's Ants array
-     */
-    protected final int index;
 
     /**
      * Constructor. Allocates the ant's index and initial position

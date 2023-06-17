@@ -32,6 +32,7 @@ public class FuzzyVariable implements XMLSerializer {
     public FuzzyVariable(Node xmlNode) {
         load(xmlNode);
     }
+
     public FuzzyVariable(String name, double domainLeft, double domainRight, String scale, FuzzyTerm... terms) {
         this.name = name;
         this.domainLeft = domainLeft;
@@ -39,6 +40,7 @@ public class FuzzyVariable implements XMLSerializer {
         this.scale = scale;
         this.terms = Arrays.asList(terms);
     }
+
     public FuzzyVariable(String name, double domainLeft, double domainRight, double defaultValue, String scale, Accumulation accumulation, Defuzzifier defuzzifier, FuzzyTerm... terms) {
         this(name, domainLeft, domainRight, scale, terms);
         this.type = Type.OUTPUT;
@@ -59,7 +61,7 @@ public class FuzzyVariable implements XMLSerializer {
         for (FuzzyTerm t : terms) {
             str.append(String.format("%s\n", t.toXMLString(indent + "\t")));
         }
-        str.append(String.format("%s</FuzzyVariable>", indent,  name));
+        str.append(String.format("%s</FuzzyVariable>", indent, name));
         return str.toString();
     }
 
@@ -93,20 +95,20 @@ public class FuzzyVariable implements XMLSerializer {
         }
     }
 
-    public FuzzyTerm getTerm(String name){
-        for(FuzzyTerm term : terms)
+    public FuzzyTerm getTerm(String name) {
+        for (FuzzyTerm term : terms)
             if (term.getName().equals(name))
                 return term;
         return null;
     }
 
-    public double defuzzify(ActivationMethod activationMethod, KnowledgeBase knowledgeBase, double delta, List<Pair<Double, Clause>> terms){
+    public double defuzzify(ActivationMethod activationMethod, KnowledgeBase knowledgeBase, double delta, List<Pair<Double, Clause>> terms) {
         List<Point.Double> function = new ArrayList<>();
 
-        for(double x = domainLeft; x <= domainRight ; x += delta){
+        for (double x = domainLeft; x <= domainRight; x += delta) {
             Point.Double p = new Point.Double(x, 0);
 
-            for (Pair<Double, Clause> term : terms){
+            for (Pair<Double, Clause> term : terms) {
                 double y = term.second.eval(x, knowledgeBase); //evaluate the term in the x
                 y = activationMethod.eval(term.first, y); // result after calculate the activation of the rule.
                 p.y = accumulation.eval(p.y, y); // accumulate the result of this term.

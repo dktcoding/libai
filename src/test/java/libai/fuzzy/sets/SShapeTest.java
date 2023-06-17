@@ -36,30 +36,30 @@ public class SShapeTest {
     }
 
     @Test
-    public void testBeforeA(){
+    public void testBeforeA() {
         FuzzySet set = new SShape(0, 5);
 
         assertEquals(0, set.eval(-1), 1.e-5);
     }
 
     @Test
-    public void testAfterB(){
+    public void testAfterB() {
         FuzzySet set = new SShape(0, 5);
 
         assertEquals(1, set.eval(6), 1.e-5);
     }
 
     @Test
-    public void testBetweenABLowerHalf(){
+    public void testBetweenABLowerHalf() {
         FuzzySet set = new SShape(0, 5);
 
-        assertEquals(0.125, set.eval(5/4.), 1.e-5);
+        assertEquals(0.125, set.eval(5 / 4.), 1.e-5);
     }
 
     @Test
-    public void testBetweenABUpperHalf(){
+    public void testBetweenABUpperHalf() {
         FuzzySet set = new SShape(0, 5);
 
-        assertEquals(0.875, set.eval(15/4.), 1.e-5);
+        assertEquals(0.875, set.eval(15 / 4.), 1.e-5);
     }
 }

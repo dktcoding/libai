@@ -1,10 +1,10 @@
 package libai.fuzzy;
 
 import libai.common.Pair;
-import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.operators.AndMethod;
 import libai.fuzzy.operators.Operator;
 import libai.fuzzy.operators.OrMethod;
+import libai.fuzzy.operators.activation.ActivationMethod;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -25,10 +25,12 @@ public class RuleBase implements XMLSerializer {
     public RuleBase(Node xmlNode) {
         load(xmlNode);
     }
+
     public RuleBase(String name, Rule... rules) {
         this.name = name;
         this.rules = Arrays.asList(rules);
     }
+
     public RuleBase(String name, ActivationMethod activationMethod, Rule... rules) {
         this(name, rules);
         this.activationMethod = activationMethod;
@@ -75,13 +77,13 @@ public class RuleBase implements XMLSerializer {
         }
     }
 
-    public Map<String, Double> fire(Map<String, Double> variables, KnowledgeBase knowledgeBase, double delta){
+    public Map<String, Double> fire(Map<String, Double> variables, KnowledgeBase knowledgeBase, double delta) {
         Map<String, List<Pair<Double, Clause>>> outputVariables = new HashMap<>();
 
-        for(Rule r : rules){
+        for (Rule r : rules) {
             double tau = r.getActivationValue(variables, knowledgeBase);
 
-            for(Clause clause : r.getConsequentClauses()){
+            for (Clause clause : r.getConsequentClauses()) {
                 String variableName = clause.getVariableName();
                 if (outputVariables.get(variableName) == null)
                     outputVariables.put(variableName, new ArrayList<>());
@@ -90,7 +92,7 @@ public class RuleBase implements XMLSerializer {
         }
 
         Map<String, Double> result = new HashMap<>();
-        for(String variableName : outputVariables.keySet()){
+        for (String variableName : outputVariables.keySet()) {
             FuzzyVariable variable = knowledgeBase.getVariable(variableName);
             double value = variable.defuzzify(activationMethod, knowledgeBase, delta, outputVariables.get(variableName));
             result.put(variableName, value);

@@ -75,12 +75,12 @@ public class RuleTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidOperatorToOrConnector(){
+    public void testInvalidOperatorToOrConnector() {
         new Rule("tipper", 1, AndMethod.MIN, Rule.Connector.OR, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidOperatorToAndConnector(){
+    public void testInvalidOperatorToAndConnector() {
         new Rule("tipper", 1, OrMethod.MAX, Rule.Connector.AND, null, null);
     }
 }

@@ -11,9 +11,7 @@ public abstract class Defuzzifier {
     public static final Defuzzifier COG = new CenterOfGravity();
     public static final Defuzzifier COA = new CenterOfArea();
 
-    public abstract double getValue(List<Point.Double> function);
-
-    public static Defuzzifier fromString(String name){
+    public static Defuzzifier fromString(String name) {
         if (MOM.toString().equalsIgnoreCase(name))
             return MOM;
         if (COG.toString().equalsIgnoreCase(name))
@@ -21,6 +19,8 @@ public abstract class Defuzzifier {
         if (COA.toString().equalsIgnoreCase(name))
             return COA;
 
-        throw new UnsupportedOperationException("Unsupported Defuzzifier: "+name);
+        throw new UnsupportedOperationException("Unsupported Defuzzifier: " + name);
     }
+
+    public abstract double getValue(List<Point.Double> function);
 }

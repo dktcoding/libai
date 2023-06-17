@@ -36,23 +36,23 @@ public class RightLinearShapeTest {
     }
 
     @Test
-    public void testBeforeA(){
-        RightLinearShape set = new RightLinearShape(0,5);
+    public void testBeforeA() {
+        RightLinearShape set = new RightLinearShape(0, 5);
 
         assertEquals(1, set.eval(-1), 1.e-5);
     }
 
     @Test
-    public void testAfterB(){
-        RightLinearShape set = new RightLinearShape(0,5);
+    public void testAfterB() {
+        RightLinearShape set = new RightLinearShape(0, 5);
 
         assertEquals(0, set.eval(6), 1.e-5);
     }
 
     @Test
-    public void testBetweenAB(){
-        RightLinearShape set = new RightLinearShape(0,5);
+    public void testBetweenAB() {
+        RightLinearShape set = new RightLinearShape(0, 5);
 
-        assertEquals(0.75, set.eval(5/4.), 1.e-5);
+        assertEquals(0.75, set.eval(5 / 4.), 1.e-5);
     }
 }

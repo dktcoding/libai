@@ -24,18 +24,19 @@
 package libai.nn.supervised;
 
 import demos.common.SimpleProgressDisplay;
+import libai.common.MatrixIOTest;
 import libai.common.kernels.GaussianKernel;
+import libai.common.kernels.LinearKernel;
 import libai.common.kernels.PolynomialKernel;
 import libai.common.kernels.SigmoidalKernel;
 import libai.common.matrix.Column;
-import libai.common.MatrixIOTest;
-import libai.common.kernels.LinearKernel;
 import libai.nn.NeuralNetwork;
 import org.junit.Test;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -81,7 +82,7 @@ public class SVMTest {
     @Test
     public void testTraining() throws Exception {
         File resourcesDirectory = new File("src/test/resources/tic-tac-toe");
-        String data = new Scanner(resourcesDirectory, "UTF8").useDelimiter("\\Z").next();
+        String data = new Scanner(resourcesDirectory, StandardCharsets.UTF_8).useDelimiter("\\Z").next();
 
         String[] lines = data.split("\n");
 
@@ -104,7 +105,7 @@ public class SVMTest {
         net.setTrainingParam(SVM.PARAM_C, 0.5);
         net.train(patterns, answers, 0, 10000000, 0, patterns.length);
 
-        assertTrue(net.error(patterns, answers) == 0.008350730688935281);
+        assertEquals(0.008350730688935281, net.error(patterns, answers), 0.0);
     }
 
     @Test
@@ -149,13 +150,13 @@ public class SVMTest {
         for (int i = 0; i < n; i++) {
             int inc = r.nextInt(10);
             patterns[i] = new Column(2, new double[]{i + 1, Math.tanh(i + 1) + inc});
-            answers[i]  = new Column(1, new double[]{inc > 0 ? +1 : -1});
+            answers[i] = new Column(1, new double[]{inc > 0 ? +1 : -1});
         }
 
         for (int i = n; i < n + t; i++) {
             int inc = r.nextInt(10);
             patterns[i] = new Column(2, new double[]{i + 1.33, Math.tanh(i + 1.33) + inc});
-            answers[i]  = new Column(1, new double[]{inc > 0 ? +1 : -1});
+            answers[i] = new Column(1, new double[]{inc > 0 ? +1 : -1});
         }
 
         SVM net = new SVM(new SigmoidalKernel(8, 0), new Random(0));

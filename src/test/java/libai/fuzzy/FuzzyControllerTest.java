@@ -1,10 +1,10 @@
 package libai.fuzzy;
 
 import libai.fuzzy.defuzzifiers.Defuzzifier;
-import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.operators.AndMethod;
 import libai.fuzzy.operators.OrMethod;
 import libai.fuzzy.operators.accumulation.Accumulation;
+import libai.fuzzy.operators.activation.ActivationMethod;
 import libai.fuzzy.sets.TriangularShape;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class FuzzyControllerTest {
 
     @Test
-    public void testXMLGeneration(){
+    public void testXMLGeneration() {
         FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
         FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
         FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
@@ -123,7 +123,7 @@ public class FuzzyControllerTest {
     }
 
     @Test
-    public void testXMLConstructor() throws Exception{
+    public void testXMLConstructor() throws Exception {
         FuzzyTerm bad = new FuzzyTerm(new TriangularShape(0, 3, 10), "bad");
         FuzzyTerm good = new FuzzyTerm(new TriangularShape(0, 7, 10), "good");
         FuzzyVariable var = new FuzzyVariable("quality", 0, 10, "stars", bad, good);
@@ -159,23 +159,23 @@ public class FuzzyControllerTest {
     }
 
     @Test
-    public void testFireRules(){
-        FuzzyTerm dry = new FuzzyTerm(new TriangularShape(0,2.5, 5), "dry");
-        FuzzyTerm normal = new FuzzyTerm(new TriangularShape(2.5,5, 7.5), "normal");
-        FuzzyTerm wet = new FuzzyTerm(new TriangularShape(5,7.5, 10), "wet");
+    public void testFireRules() {
+        FuzzyTerm dry = new FuzzyTerm(new TriangularShape(0, 2.5, 5), "dry");
+        FuzzyTerm normal = new FuzzyTerm(new TriangularShape(2.5, 5, 7.5), "normal");
+        FuzzyTerm wet = new FuzzyTerm(new TriangularShape(5, 7.5, 10), "wet");
         FuzzyVariable dryness = new FuzzyVariable("dryness", 0, 10, "", dry, normal, wet);
 
-        FuzzyTerm dark = new FuzzyTerm(new TriangularShape(2,4, 6), "dark");
-        FuzzyTerm light = new FuzzyTerm(new TriangularShape(0,2,4), "light");
+        FuzzyTerm dark = new FuzzyTerm(new TriangularShape(2, 4, 6), "dark");
+        FuzzyTerm light = new FuzzyTerm(new TriangularShape(0, 2, 4), "light");
         FuzzyVariable lighting = new FuzzyVariable("lighting", 0, 6, "", dark, light);
 
-        FuzzyTerm off = new FuzzyTerm(new TriangularShape(1,2,3), "off");
-        FuzzyTerm on = new FuzzyTerm(new TriangularShape(0,1,2), "on");
+        FuzzyTerm off = new FuzzyTerm(new TriangularShape(1, 2, 3), "off");
+        FuzzyTerm on = new FuzzyTerm(new TriangularShape(0, 1, 2), "on");
         FuzzyVariable alarm = new FuzzyVariable("alarm", 0, 3, 0, "", Accumulation.SUM, Defuzzifier.COG, on, off);
 
-        FuzzyTerm _long = new FuzzyTerm(new TriangularShape(2,4,6), "long");
-        FuzzyTerm none = new FuzzyTerm(new TriangularShape(0,0,3), "none");
-        FuzzyTerm _short = new FuzzyTerm(new TriangularShape(0,2,4), "short");
+        FuzzyTerm _long = new FuzzyTerm(new TriangularShape(2, 4, 6), "long");
+        FuzzyTerm none = new FuzzyTerm(new TriangularShape(0, 0, 3), "none");
+        FuzzyTerm _short = new FuzzyTerm(new TriangularShape(0, 2, 4), "short");
         FuzzyVariable sprinkles = new FuzzyVariable("sprinkles", 0, 6, 0, "", Accumulation.MAX, Defuzzifier.MOM, _long, none, _short);
 
         KnowledgeBase kb = new KnowledgeBase(dryness, lighting, alarm, sprinkles);
@@ -203,7 +203,7 @@ public class FuzzyControllerTest {
         Map<String, Double> vars = new HashMap<>();
         vars.put("lighting", 3.);
         vars.put("dryness", 4.35);
-        Map<String, Double> adjusment = controller.fire(vars,0.01);
+        Map<String, Double> adjusment = controller.fire(vars, 0.01);
 
         assertEquals(1.625, adjusment.get("alarm"), 1.e-3);
         assertEquals(0, adjusment.get("sprinkles"), 1.e-3);

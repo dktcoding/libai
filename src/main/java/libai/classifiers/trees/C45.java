@@ -2,17 +2,17 @@
  * MIT License
  *
  * Copyright (c) 2009-2016 Ignacio Calderon <https://github.com/kronenthaler>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,7 +35,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.util.*;
 
@@ -48,6 +50,7 @@ public class C45 implements Comparable<C45> {
     public static final int NO_PRUNE = 0;
     public static final int QUINLANS_PRUNE = 1;
     public static final int LAPLACE_PRUNE = 2;
+    protected final HashMap<Attribute, Integer> samplesFreq = new HashMap<>(); //used to the pruning process.
     protected Attribute output;
     protected Pair<Attribute, C45>[] childs;
     protected double error;
@@ -57,7 +60,6 @@ public class C45 implements Comparable<C45> {
     //Laplace's error pruning
     protected int mostCommonLeafFreq = Integer.MIN_VALUE;
     protected int samplesCount; //how many samples pass for this node in the pruning process.
-    protected final HashMap<Attribute, Integer> samplesFreq = new HashMap<>(); //used to the pruning process.
     //Quinlan's prunning using confidence
     protected double confidence = 0.25;
     protected double z;

@@ -2,17 +2,17 @@
  * MIT License
  *
  * Copyright (c) 2009-2016 Ignacio Calderon <https://github.com/kronenthaler>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,16 +34,20 @@ import java.util.*;
  */
 public class MySQLDataSet implements DataSet {
     private final int outputIndex;
+    private final Set<Attribute> classes = new HashSet<>();
+    private final HashMap<Triplet<Integer, Integer, Integer>, HashMap<Attribute, Integer>> cacheFrequencies;
     private int itemCount = -1;
     private String tableName;
     private String rootName;
     private int orderBy;
     private Connection connection;
     private ResultSetMetaData rsMetaData;
-    private final Set<Attribute> classes = new HashSet<>();
-    private final HashMap<Triplet<Integer, Integer, Integer>, HashMap<Attribute, Integer>> cacheFrequencies;
 
-    private final MetaData metadata = new MetaData() {
+    private MySQLDataSet(int output) {
+        outputIndex = output;
+        orderBy = output;
+        cacheFrequencies = new HashMap<>();
+    }    private final MetaData metadata = new MetaData() {
         @Override
         public boolean isCategorical(int fieldIndex) {
             try {
@@ -79,12 +83,6 @@ public class MySQLDataSet implements DataSet {
             }
         }
     };
-
-    private MySQLDataSet(int output) {
-        outputIndex = output;
-        orderBy = output;
-        cacheFrequencies = new HashMap<>();
-    }
 
     private MySQLDataSet(MySQLDataSet parent, int lo, int hi) {
         this(parent.outputIndex);
@@ -242,29 +240,29 @@ public class MySQLDataSet implements DataSet {
         return null;
     }
 
-	@Override
-	public Iterator<List<Attribute>> iterator() {
-		Iterator<List<Attribute>> result = null;
-		try {
-			PreparedStatement stmt = connection.prepareStatement(
-					String.format("SELECT * FROM `%s`",
-							tableName));
-			result = buildIterator(stmt.executeQuery(), getItemsCount());
-		} catch (SQLException ex) {
+    @Override
+    public Iterator<List<Attribute>> iterator() {
+        Iterator<List<Attribute>> result = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    String.format("SELECT * FROM `%s`",
+                            tableName));
+            result = buildIterator(stmt.executeQuery(), getItemsCount());
+        } catch (SQLException ex) {
 
-		}
-		return result;
-	}
+        }
+        return result;
+    }
 
-	public void clean() {
-		try {
-			PreparedStatement stmt = connection.prepareStatement(
-					String.format("DROP VIEW IF EXISTS `%s`", tableName));
-			stmt.executeUpdate();
-			stmt.close();
-		} catch (SQLException ignored) {
-		}
-	}
+    public void clean() {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    String.format("DROP VIEW IF EXISTS `%s`", tableName));
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ignored) {
+        }
+    }
 
     private void initializeClasses() {
         try {
@@ -411,4 +409,6 @@ public class MySQLDataSet implements DataSet {
             }
         }
     }
+
+
 }

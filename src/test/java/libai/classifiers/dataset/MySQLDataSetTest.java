@@ -316,7 +316,7 @@ public class MySQLDataSetTest {
         ds.sortOver(2);
         HashMap<Attribute, Integer> map = ds.getFrequencies(0, 2, 2);
         assertEquals(Integer.valueOf(2), map.get(new DiscreteAttribute("false")));
-        assertEquals(null, map.get(new DiscreteAttribute("true")));
+        assertNull(map.get(new DiscreteAttribute("true")));
         c.close();
     }
 

@@ -23,8 +23,8 @@
  */
 package libai.nn.unsupervised;
 
-import libai.common.matrix.Column;
 import libai.common.ProgressDisplay;
+import libai.common.matrix.Column;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

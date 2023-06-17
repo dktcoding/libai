@@ -15,10 +15,11 @@ public class PIShape extends TwoParameterSet {
 
     /**
      * Constructor.
+     *
      * @param a Center point of the Pi-shape.
      * @param b Offset relative to the center of the Pi-shape.
      **/
-    public PIShape(double a, double b){
+    public PIShape(double a, double b) {
         this.a = a; // center
         this.b = b; // offset, ~stddev.
     }
@@ -26,7 +27,7 @@ public class PIShape extends TwoParameterSet {
     @Override
     public double eval(double x) {
         if (x < a)
-            return new SShape(a - b , a).eval(x);
+            return new SShape(a - b, a).eval(x);
         return new ZShape(a, a + b).eval(x);
     }
 }

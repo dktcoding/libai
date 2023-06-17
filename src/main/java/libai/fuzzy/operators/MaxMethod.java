@@ -10,8 +10,12 @@ public class MaxMethod extends OrMethod {
     }
 
     @Override
-    public double neutral() { return 0; }
+    public double neutral() {
+        return 0;
+    }
 
     @Override
-    public String toString(){ return "MAX"; }
+    public String toString() {
+        return "MAX";
+    }
 }

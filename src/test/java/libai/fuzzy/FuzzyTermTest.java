@@ -11,8 +11,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kronenthaler on 23/04/2017.
@@ -37,7 +37,7 @@ public class FuzzyTermTest {
             }
         }, "term", true);
 
-        assertTrue(term.eval(1) == 1);
+        assertEquals(1, term.eval(1), 0.0);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class FuzzyTermTest {
             }
         }, "term");
 
-        assertTrue(term.eval(1) == 0);
+        assertEquals(0, term.eval(1), 0.0);
     }
 
     @Test

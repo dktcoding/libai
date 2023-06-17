@@ -5,7 +5,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kronenthaler on 30/04/2017.
@@ -42,10 +45,10 @@ public class Antecedent implements XMLSerializer {
         }
     }
 
-    public double activate(Map<String, Double> variables, KnowledgeBase knowledgeBase, Operator connector){
+    public double activate(Map<String, Double> variables, KnowledgeBase knowledgeBase, Operator connector) {
         double result = connector.neutral();
 
-        for(Clause clause : clauses) {
+        for (Clause clause : clauses) {
             String variableName = clause.getVariableName();
             double value = clause.eval(variables.get(variableName), knowledgeBase);
             result = connector.eval(result, value);

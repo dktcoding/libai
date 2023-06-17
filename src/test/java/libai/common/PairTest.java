@@ -75,8 +75,8 @@ public class PairTest {
 
     @Test
     public void testHashCode() {
-        Pair<Integer, Integer>  p1 = new Pair<>(-10, 4);
-        Pair<Integer, Integer>  p2 = new Pair<>(-10, 4);
+        Pair<Integer, Integer> p1 = new Pair<>(-10, 4);
+        Pair<Integer, Integer> p2 = new Pair<>(-10, 4);
 
         assertEquals(p1.hashCode(), p1.hashCode());
         assertEquals(p1.hashCode(), p2.hashCode());
@@ -92,7 +92,7 @@ public class PairTest {
 
     @Test
     public void testToString() {
-        Pair<String, String>  pair = new Pair<>("abc", "def");
+        Pair<String, String> pair = new Pair<>("abc", "def");
         assertEquals("(abc,def)", pair.toString());
     }
 

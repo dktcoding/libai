@@ -36,43 +36,43 @@ public class TrapezoidShapeTest {
     }
 
     @Test
-    public void testBeforeA(){
+    public void testBeforeA() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 15);
         assertEquals(0, set.eval(-1), 1.e-3);
     }
 
     @Test
-    public void testAfterD(){
+    public void testAfterD() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 15);
         assertEquals(0, set.eval(15), 1.e-3);
     }
 
     @Test
-    public void testBetweenBC(){
+    public void testBetweenBC() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 15);
         assertEquals(1, set.eval(7), 1.e-3);
     }
 
     @Test
-    public void testBeforeAB(){
+    public void testBeforeAB() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 15);
         assertEquals(0.5, set.eval(2.5), 1.e-3);
     }
 
     @Test
-    public void testBeforeCD(){
+    public void testBeforeCD() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 15);
         assertEquals(0.5, set.eval(12.5), 1.e-3);
     }
 
     @Test
-    public void testRightLeftTrapezoid(){
+    public void testRightLeftTrapezoid() {
         TrapezoidShape set = new TrapezoidShape(5, 5, 10, 15);
         assertEquals(1, set.eval(5), 1.e-3);
     }
 
     @Test
-    public void testRightRightTrapezoid(){
+    public void testRightRightTrapezoid() {
         TrapezoidShape set = new TrapezoidShape(0, 5, 10, 10);
         assertEquals(1, set.eval(10), 1.e-3);
     }

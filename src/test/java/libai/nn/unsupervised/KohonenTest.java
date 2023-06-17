@@ -23,8 +23,8 @@
  */
 package libai.nn.unsupervised;
 
-import libai.common.matrix.Column;
 import libai.common.ProgressDisplay;
+import libai.common.matrix.Column;
 import org.junit.Test;
 
 import java.util.Random;
@@ -82,7 +82,7 @@ public class KohonenTest {
 
         for (int i = 0; i < p.length; i++) {
             p[i] = new Column(2);
-            c[i] = new Column(1, new double[]{i / (int) (p.length / 2)});
+            c[i] = new Column(1, new double[]{i / (p.length / 2)});
             p[i].fill(true, r);
             p[i].add(new Column(2, new double[]{i > p.length / 2 ? 10 : -10, i > p.length / 2 ? 10 : -10}), p[i]);
         }

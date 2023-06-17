@@ -10,5 +10,7 @@ public class MaxMethod extends Accumulation {
     }
 
     @Override
-    public String toString(){ return "MAX"; }
+    public String toString() {
+        return "MAX";
+    }
 }

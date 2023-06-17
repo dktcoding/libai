@@ -23,9 +23,9 @@
  */
 package libai.nn.unsupervised;
 
+import libai.common.functions.SymmetricSign;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
-import libai.common.functions.SymmetricSign;
 import libai.common.matrix.Row;
 
 import java.io.Serial;
@@ -41,9 +41,9 @@ import java.io.Serial;
  * @author kronenthaler
  */
 public class Hopfield extends UnsupervisedLearning {
-    @Serial
-	private static final long serialVersionUID = 9081060788269921587L;
     protected static final SymmetricSign ssign = new SymmetricSign();
+    @Serial
+    private static final long serialVersionUID = 9081060788269921587L;
     protected final Matrix W;
 
     /**

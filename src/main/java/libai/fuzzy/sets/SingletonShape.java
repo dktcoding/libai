@@ -17,6 +17,7 @@ public class SingletonShape implements FuzzySet {
 
     /**
      * Constructor.
+     *
      * @param a Point where the singleton is non-zero.
      **/
     public SingletonShape(double a) {

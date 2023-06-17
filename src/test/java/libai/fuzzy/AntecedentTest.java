@@ -56,7 +56,7 @@ public class AntecedentTest {
     }
 
     @Test
-    public void testActivationWithSingleClause(){
+    public void testActivationWithSingleClause() {
         Clause a = new Clause("quality", "good");
         Antecedent antecedent = new Antecedent(a);
 
@@ -74,14 +74,14 @@ public class AntecedentTest {
         vars.put("quality", 3.);
         vars.put("tip", 6.);
 
-        assertEquals(3/7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-        assertEquals(3/7., antecedent.activate(vars, kb, AndMethod.PROD),1.e-5);
-        assertEquals(3/7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-        assertEquals(3/7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+        assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        assertEquals(3 / 7., antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        assertEquals(3 / 7., antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
     }
 
     @Test
-    public void testActivationWithMultipleClause(){
+    public void testActivationWithMultipleClause() {
         Clause a = new Clause("quality", "good");
         Clause b = new Clause("tip", "cheap");
         Antecedent antecedent = new Antecedent(a, b);
@@ -100,9 +100,9 @@ public class AntecedentTest {
         vars.put("quality", 3.);
         vars.put("tip", 6.); // 10/13.
 
-        assertEquals(Math.min(3/7., 4/7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
-        assertEquals((3/7. * 4/7.), antecedent.activate(vars, kb, AndMethod.PROD),1.e-5);
-        assertEquals(Math.max(3/7., 4/7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
-        assertEquals(((3/7.+4/7.)-(3/7.*4/7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
+        assertEquals(Math.min(3 / 7., 4 / 7.), antecedent.activate(vars, kb, AndMethod.MIN), 1.e-5);
+        assertEquals((3 / 7. * 4 / 7.), antecedent.activate(vars, kb, AndMethod.PROD), 1.e-5);
+        assertEquals(Math.max(3 / 7., 4 / 7.), antecedent.activate(vars, kb, OrMethod.MAX), 1.e-5);
+        assertEquals(((3 / 7. + 4 / 7.) - (3 / 7. * 4 / 7.)), antecedent.activate(vars, kb, OrMethod.PROBOR), 1.e-5);
     }
 }

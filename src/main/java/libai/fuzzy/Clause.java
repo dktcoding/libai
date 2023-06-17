@@ -28,12 +28,11 @@ public class Clause implements XMLSerializer {
 
     @Override
     public String toXMLString(String indent) {
-        StringBuffer str = new StringBuffer();
-        str.append(String.format("%s<Clause%s>\n", indent, modifier == null ? "" : " modifier=\"" + modifier + "\""));
-        str.append(String.format("%s\t<Variable>%s</Variable>\n", indent, variable));
-        str.append(String.format("%s\t<Term>%s</Term>\n", indent, term));
-        str.append(String.format("%s</Clause>", indent));
-        return str.toString();
+        String str = String.format("%s<Clause%s>\n", indent, modifier == null ? "" : " modifier=\"" + modifier + "\"") +
+                String.format("%s\t<Variable>%s</Variable>\n", indent, variable) +
+                String.format("%s\t<Term>%s</Term>\n", indent, term) +
+                String.format("%s</Clause>", indent);
+        return str;
     }
 
     @Override
@@ -55,13 +54,13 @@ public class Clause implements XMLSerializer {
         return term;
     }
 
-    public double eval(double input, KnowledgeBase knowledgeBase){
+    public double eval(double input, KnowledgeBase knowledgeBase) {
         FuzzyTerm term = knowledgeBase.getTerm(getVariableName(), getTermName());
 
         double value = term.eval(input);
         if (modifier != null)
             value = modifier.eval(value);
 
-        return  value;
+        return value;
     }
 }

@@ -36,28 +36,28 @@ public class PIShapeTest {
     }
 
     @Test
-    public void testBeforeAlpha(){
+    public void testBeforeAlpha() {
         FuzzySet set = new PIShape(5, 1);
 
         assertEquals(0, set.eval(-1), 1.e-5);
     }
 
     @Test
-    public void testAfterOmega(){
+    public void testAfterOmega() {
         FuzzySet set = new PIShape(5, 1);
 
         assertEquals(0, set.eval(6), 1.e-5);
     }
 
     @Test
-    public void testBeforeCenter(){
+    public void testBeforeCenter() {
         FuzzySet set = new PIShape(5, 1);
 
         assertEquals(0.875, set.eval(4.75), 1.e-5);
     }
 
     @Test
-    public void testAfterCenter(){
+    public void testAfterCenter() {
         FuzzySet set = new PIShape(5, 1);
 
         assertEquals(0.875, set.eval(5.25), 1.e-5);

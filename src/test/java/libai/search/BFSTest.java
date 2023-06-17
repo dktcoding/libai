@@ -2,17 +2,17 @@
  * MIT License
  *
  * Copyright (c) 2016 Federico Vera <https://github.com/dktcoding>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining ada copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,8 +25,7 @@ package libai.search;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
@@ -43,7 +42,7 @@ public class BFSTest {
         StringBuilder sb = new StringBuilder(DEMO_STEPS.length());
         ans.printSolutionMoves(sb);
 
-        assertFalse(sb.length() == 0);
+        assertNotEquals(0, sb.length());
         assertEquals(DEMO_STEPS, sb.toString());
     }
 
@@ -56,7 +55,7 @@ public class BFSTest {
         String DEMO_STEPS_2 = "1234567.8\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_2.length());
         ans.printSolution(sb);
-        assertFalse(sb.length() == 0);
+        assertNotEquals(0, sb.length());
         assertEquals(DEMO_STEPS_2, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
@@ -72,7 +71,7 @@ public class BFSTest {
         String DEMO_STEPS_3 = "12345.786\n12345678.\n";
         StringBuilder sb = new StringBuilder(DEMO_STEPS_3.length());
         ans.printSolution(sb);
-        assertFalse(sb.length() == 0);
+        assertNotEquals(0, sb.length());
         assertEquals(DEMO_STEPS_3, sb.toString());
         StringBuilder sb2 = new StringBuilder(2);
         ans.printSolutionMoves(sb2);
@@ -86,6 +85,6 @@ public class BFSTest {
         State init = new GemPuzzleState("21345678.", null, '-');
         GemPuzzleState ans = (GemPuzzleState) bfs.search(init);
 
-        assertEquals(ans, null);
+        assertNull(ans);
     }
 }

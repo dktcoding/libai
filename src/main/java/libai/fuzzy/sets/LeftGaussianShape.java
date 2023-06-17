@@ -8,17 +8,18 @@ import org.w3c.dom.Node;
  *
  * @author kronenthaler
  */
-public class LeftGaussianShape  extends TwoParameterSet {
+public class LeftGaussianShape extends TwoParameterSet {
     public LeftGaussianShape(Node xmlNode) {
         load(xmlNode);
     }
 
     /**
      * Constructor.
+     *
      * @param a Mean value of the Gaussian function.
      * @param b Standard deviation (a.k.a. sigma) of the Gaussian function.
      **/
-    public LeftGaussianShape(double a, double b){
+    public LeftGaussianShape(double a, double b) {
         this.a = a; // mean
         this.b = b; // sigma
     }

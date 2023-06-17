@@ -10,5 +10,7 @@ public class SumMethod extends Accumulation {
     }
 
     @Override
-    public String toString(){ return "SUM"; }
+    public String toString() {
+        return "SUM";
+    }
 }

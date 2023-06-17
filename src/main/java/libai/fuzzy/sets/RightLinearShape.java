@@ -15,10 +15,11 @@ public class RightLinearShape extends TwoParameterSet {
 
     /**
      * Constructor.
+     *
      * @param a Left value of the line.
      * @param b Right value of the line.
      **/
-    public RightLinearShape(double a, double b){
+    public RightLinearShape(double a, double b) {
         this.a = a;
         this.b = b;
     }

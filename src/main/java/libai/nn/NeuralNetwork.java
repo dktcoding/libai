@@ -23,10 +23,10 @@
  */
 package libai.nn;
 
-import libai.common.matrix.Column;
 import libai.common.Plotter;
 import libai.common.Precondition;
 import libai.common.ProgressDisplay;
+import libai.common.matrix.Column;
 
 import java.io.*;
 import java.util.Random;
@@ -40,7 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public abstract class NeuralNetwork implements Serializable {
     @Serial
-	private static final long serialVersionUID = 2851521924022998819L;
+    private static final long serialVersionUID = 2851521924022998819L;
     protected final Random random;
     protected transient Plotter plotter;
     protected transient ProgressDisplay progress;

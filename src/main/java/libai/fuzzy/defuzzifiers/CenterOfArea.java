@@ -18,16 +18,16 @@ public class CenterOfArea extends CenterOfGravity {
         Collections.sort(function, new Comparator<Point.Double>() {
             @Override
             public int compare(Point.Double o1, Point.Double o2) {
-                return (int)(o1.x - o2.x);
+                return (int) (o1.x - o2.x);
             }
         });
 
         double total = riemmanSum(function);
         double lo = function.get(0).x;
-        double hi = function.get(function.size()-1).x;
+        double hi = function.get(function.size() - 1).x;
 
 
-        while(lo < hi){
+        while (lo < hi) {
             double mid = (lo + hi) / 2;
             double areaToMid = riemmanSum(function, mid);
             double remain = total - areaToMid;
@@ -43,5 +43,7 @@ public class CenterOfArea extends CenterOfGravity {
     }
 
     @Override
-    public String toString(){ return "COA"; }
+    public String toString() {
+        return "COA";
+    }
 }

@@ -53,7 +53,7 @@ import java.util.Random;
  */
 public class Competitive extends UnsupervisedLearning {
     @Serial
-	private static final long serialVersionUID = 3792932568798202152L;
+    private static final long serialVersionUID = 3792932568798202152L;
 
     protected final Matrix W;
     protected final int ins;

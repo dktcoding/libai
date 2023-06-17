@@ -36,21 +36,21 @@ public class RightGaussianShapeTest {
     }
 
     @Test
-    public void testAfterOmega(){
+    public void testAfterOmega() {
         FuzzySet set = new RightGaussianShape(4, 0.5);
 
         assertEquals(0, set.eval(6), 1.e-3);
     }
 
     @Test
-    public void testBeforeCenter(){
+    public void testBeforeCenter() {
         FuzzySet set = new RightGaussianShape(4, 0.5);
 
         assertEquals(1, set.eval(3.75), 1.e-3);
     }
 
     @Test
-    public void testAfterCenter(){
+    public void testAfterCenter() {
         FuzzySet set = new RightGaussianShape(4, 0.5);
 
         assertEquals(0.882, set.eval(4.25), 1.e-3);

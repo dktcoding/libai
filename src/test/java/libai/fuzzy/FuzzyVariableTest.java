@@ -104,14 +104,14 @@ public class FuzzyVariableTest {
     }
 
     @Test
-    public void testDeffuzify(){
-        FuzzyTerm off = new FuzzyTerm(new TriangularShape(1,2,3), "off");
-        FuzzyTerm on = new FuzzyTerm(new TriangularShape(0,1,2), "on");
+    public void testDeffuzify() {
+        FuzzyTerm off = new FuzzyTerm(new TriangularShape(1, 2, 3), "off");
+        FuzzyTerm on = new FuzzyTerm(new TriangularShape(0, 1, 2), "on");
         FuzzyVariable alarm = new FuzzyVariable("alarm", 0, 3, 0, "", Accumulation.SUM, Defuzzifier.COG, on, off);
 
-        FuzzyTerm _long = new FuzzyTerm(new TriangularShape(2,4,6), "long");
-        FuzzyTerm none = new FuzzyTerm(new TriangularShape(0,0,3), "none");
-        FuzzyTerm _short = new FuzzyTerm(new TriangularShape(0,2,4), "short");
+        FuzzyTerm _long = new FuzzyTerm(new TriangularShape(2, 4, 6), "long");
+        FuzzyTerm none = new FuzzyTerm(new TriangularShape(0, 0, 3), "none");
+        FuzzyTerm _short = new FuzzyTerm(new TriangularShape(0, 2, 4), "short");
         FuzzyVariable sprinkles = new FuzzyVariable("sprinkles", 0, 6, 0, "", Accumulation.MAX, Defuzzifier.MOM, _long, none, _short);
 
         KnowledgeBase kb = new KnowledgeBase(alarm, sprinkles);

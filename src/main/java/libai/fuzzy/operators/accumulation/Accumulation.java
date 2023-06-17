@@ -9,17 +9,17 @@ public abstract class Accumulation extends Operator {
     public static final Accumulation MAX = new MaxMethod();
     public static final Accumulation SUM = new SumMethod();
 
-    @Override
-    public double neutral() {
-        return 0;
-    }
-
-    public static Accumulation fromString(String name){
+    public static Accumulation fromString(String name) {
         if (MAX.toString().equalsIgnoreCase(name))
             return MAX;
         if (SUM.toString().equalsIgnoreCase(name))
             return SUM;
 
-        throw new UnsupportedOperationException("Unsupported Accumulation: "+name);
+        throw new UnsupportedOperationException("Unsupported Accumulation: " + name);
+    }
+
+    @Override
+    public double neutral() {
+        return 0;
     }
 }

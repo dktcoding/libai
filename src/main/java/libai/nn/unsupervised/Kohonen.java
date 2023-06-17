@@ -23,9 +23,9 @@
  */
 package libai.nn.unsupervised;
 
+import libai.common.Pair;
 import libai.common.Shuffler;
 import libai.common.matrix.Column;
-import libai.common.Pair;
 import libai.nn.NeuralNetwork;
 
 import java.io.Serial;
@@ -51,9 +51,9 @@ public class Kohonen extends UnsupervisedLearning {
     private final Column[] W;                    //array of weights ijk, with k positions.
     private final int[][] map;                //map of the outputs
     private final int[] nperlayer;            //array of 3 positions, {#inputs,#rows,#columns}
-    private double neighborhood;
     private final int[] stepsx;
     private final int[] stepsy;
+    private double neighborhood;
 
     /**
      * Constructor. Creates a kohonen's map with nperlayer[0] inputs,

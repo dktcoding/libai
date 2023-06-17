@@ -10,5 +10,7 @@ public class MamdaniActivation extends ActivationMethod {
     }
 
     @Override
-    public String toString() { return "MIN"; }
+    public String toString() {
+        return "MIN";
+    }
 }

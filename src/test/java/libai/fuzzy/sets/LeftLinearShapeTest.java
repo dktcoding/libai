@@ -36,23 +36,23 @@ public class LeftLinearShapeTest {
     }
 
     @Test
-    public void testBeforeA(){
-        LeftLinearShape set = new LeftLinearShape(0,5);
+    public void testBeforeA() {
+        LeftLinearShape set = new LeftLinearShape(0, 5);
 
         assertEquals(0, set.eval(-1), 1.e-5);
     }
 
     @Test
-    public void testAfterB(){
-        LeftLinearShape set = new LeftLinearShape(0,5);
+    public void testAfterB() {
+        LeftLinearShape set = new LeftLinearShape(0, 5);
 
         assertEquals(1, set.eval(6), 1.e-5);
     }
 
     @Test
-    public void testBetweenAB(){
-        LeftLinearShape set = new LeftLinearShape(0,5);
+    public void testBetweenAB() {
+        LeftLinearShape set = new LeftLinearShape(0, 5);
 
-        assertEquals(0.25, set.eval(5/4.), 1.e-5);
+        assertEquals(0.25, set.eval(5 / 4.), 1.e-5);
     }
 }

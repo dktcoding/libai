@@ -25,9 +25,9 @@ package libai.nn.supervised;
 
 
 import libai.common.Shuffler;
+import libai.common.functions.Sign;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
-import libai.common.functions.Sign;
 
 import java.io.Serial;
 import java.util.Random;
@@ -41,13 +41,13 @@ import java.util.Random;
  * @author kronenthaler
  */
 public class Perceptron extends SupervisedLearning {
-    @Serial
-	private static final long serialVersionUID = 2795822735956649552L;
     protected static final Sign signum = new Sign();
-    protected Matrix W;
-    protected Column b;
+    @Serial
+    private static final long serialVersionUID = 2795822735956649552L;
     protected final int ins;
     protected final int outs;
+    protected Matrix W;
+    protected Column b;
 
     /**
      * Constructor.

@@ -2,17 +2,17 @@
  * MIT License
  *
  * Copyright (c) 2016 Federico Vera <https://github.com/dktcoding>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -154,7 +154,6 @@ public class MatrixIOTest {
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
-            Object o = ois.readObject();
             Map<String, Matrix> read = (Map<String, Matrix>) ois.readObject();
             assertEquals(a, read.get("a"));
             assertEquals(b, read.get("b"));
@@ -289,7 +288,7 @@ public class MatrixIOTest {
         Matrix m = new Matrix(3, 3, values);
         try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             MatrixIO.write(output, m, MatrixIO.Target.OPENOFFICE);
-            assertEquals(output.toString("US-ASCII"), "a: \nleft [ matrix{1.0 # 2.0 # 3.0 ## 4.0 # 5.0 # 6.0 ## 7.0 # 8.0 # 9.0} right ]newLine\n");
+            assertEquals(output.toString(StandardCharsets.US_ASCII), "a: \nleft [ matrix{1.0 # 2.0 # 3.0 ## 4.0 # 5.0 # 6.0 ## 7.0 # 8.0 # 9.0} right ]newLine\n");
         } catch (Exception e) {
             fail("An unexpected IO error has occurred");
         }

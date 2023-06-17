@@ -36,13 +36,13 @@ public class SingletonShapeTest {
     }
 
     @Test
-    public void testA(){
+    public void testA() {
         SingletonShape set = new SingletonShape(3);
         assertEquals(1, set.eval(3), 1.e-3);
     }
 
     @Test
-    public void testNotA(){
+    public void testNotA() {
         SingletonShape set = new SingletonShape(3);
         assertEquals(0, set.eval(3.000001), 1.e-3);
         assertEquals(0, set.eval(2.999999), 1.e-3);

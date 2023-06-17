@@ -23,15 +23,16 @@ public class Rule implements XMLSerializer {
     public Rule(Node xmlNode) {
         load(xmlNode);
     }
+
     public Rule(String name, double weight, Operator operator, Antecedent antecedent, Consequent consequent) {
         this(name, weight, operator, Connector.AND, antecedent, consequent);
     }
 
     public Rule(String name, double weight, Operator operator, Connector connector, Antecedent antecedent, Consequent consequent) {
-        if(connector == Connector.AND && !(operator instanceof AndMethod))
+        if (connector == Connector.AND && !(operator instanceof AndMethod))
             throw new IllegalArgumentException("Operator must be an instance of AndMethod");
 
-        if(connector == Connector.OR && !(operator instanceof OrMethod))
+        if (connector == Connector.OR && !(operator instanceof OrMethod))
             throw new IllegalArgumentException("Operator must be an instance of OrMethod");
 
         this.name = name;
@@ -44,12 +45,11 @@ public class Rule implements XMLSerializer {
 
     @Override
     public String toXMLString(String indent) {
-        StringBuilder str = new StringBuilder();
-        str.append(String.format("%s<Rule name=\"%s\" weight=\"%f\" operator=\"%s\" connector=\"%s\">\n", indent, name, weight, operator, connector.getText()));
-        str.append(String.format("%s\n", antecedent.toXMLString(indent + "\t")));
-        str.append(String.format("%s\n", consequent.toXMLString(indent + "\t")));
-        str.append(String.format("%s</Rule>", indent));
-        return str.toString();
+        String str = String.format("%s<Rule name=\"%s\" weight=\"%f\" operator=\"%s\" connector=\"%s\">\n", indent, name, weight, operator, connector.getText()) +
+                String.format("%s\n", antecedent.toXMLString(indent + "\t")) +
+                String.format("%s\n", consequent.toXMLString(indent + "\t")) +
+                String.format("%s</Rule>", indent);
+        return str;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Rule implements XMLSerializer {
         consequent = new Consequent(((Element) xmlNode).getElementsByTagName("Consequent").item(0));
     }
 
-    public double getActivationValue(Map<String, Double> variables, KnowledgeBase knowledgeBase){
+    public double getActivationValue(Map<String, Double> variables, KnowledgeBase knowledgeBase) {
         return antecedent.activate(variables, knowledgeBase, operator);
     }
 

@@ -984,10 +984,10 @@ public class MatrixTest {
         map.put(c, c);
         map.put(d, d);
 
-        assertTrue(a == map.get(a));
-        assertTrue(b == map.get(b));
-        assertTrue(c == map.get(c));
-        assertTrue(d == map.get(d));
+        assertSame(a, map.get(a));
+        assertSame(b, map.get(b));
+        assertSame(c, map.get(c));
+        assertSame(d, map.get(d));
     }
 
     @Test

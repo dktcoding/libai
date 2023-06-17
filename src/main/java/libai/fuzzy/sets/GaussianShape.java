@@ -15,10 +15,11 @@ public class GaussianShape extends TwoParameterSet {
 
     /**
      * Constructor.
+     *
      * @param a Mean value of the Gaussian function.
      * @param b Standard deviation (a.k.a. sigma) of the Gaussian function.
      **/
-    public GaussianShape(double a, double b){
+    public GaussianShape(double a, double b) {
         this.a = a; // mean
         this.b = b; // sigma
     }

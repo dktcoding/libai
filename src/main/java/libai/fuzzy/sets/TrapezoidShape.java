@@ -26,12 +26,13 @@ public class TrapezoidShape implements FuzzySet {
 
     /**
      * Constructor.
+     *
      * @param a Left vertex of the trapezoid.
      * @param b Middle-left vertex of the trapezoid.
      * @param c Middle-right vertex of the trapezoid.
      * @param d Right vertex of the trapezoid.
      **/
-    public TrapezoidShape(double a, double b, double c, double d){
+    public TrapezoidShape(double a, double b, double c, double d) {
         this.a = a;
         this.b = b;
         this.c = c;

@@ -12,9 +12,7 @@ public abstract class Modifier {
     public static final Modifier SOMEWHAT = new Somewhat();
     public static final Modifier VERY = new Very();
 
-    public abstract double eval(double y);
-
-    public static Modifier fromString(String name){
+    public static Modifier fromString(String name) {
         if (EXTREMELY.toString().equalsIgnoreCase(name))
             return EXTREMELY;
         if (INTESIFY.toString().equalsIgnoreCase(name))
@@ -30,9 +28,13 @@ public abstract class Modifier {
         if (VERY.toString().equalsIgnoreCase(name))
             return VERY;
 
-        throw new UnsupportedOperationException("Unsupported Modifier: "+name);
+        throw new UnsupportedOperationException("Unsupported Modifier: " + name);
     }
 
+    public abstract double eval(double y);
+
     @Override
-    public String toString() { return getClass().getSimpleName().toLowerCase(); }
+    public String toString() {
+        return getClass().getSimpleName().toLowerCase();
+    }
 }

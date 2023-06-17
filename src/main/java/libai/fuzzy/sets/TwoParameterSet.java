@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 
 /**
  * Abstraction of a 2-parameter set.
+ *
  * @author kronenthaler
  */
 public abstract class TwoParameterSet implements FuzzySet {

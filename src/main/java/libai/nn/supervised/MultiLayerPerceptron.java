@@ -23,9 +23,9 @@
  */
 package libai.nn.supervised;
 
+import libai.common.functions.Function;
 import libai.common.matrix.Column;
 import libai.common.matrix.Matrix;
-import libai.common.functions.Function;
 import libai.nn.supervised.backpropagation.Backpropagation;
 import libai.nn.supervised.backpropagation.StandardBackpropagation;
 
@@ -42,7 +42,7 @@ import java.util.Random;
  */
 public class MultiLayerPerceptron extends SupervisedLearning {
     @Serial
-	private static final long serialVersionUID = 3155220303024711102L;
+    private static final long serialVersionUID = 3155220303024711102L;
 
     private final Matrix[] W;
     private final Column[] Y, b, u; //WY + b = u

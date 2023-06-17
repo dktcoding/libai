@@ -13,11 +13,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class CenterOfAreaTest {
     @Test
-    public void testCompoundTriangles(){
+    public void testCompoundTriangles() {
         TriangularShape a = new TriangularShape(0, 4, 4);
         TriangularShape b = new TriangularShape(4, 5, 10);
         ArrayList<Point.Double> points = new ArrayList<>();
-        for(double x=0; x < 10; x+=0.001){
+        for (double x = 0; x < 10; x += 0.001) {
             points.add(new Point.Double(x, Math.max(a.eval(x), b.eval(x))));
         }
 
@@ -29,10 +29,10 @@ public class CenterOfAreaTest {
     }
 
     @Test
-    public void testSimpleTriangle(){
+    public void testSimpleTriangle() {
         TriangularShape a = new TriangularShape(0, 3, 6);
         ArrayList<Point.Double> points = new ArrayList<>();
-        for(double x=0; x < 10; x+=0.001){
+        for (double x = 0; x < 10; x += 0.001) {
             points.add(new Point.Double(x, a.eval(x)));
         }
 

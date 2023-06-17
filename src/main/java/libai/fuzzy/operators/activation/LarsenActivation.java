@@ -10,5 +10,7 @@ public class LarsenActivation extends ActivationMethod {
     }
 
     @Override
-    public String toString() { return "PROD"; }
+    public String toString() {
+        return "PROD";
+    }
 }

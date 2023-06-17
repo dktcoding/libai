@@ -11,8 +11,12 @@ public class MinMethod extends AndMethod {
     }
 
     @Override
-    public double neutral() { return 1; }
+    public double neutral() {
+        return 1;
+    }
 
     @Override
-    public String toString(){ return "MIN"; }
+    public String toString() {
+        return "MIN";
+    }
 }

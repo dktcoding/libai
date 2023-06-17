@@ -6,12 +6,16 @@ package libai.fuzzy.operators;
 public class ProbOrMethod extends OrMethod {
     @Override
     public double eval(double a, double b) {
-        return (a+b) - (a*b);
+        return (a + b) - (a * b);
     }
 
     @Override
-    public double neutral() { return 0; }
+    public double neutral() {
+        return 0;
+    }
 
     @Override
-    public String toString(){ return "PROBOR"; }
+    public String toString() {
+        return "PROBOR";
+    }
 }
